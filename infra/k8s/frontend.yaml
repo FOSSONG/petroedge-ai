@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: petroedge-frontend
+  namespace: petroedge
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: petroedge-frontend
+  template:
+    metadata:
+      labels:
+        app: petroedge-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: petroedge-ai-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: petroedge-frontend
+  namespace: petroedge
+spec:
+  selector:
+    app: petroedge-frontend
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+

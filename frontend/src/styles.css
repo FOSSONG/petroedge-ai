@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: #17202a;
+  background: #f7f8fa;
+}
+
+.track-grid {
+  display: grid;
+  grid-template-columns: 80px repeat(5, minmax(120px, 1fr));
+  min-width: 860px;
+}
+
+.track-cell {
+  border-bottom: 1px solid #e5e7eb;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
