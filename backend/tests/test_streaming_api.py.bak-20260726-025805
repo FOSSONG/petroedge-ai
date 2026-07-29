@@ -1,0 +1,17 @@
+from fastapi.testclient import TestClient
+
+from app.main import app
+
+
+def test_streaming_routes_are_present_in_openapi() -> None:
+    with TestClient(app) as client:
+        response = client.get("/openapi.json")
+        assert response.status_code == 200
+        paths = response.json()["paths"]
+
+    assert "/api/v1/streaming/events" in paths
+    assert "/api/v1/streaming/telemetry" in paths
+    assert "/api/v1/streaming/replay" in paths
+    assert "/api/v1/events" in paths
+    assert "/api/v1/alerts" in paths
+    assert "/api/v1/rules" in paths

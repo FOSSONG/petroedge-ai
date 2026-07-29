@@ -1,0 +1,4 @@
+{
+  "hydrocarbon_classification": "hydrocarbon-xgb-v1",
+  "lithology_classification": "lithology-rf-v1"
+}

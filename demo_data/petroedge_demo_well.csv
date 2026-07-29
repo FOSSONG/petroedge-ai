@@ -1,0 +1,5 @@
+well_id,depth_m,gamma_ray_api,resistivity_ohmm,density_gcc,neutron_porosity_vv,sonic_usft,caliper_in,porosity,water_saturation,shale_volume,permeability_md,expected_fluid
+DEMO-01,2450.0,38,52,2.22,0.13,88,8.5,0.23,0.24,0.15,210,oil
+DEMO-01,2450.5,41,58,2.18,0.05,104,8.5,0.25,0.20,0.17,260,gas
+DEMO-01,2451.0,82,3.2,2.46,0.31,78,8.7,0.12,0.88,0.52,8,water
+DEMO-01,2451.5,47,34,2.27,0.16,91,8.6,0.20,0.35,0.20,145,oil

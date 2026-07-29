@@ -1,0 +1,1865 @@
+
+============================================================
+FILE: .\src\api\types.ts
+============================================================
+import type {
+  components,
+  paths,
+} from "./generated";
+
+/**
+ * OpenAPI-generated backend schema aliases.
+ *
+ * The generated.ts file remains the source of truth for endpoint
+ * request and response contracts.
+ */
+export type ApiSchemas =
+  components["schemas"];
+
+export type WellSummary =
+  components["schemas"]["WellSummary"];
+
+export type WellLogSample =
+  components["schemas"]["WellLogSample"];
+
+export type AnalyticsResult =
+  components["schemas"]["AnalyticsResult"];
+
+export type WellsListResponse =
+  paths["/api/v1/wells"]["get"]
+    ["responses"][200]
+    ["content"]["application/json"];
+
+export type WellDetailsResponse =
+  paths["/api/v1/wells/{well_id}"]["get"]
+    ["responses"][200]
+    ["content"]["application/json"];
+
+export type WellLogsResponse =
+  paths["/api/v1/wells/{well_id}/logs"]["get"]
+    ["responses"][200]
+    ["content"]["application/json"];
+
+export type WellAlertsResponse =
+  paths["/api/v1/wells/{well_id}/alerts"]["get"]
+    ["responses"][200]
+    ["content"]["application/json"];
+
+export type SampleAnalysisRequest =
+  paths["/api/v1/analytics/sample"]["post"]
+    ["requestBody"]
+    ["content"]["application/json"];
+
+export type SampleAnalysisResponse =
+  paths["/api/v1/analytics/sample"]["post"]
+    ["responses"][200]
+    ["content"]["application/json"];
+
+/**
+ * Authenticated frontend session model.
+ */
+export interface AuthenticatedUser {
+  id?: string;
+  uid?: string;
+  email: string;
+  name?: string;
+  full_name?: string;
+  roles?: string[];
+  permissions?: string[];
+  is_active?: boolean;
+  [key: string]: unknown;
+}
+
+export interface LoginResponse {
+  access_token: string;
+  token_type?: string;
+  expires_in?: number;
+  refresh_token?: string;
+  user?: AuthenticatedUser;
+  [key: string]: unknown;
+}
+
+/**
+ * Operational alert model.
+ */
+export interface AlertRecord {
+  id?: string;
+  alert_id?: string;
+  well_id?: string;
+  title?: string;
+  message?: string;
+  description?: string;
+  recommendation?: string;
+  severity?: string;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
+  acknowledged_at?: string;
+  resolved_at?: string;
+  [key: string]: unknown;
+}
+
+/**
+ * Background processing job model.
+ */
+export interface BackgroundJob {
+  id?: string;
+  job_id?: string;
+  name?: string;
+  job_name?: string;
+  job_type?: string;
+  type?: string;
+  status?: string;
+  state?: string;
+  created_at?: string;
+  started_at?: string;
+  completed_at?: string;
+  result?: unknown;
+  error?: unknown;
+  [key: string]: unknown;
+}
+
+export interface DashboardActivity {
+  id?: string;
+  type?: string;
+  title?: string;
+  message?: string;
+  timestamp?: string;
+  created_at?: string;
+  [key: string]: unknown;
+}
+
+/**
+ * Dashboard sections are intentionally represented as records because
+ * the backend returns flexible metric groups.
+ */
+export interface DashboardSnapshot {
+  generated_at?: string;
+
+  overview?: Record<string, unknown>;
+  operational?: Record<string, unknown>;
+  data_quality?: Record<string, unknown>;
+  model_performance?: Record<string, unknown>;
+  reservoir_insights?: Record<string, unknown>;
+  alert_metrics?: Record<string, unknown>;
+
+  total_wells?: number;
+  active_wells?: number;
+  total_alerts?: number;
+  active_alerts?: number;
+  critical_alerts?: number;
+  jobs_running?: number;
+  completed_jobs?: number;
+  models_registered?: number;
+  data_quality_score?: number;
+  model_accuracy?: number;
+
+  recent_activity?: DashboardActivity[];
+  activities?: DashboardActivity[];
+
+  [key: string]: unknown;
+}
+
+export interface RegisteredModel {
+  id?: string;
+  model_id?: string;
+  name?: string;
+  model_name?: string;
+  version?: string;
+  status?: string;
+  framework?: string;
+  task?: string;
+  accuracy?: number;
+  metrics?: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  created_at?: string;
+  updated_at?: string;
+  [key: string]: unknown;
+}
+
+export interface ModelStatus {
+  status?: string;
+  health?: string;
+  registered_models?: RegisteredModel[];
+  models?: RegisteredModel[];
+  active_model?: RegisteredModel;
+  generated_at?: string;
+  [key: string]: unknown;
+}
+
+============================================================
+FILE: .\src\features\auth\LoginPage.tsx
+============================================================
+import {
+  normaliseRoles,
+} from "../../api/typeGuards";
+import {
+  FormEvent,
+  useState,
+} from "react";
+
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+
+import {
+  Lock,
+  ShieldCheck,
+} from "lucide-react";
+
+import {
+  fetchCurrentUser,
+  login,
+} from "../../api/client";
+import { ApiError } from "../../api/http";
+import type {
+  AuthenticatedUser,
+  LoginResponse,
+} from "../../api/types";
+import { persistSession } from "../../auth/session";
+
+interface Props {
+  onAuthenticated: (
+    user: AuthenticatedUser,
+  ) => void;
+}
+
+function authenticationMessage(error: unknown): string {
+  if (error instanceof ApiError) {
+    if (error.status === 0) {
+      return (
+        "Cannot reach the PetroEdge API. " +
+        "Confirm that FastAPI is running on port 8000."
+      );
+    }
+
+    if (error.status === 401) {
+      return "The email or password is incorrect.";
+    }
+
+    if (error.status === 403) {
+      return (
+        "This account is inactive or is not authorised " +
+        "to access PetroEdge."
+      );
+    }
+
+    if (error.status === 422) {
+      return "The API rejected the login request format.";
+    }
+
+    return error.message;
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Authentication failed because of an unexpected error.";
+}
+
+function fallbackUser(
+  auth: LoginResponse,
+  email: string,
+): AuthenticatedUser {
+  return (
+    auth.user ?? {
+      email,
+      roles: auth.roles ?? [],
+      is_active: true,
+    }
+  );
+}
+
+export function LoginPage({
+  onAuthenticated,
+}: Props) {
+  const [email, setEmail] =
+    useState("admin@petroedge.ai");
+
+  const [password, setPassword] =
+    useState("petroedge123");
+
+  const [mfa, setMfa] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function submit(
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> {
+    event.preventDefault();
+
+    const normalisedEmail =
+      email.trim().toLowerCase();
+
+    setError("");
+    setLoading(true);
+
+    try {
+      const auth = await login(
+        normalisedEmail,
+        password,
+        mfa.trim() || undefined,
+      );
+
+      persistSession(auth);
+
+      let authenticatedUser: AuthenticatedUser;
+
+      try {
+        authenticatedUser =
+          await fetchCurrentUser() as AuthenticatedUser;
+      } catch {
+        authenticatedUser =
+          fallbackUser(auth, normalisedEmail);
+      }
+
+      onAuthenticated(authenticatedUser);
+    } catch (caught) {
+      setError(authenticationMessage(caught));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <Box
+      minHeight="100vh"
+      bgcolor="background.default"
+    >
+      <Container
+        maxWidth="sm"
+        sx={{ pt: { xs: 8, md: 12 } }}
+      >
+        <Paper
+          component="form"
+          onSubmit={submit}
+          variant="outlined"
+          sx={{ p: 4 }}
+        >
+          <Stack spacing={3}>
+            <Stack
+              direction="row"
+              spacing={1.5}
+              alignItems="center"
+            >
+              <ShieldCheck
+                size={30}
+                color="#007C89"
+              />
+
+              <Box>
+                <Typography variant="h5">
+                  PetroEdge AI
+                </Typography>
+
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  Secure well-logging analytics console
+                </Typography>
+              </Box>
+            </Stack>
+
+            {error && (
+              <Alert severity="error">
+                {error}
+              </Alert>
+            )}
+
+            <TextField
+              label="Email"
+              type="email"
+              autoComplete="username"
+              value={email}
+              onChange={(event) =>
+                setEmail(event.target.value)
+              }
+              required
+              fullWidth
+            />
+
+            <TextField
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(event) =>
+                setPassword(event.target.value)
+              }
+              required
+              fullWidth
+            />
+
+            <TextField
+              label="MFA code"
+              value={mfa}
+              onChange={(event) =>
+                setMfa(event.target.value)
+              }
+              inputProps={{
+                inputMode: "numeric",
+                maxLength: 8,
+              }}
+              helperText={
+                "Leave blank unless MFA is enabled."
+              }
+              fullWidth
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              startIcon={
+                loading ? (
+                  <CircularProgress
+                    size={18}
+                    color="inherit"
+                  />
+                ) : (
+                  <Lock size={18} />
+                )
+              }
+              disabled={loading}
+            >
+              {loading ? "Signing in…" : "Sign in"}
+            </Button>
+          </Stack>
+        </Paper>
+      </Container>
+    </Box>
+  );
+}
+
+
+============================================================
+FILE: .\src\features\dashboard\OverviewPanel.tsx
+============================================================
+import {
+  asRecord,
+} from "../../api/typeGuards";
+import { useQuery } from "@tanstack/react-query";
+import {
+  Alert,
+  Box,
+  Button,
+  Chip,
+  CircularProgress,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import {
+  Activity,
+  Database,
+  Gauge,
+  RefreshCw,
+  ShieldAlert,
+} from "lucide-react";
+
+import { fetchDashboard } from "../../api/client";
+import { ApiError } from "../../api/http";
+import type { DashboardSnapshot } from "../../api/types";
+
+function formatLabel(value: string): string {
+  return value
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
+function formatValue(value: unknown): string {
+  if (value === null || value === undefined) {
+    return "—";
+  }
+
+  if (typeof value === "number") {
+    return Number.isInteger(value)
+      ? value.toLocaleString()
+      : value.toLocaleString(undefined, {
+          maximumFractionDigits: 3,
+        });
+  }
+
+  if (typeof value === "boolean") {
+    return value ? "Yes" : "No";
+  }
+
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    return `${value.length}`;
+  }
+
+  return "Available";
+}
+
+function errorMessage(error: unknown): string {
+  if (error instanceof ApiError) {
+    if (error.status === 0) {
+      return "The dashboard API cannot be reached. Confirm that the FastAPI backend is running.";
+    }
+
+    if (error.status === 401) {
+      return "Your session has expired. Please sign in again.";
+    }
+
+    if (error.status === 403) {
+      return "Your account does not have permission to view the dashboard.";
+    }
+
+    return error.message;
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "The dashboard could not be loaded.";
+}
+
+interface MetricCardProps {
+  label: string;
+  value: unknown;
+}
+
+function MetricCard({
+  label,
+  value,
+}: MetricCardProps) {
+  return (
+    <Paper
+      variant="outlined"
+      sx={{
+        p: 2.5,
+        height: "100%",
+      }}
+    >
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        gutterBottom
+      >
+        {formatLabel(label)}
+      </Typography>
+
+      <Typography variant="h5">
+        {formatValue(value)}
+      </Typography>
+    </Paper>
+  );
+}
+
+interface SectionProps {
+  title: string;
+  icon: React.ReactNode;
+  data: Record<string, unknown>;
+}
+
+function DashboardSection({
+  title,
+  icon,
+  data,
+}: SectionProps) {
+  const entries = Object.entries(data ?? {});
+
+  return (
+    <Paper
+      variant="outlined"
+      sx={{ p: 3 }}
+    >
+      <Stack
+        direction="row"
+        spacing={1.25}
+        alignItems="center"
+        mb={2}
+      >
+        {icon}
+        <Typography variant="h6">
+          {title}
+        </Typography>
+      </Stack>
+
+      {entries.length === 0 ? (
+        <Typography color="text.secondary">
+          No dashboard data is available for this section.
+        </Typography>
+      ) : (
+        <Grid container spacing={2}>
+          {entries.map(([key, value]) => (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              key={key}
+            >
+              <MetricCard
+                label={key}
+                value={value}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      )}
+    </Paper>
+  );
+}
+
+function RecentActivity({
+  activity,
+}: {
+  activity: unknown[];
+}) {
+  return (
+    <Paper
+      variant="outlined"
+      sx={{ p: 3 }}
+    >
+      <Typography
+        variant="h6"
+        gutterBottom
+      >
+        Recent activity
+      </Typography>
+
+      {activity.length === 0 ? (
+        <Typography color="text.secondary">
+          No recent activity has been recorded.
+        </Typography>
+      ) : (
+        <Stack spacing={1.5}>
+          {activity.slice(0, 10).map((item, index) => (
+            <Paper
+              key={index}
+              variant="outlined"
+              sx={{ p: 1.75 }}
+            >
+              <Typography variant="body2">
+                {typeof item === "string"
+                  ? item
+                  : JSON.stringify(item)}
+              </Typography>
+            </Paper>
+          ))}
+        </Stack>
+      )}
+    </Paper>
+  );
+}
+
+export function OverviewPanel() {
+  const dashboardQuery = useQuery<DashboardSnapshot>({
+    queryKey: ["dashboard"],
+    queryFn: fetchDashboard,
+    staleTime: 30_000,
+    refetchInterval: 60_000,
+    refetchIntervalInBackground: false,
+    retry: (failureCount, error) => {
+      if (
+        error instanceof ApiError &&
+        [401, 403, 404, 422].includes(error.status)
+      ) {
+        return false;
+      }
+
+      return failureCount < 2;
+    },
+  });
+
+  if (dashboardQuery.isLoading) {
+    return (
+      <Box
+        minHeight={320}
+        display="grid"
+        sx={{ placeItems: "center" }}
+      >
+        <Stack
+          spacing={2}
+          alignItems="center"
+        >
+          <CircularProgress />
+          <Typography color="text.secondary">
+            Loading operational dashboard...
+          </Typography>
+        </Stack>
+      </Box>
+    );
+  }
+
+  if (dashboardQuery.isError) {
+    return (
+      <Alert
+        severity="error"
+        action={
+          <Button
+            color="inherit"
+            size="small"
+            onClick={() =>
+              void dashboardQuery.refetch()
+            }
+          >
+            Retry
+          </Button>
+        }
+      >
+        {errorMessage(dashboardQuery.error)}
+      </Alert>
+    );
+  }
+
+  const dashboard = dashboardQuery.data;
+
+  if (!dashboard) {
+    return (
+      <Alert severity="warning">
+        The dashboard API returned no data.
+      </Alert>
+    );
+  }
+
+  return (
+    <Stack spacing={3}>
+      <Stack
+        direction={{
+          xs: "column",
+          sm: "row",
+        }}
+        spacing={2}
+        justifyContent="space-between"
+        alignItems={{
+          xs: "flex-start",
+          sm: "center",
+        }}
+      >
+        <Box>
+          <Typography variant="h5">
+            Operational overview
+          </Typography>
+
+          <Typography
+            variant="body2"
+            color="text.secondary"
+          >
+            Generated{" "}
+            {dashboard.generated_at
+              ? new Date(
+                  dashboard.generated_at,
+                ).toLocaleString()
+              : "recently"}
+          </Typography>
+        </Box>
+
+        <Stack
+          direction="row"
+          spacing={1}
+          alignItems="center"
+        >
+          <Chip
+            label={
+              dashboardQuery.isFetching
+                ? "Refreshing"
+                : "Live"
+            }
+            size="small"
+            color={
+              dashboardQuery.isFetching
+                ? "default"
+                : "success"
+            }
+          />
+
+          <Button
+            variant="outlined"
+            startIcon={
+              dashboardQuery.isFetching ? (
+                <CircularProgress size={16} />
+              ) : (
+                <RefreshCw size={16} />
+              )
+            }
+            disabled={dashboardQuery.isFetching}
+            onClick={() =>
+              void dashboardQuery.refetch()
+            }
+          >
+            Refresh
+          </Button>
+        </Stack>
+      </Stack>
+
+      <DashboardSection
+        title="Overview"
+        icon={<Activity size={20} />}
+        data={dashboard.overview}
+      />
+
+      <DashboardSection
+        title="Operational status"
+        icon={<Gauge size={20} />}
+        data={dashboard.operational}
+      />
+
+      <DashboardSection
+        title="Data quality"
+        icon={<Database size={20} />}
+        data={dashboard.data_quality}
+      />
+
+      <DashboardSection
+        title="Model performance"
+        icon={<Activity size={20} />}
+        data={dashboard.model_performance}
+      />
+
+      <DashboardSection
+        title="Reservoir insights"
+        icon={<Database size={20} />}
+        data={dashboard.reservoir_insights}
+      />
+
+      <DashboardSection
+        title="Alert metrics"
+        icon={<ShieldAlert size={20} />}
+        data={dashboard.alert_metrics}
+      />
+
+      <RecentActivity
+        activity={dashboard.recent_activity ?? []}
+      />
+    </Stack>
+  );
+}
+
+
+============================================================
+FILE: .\src\features\wells\WellExplorerPanel.tsx
+============================================================
+import {
+  useMemo,
+  useState,
+} from "react";
+
+import {
+  useMutation,
+  useQuery,
+} from "@tanstack/react-query";
+
+import {
+  Alert,
+  Box,
+  Button,
+  Chip,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+
+import {
+  Activity,
+  BarChart3,
+  FlaskConical,
+  RefreshCw,
+} from "lucide-react";
+
+import { ApiError } from "../../api/http";
+
+import {
+  normaliseCollection,
+  readNumber,
+  readString,
+} from "../../api/normalise";
+
+import type {
+  AnalyticsResult,
+  SampleAnalysisRequest,
+  WellLogSample,
+  WellSummary,
+} from "../../api/types";
+
+import {
+  analyseSample,
+  fetchWell,
+  fetchWellAlerts,
+  fetchWellLogs,
+  fetchWells,
+} from "./api";
+
+type UnknownRecord =
+  Record<string, unknown>;
+
+function asRecord(
+  value: unknown,
+): UnknownRecord {
+  if (
+    value &&
+    typeof value === "object"
+  ) {
+    return value as UnknownRecord;
+  }
+
+  return {};
+}
+
+function getWellId(
+  well: WellSummary,
+): string {
+  return readString(
+    asRecord(well),
+    [
+      "well_id",
+      "id",
+      "name",
+      "well_name",
+    ],
+    "",
+  );
+}
+
+function getWellName(
+  well: WellSummary,
+): string {
+  return readString(
+    asRecord(well),
+    [
+      "name",
+      "well_name",
+      "well_id",
+      "id",
+    ],
+    "Unnamed well",
+  );
+}
+
+function getDepth(
+  sample: WellLogSample,
+): number | null {
+  return readNumber(
+    asRecord(sample),
+    [
+      "depth",
+      "md",
+      "measured_depth",
+      "tvd",
+      "tvdss",
+    ],
+  );
+}
+
+function getCurve(
+  sample: WellLogSample,
+  keys: string[],
+): number | null {
+  return readNumber(
+    asRecord(sample),
+    keys,
+  );
+}
+
+function displayNumber(
+  value: number | null,
+  digits = 3,
+): string {
+  return value === null
+    ? "—"
+    : value.toFixed(digits);
+}
+
+function errorMessage(
+  error: unknown,
+): string {
+  if (error instanceof ApiError) {
+    if (error.status === 0) {
+      return (
+        "The PetroEdge API cannot be reached. " +
+        "Confirm that FastAPI is running on port 8000."
+      );
+    }
+
+    if (error.status === 401) {
+      return "Your session has expired.";
+    }
+
+    if (error.status === 403) {
+      return "You do not have permission to access this well.";
+    }
+
+    return error.message;
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "The request could not be completed.";
+}
+
+function createAnalysisPayload(
+  sample: WellLogSample,
+  wellId: string,
+): SampleAnalysisRequest {
+  const source = asRecord(sample);
+
+  return {
+    ...source,
+    well_id:
+      source.well_id ??
+      wellId,
+  } as SampleAnalysisRequest;
+}
+
+function AnalysisPanel({
+  result,
+}: {
+  result: AnalyticsResult | null;
+}) {
+  if (!result) {
+    return (
+      <Alert severity="info">
+        Select a log sample and run the
+        analysis to view the predicted
+        petrophysical interpretation.
+      </Alert>
+    );
+  }
+
+  const record = asRecord(result);
+
+  const fields = [
+    [
+      "Lithology",
+      readString(
+        record,
+        [
+          "lithology",
+          "predicted_lithology",
+          "facies",
+        ],
+      ),
+    ],
+    [
+      "Porosity",
+      displayNumber(
+        readNumber(
+          record,
+          [
+            "porosity",
+            "predicted_porosity",
+            "phi",
+          ],
+        ),
+      ),
+    ],
+    [
+      "Water saturation",
+      displayNumber(
+        readNumber(
+          record,
+          [
+            "water_saturation",
+            "sw",
+            "predicted_sw",
+          ],
+        ),
+      ),
+    ],
+    [
+      "Hydrocarbon probability",
+      displayNumber(
+        readNumber(
+          record,
+          [
+            "hydrocarbon_probability",
+            "hc_probability",
+            "probability",
+          ],
+        ),
+      ),
+    ],
+    [
+      "Reservoir quality",
+      readString(
+        record,
+        [
+          "reservoir_quality",
+          "quality",
+          "classification",
+        ],
+      ),
+    ],
+    [
+      "Confidence",
+      displayNumber(
+        readNumber(
+          record,
+          [
+            "confidence",
+            "confidence_score",
+          ],
+        ),
+      ),
+    ],
+  ];
+
+  return (
+    <Stack spacing={1.5}>
+      {fields.map(
+        ([label, value]) => (
+          <Stack
+            key={label}
+            direction="row"
+            justifyContent="space-between"
+            spacing={2}
+          >
+            <Typography
+              variant="body2"
+              color="text.secondary"
+            >
+              {label}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              fontWeight={600}
+            >
+              {value}
+            </Typography>
+          </Stack>
+        ),
+      )}
+    </Stack>
+  );
+}
+
+export function WellExplorerPanel() {
+  const [selectedWellId, setSelectedWellId] =
+    useState("");
+
+  const [
+    selectedSample,
+    setSelectedSample,
+  ] = useState<WellLogSample | null>(
+    null,
+  );
+
+  const wellsQuery = useQuery({
+    queryKey: ["wells"],
+    queryFn: fetchWells,
+    staleTime: 60_000,
+  });
+
+  const wells =
+    useMemo(
+      () =>
+        normaliseCollection<WellSummary>(
+          wellsQuery.data,
+          ["wells"],
+        ),
+      [wellsQuery.data],
+    );
+
+  const activeWellId =
+    selectedWellId ||
+    (wells.length > 0
+      ? getWellId(wells[0])
+      : "");
+
+  const wellQuery = useQuery({
+    queryKey: ["well", activeWellId],
+    queryFn: () =>
+      fetchWell(activeWellId),
+    enabled: Boolean(activeWellId),
+    staleTime: 60_000,
+  });
+
+  const logsQuery = useQuery({
+    queryKey: [
+      "well",
+      activeWellId,
+      "logs",
+    ],
+    queryFn: () =>
+      fetchWellLogs(activeWellId),
+    enabled: Boolean(activeWellId),
+    staleTime: 15_000,
+  });
+
+  const alertsQuery = useQuery({
+    queryKey: [
+      "well",
+      activeWellId,
+      "alerts",
+    ],
+    queryFn: () =>
+      fetchWellAlerts(activeWellId),
+    enabled: Boolean(activeWellId),
+    staleTime: 15_000,
+    refetchInterval: 30_000,
+  });
+
+  const analysisMutation =
+    useMutation({
+      mutationFn: ({
+        sample,
+        wellId,
+      }: {
+        sample: WellLogSample;
+        wellId: string;
+      }) =>
+        analyseSample(
+          createAnalysisPayload(
+            sample,
+            wellId,
+          ),
+        ),
+    });
+
+  const logs =
+    useMemo(
+      () =>
+        normaliseCollection<WellLogSample>(
+          logsQuery.data,
+          [
+            "logs",
+            "samples",
+            "well_logs",
+          ],
+        ),
+      [logsQuery.data],
+    );
+
+  const alerts =
+    useMemo(
+      () =>
+        normaliseCollection<UnknownRecord>(
+          alertsQuery.data,
+          ["alerts"],
+        ),
+      [alertsQuery.data],
+    );
+
+  const visibleLogs =
+    useMemo(
+      () => logs.slice(0, 500),
+      [logs],
+    );
+
+  const selectedWell =
+    wells.find(
+      (well) =>
+        getWellId(well) ===
+        activeWellId,
+    ) ?? null;
+
+  if (wellsQuery.isLoading) {
+    return (
+      <Box
+        minHeight={360}
+        display="grid"
+        sx={{ placeItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (wellsQuery.isError) {
+    return (
+      <Alert severity="error">
+        {errorMessage(
+          wellsQuery.error,
+        )}
+      </Alert>
+    );
+  }
+
+  return (
+    <Stack spacing={3}>
+      <Stack
+        direction={{
+          xs: "column",
+          md: "row",
+        }}
+        justifyContent="space-between"
+        alignItems={{
+          xs: "stretch",
+          md: "center",
+        }}
+        spacing={2}
+      >
+        <Box>
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+          >
+            <BarChart3 size={24} />
+
+            <Typography variant="h5">
+              Well Log Explorer
+            </Typography>
+          </Stack>
+
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            mt={0.5}
+          >
+            Inspect log curves and run
+            sample-level reservoir analytics.
+          </Typography>
+        </Box>
+
+        <Button
+          variant="outlined"
+          startIcon={
+            logsQuery.isFetching ? (
+              <CircularProgress size={16} />
+            ) : (
+              <RefreshCw size={16} />
+            )
+          }
+          onClick={() => {
+            void wellQuery.refetch();
+            void logsQuery.refetch();
+            void alertsQuery.refetch();
+          }}
+        >
+          Refresh
+        </Button>
+      </Stack>
+
+      <Paper
+        variant="outlined"
+        sx={{ p: 2.5 }}
+      >
+        <Stack
+          direction={{
+            xs: "column",
+            md: "row",
+          }}
+          spacing={2}
+          alignItems={{
+            xs: "stretch",
+            md: "center",
+          }}
+        >
+          <FormControl
+            size="small"
+            sx={{ minWidth: 260 }}
+          >
+            <InputLabel id="well-selector-label">
+              Well
+            </InputLabel>
+
+            <Select
+              labelId="well-selector-label"
+              label="Well"
+              value={activeWellId}
+              onChange={(event) => {
+                setSelectedWellId(
+                  event.target.value,
+                );
+
+                setSelectedSample(null);
+                analysisMutation.reset();
+              }}
+            >
+              {wells.map((well) => {
+                const id =
+                  getWellId(well);
+
+                return (
+                  <MenuItem
+                    key={id}
+                    value={id}
+                  >
+                    {getWellName(well)}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+
+          {selectedWell && (
+            <Chip
+              label={getWellName(
+                selectedWell,
+              )}
+              color="primary"
+              variant="outlined"
+            />
+          )}
+
+          <Chip
+            label={`${logs.length.toLocaleString()} samples`}
+            variant="outlined"
+          />
+
+          <Chip
+            label={`${alerts.length.toLocaleString()} alerts`}
+            color={
+              alerts.length > 0
+                ? "warning"
+                : "default"
+            }
+            variant="outlined"
+          />
+        </Stack>
+      </Paper>
+
+      {(logsQuery.isError ||
+        alertsQuery.isError) && (
+        <Alert severity="error">
+          {errorMessage(
+            logsQuery.error ??
+              alertsQuery.error,
+          )}
+        </Alert>
+      )}
+
+      <Stack
+        direction={{
+          xs: "column",
+          lg: "row",
+        }}
+        spacing={3}
+        alignItems="stretch"
+      >
+        <Paper
+          variant="outlined"
+          sx={{
+            flex: 2,
+            minWidth: 0,
+          }}
+        >
+          <Box p={2.5}>
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems="center"
+            >
+              <Activity size={20} />
+
+              <Typography variant="h6">
+                Log samples
+              </Typography>
+            </Stack>
+
+            {logs.length > 500 && (
+              <Typography
+                variant="caption"
+                color="text.secondary"
+              >
+                Displaying the first 500 of{" "}
+                {logs.length.toLocaleString()}{" "}
+                samples.
+              </Typography>
+            )}
+          </Box>
+
+          {logsQuery.isLoading ? (
+            <Box
+              minHeight={300}
+              display="grid"
+              sx={{ placeItems: "center" }}
+            >
+              <CircularProgress />
+            </Box>
+          ) : visibleLogs.length === 0 ? (
+            <Alert severity="info">
+              No log samples are available
+              for this well.
+            </Alert>
+          ) : (
+            <TableContainer
+              sx={{ maxHeight: 560 }}
+            >
+              <Table
+                stickyHeader
+                size="small"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      Depth
+                    </TableCell>
+
+                    <TableCell>
+                      GR
+                    </TableCell>
+
+                    <TableCell>
+                      Resistivity
+                    </TableCell>
+
+                    <TableCell>
+                      RHOB
+                    </TableCell>
+
+                    <TableCell>
+                      NPHI
+                    </TableCell>
+
+                    <TableCell>
+                      Sonic
+                    </TableCell>
+
+                    <TableCell align="right">
+                      Action
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {visibleLogs.map(
+                    (sample, index) => {
+                      const record =
+                        asRecord(sample);
+
+                      const depth =
+                        getDepth(sample);
+
+                      const selected =
+                        selectedSample ===
+                        sample;
+
+                      return (
+                        <TableRow
+                          key={`${depth ?? "sample"}-${index}`}
+                          hover
+                          selected={selected}
+                          onClick={() =>
+                            setSelectedSample(
+                              sample,
+                            )
+                          }
+                          sx={{
+                            cursor: "pointer",
+                          }}
+                        >
+                          <TableCell>
+                            {displayNumber(
+                              depth,
+                              2,
+                            )}
+                          </TableCell>
+
+                          <TableCell>
+                            {displayNumber(
+                              readNumber(
+                                record,
+                                [
+                                  "gr",
+                                  "gamma_ray",
+                                  "GR",
+                                ],
+                              ),
+                              2,
+                            )}
+                          </TableCell>
+
+                          <TableCell>
+                            {displayNumber(
+                              readNumber(
+                                record,
+                                [
+                                  "resistivity",
+                                  "rt",
+                                  "ild",
+                                  "RT",
+                                ],
+                              ),
+                              3,
+                            )}
+                          </TableCell>
+
+                          <TableCell>
+                            {displayNumber(
+                              readNumber(
+                                record,
+                                [
+                                  "rhob",
+                                  "density",
+                                  "RHOB",
+                                ],
+                              ),
+                              3,
+                            )}
+                          </TableCell>
+
+                          <TableCell>
+                            {displayNumber(
+                              readNumber(
+                                record,
+                                [
+                                  "nphi",
+                                  "neutron_porosity",
+                                  "NPHI",
+                                ],
+                              ),
+                              3,
+                            )}
+                          </TableCell>
+
+                          <TableCell>
+                            {displayNumber(
+                              readNumber(
+                                record,
+                                [
+                                  "dt",
+                                  "sonic",
+                                  "DT",
+                                ],
+                              ),
+                              2,
+                            )}
+                          </TableCell>
+
+                          <TableCell align="right">
+                            <Button
+                              size="small"
+                              startIcon={
+                                <FlaskConical
+                                  size={15}
+                                />
+                              }
+                              onClick={(
+                                event,
+                              ) => {
+                                event.stopPropagation();
+
+                                setSelectedSample(
+                                  sample,
+                                );
+
+                                analysisMutation.mutate(
+                                  {
+                                    sample,
+                                    wellId:
+                                      activeWellId,
+                                  },
+                                );
+                              }}
+                            >
+                              Analyse
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    },
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        </Paper>
+
+        <Paper
+          variant="outlined"
+          sx={{
+            flex: 1,
+            minWidth: {
+              xs: 0,
+              lg: 340,
+            },
+            p: 2.5,
+          }}
+        >
+          <Stack spacing={2}>
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems="center"
+            >
+              <FlaskConical size={20} />
+
+              <Typography variant="h6">
+                Sample analysis
+              </Typography>
+            </Stack>
+
+            {selectedSample && (
+              <Typography
+                variant="body2"
+                color="text.secondary"
+              >
+                Selected depth:{" "}
+                {displayNumber(
+                  getDepth(
+                    selectedSample,
+                  ),
+                  2,
+                )}
+              </Typography>
+            )}
+
+            {analysisMutation.isPending && (
+              <Box
+                py={4}
+                display="grid"
+                sx={{
+                  placeItems: "center",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            )}
+
+            {analysisMutation.isError && (
+              <Alert severity="error">
+                {errorMessage(
+                  analysisMutation.error,
+                )}
+              </Alert>
+            )}
+
+            {!analysisMutation.isPending && (
+              <AnalysisPanel
+                result={
+                  (analysisMutation.data ??
+                    null) as AnalyticsResult | null
+                }
+              />
+            )}
+
+            {selectedSample &&
+              !analysisMutation.isPending && (
+                <Button
+                  variant="contained"
+                  startIcon={
+                    <FlaskConical
+                      size={16}
+                    />
+                  }
+                  onClick={() =>
+                    analysisMutation.mutate(
+                      {
+                        sample:
+                          selectedSample,
+                        wellId:
+                          activeWellId,
+                      },
+                    )
+                  }
+                >
+                  Run analysis
+                </Button>
+              )}
+          </Stack>
+        </Paper>
+      </Stack>
+
+      <Paper
+        variant="outlined"
+        sx={{ p: 2.5 }}
+      >
+        <Typography
+          variant="h6"
+          mb={2}
+        >
+          Well alerts
+        </Typography>
+
+        {alerts.length === 0 ? (
+          <Alert severity="success">
+            No alerts are currently
+            associated with this well.
+          </Alert>
+        ) : (
+          <Stack spacing={1.5}>
+            {alerts.map(
+              (alert, index) => {
+                const severity =
+                  readString(
+                    alert,
+                    ["severity"],
+                    "info",
+                  ).toLowerCase();
+
+                return (
+                  <Alert
+                    key={
+                      readString(
+                        alert,
+                        [
+                          "id",
+                          "alert_id",
+                        ],
+                        String(index),
+                      )
+                    }
+                    severity={
+                      severity === "critical" ||
+                      severity === "high"
+                        ? "error"
+                        : severity ===
+                            "warning" ||
+                          severity ===
+                            "medium"
+                        ? "warning"
+                        : "info"
+                    }
+                  >
+                    <Typography
+                      variant="body2"
+                      fontWeight={600}
+                    >
+                      {readString(
+                        alert,
+                        [
+                          "title",
+                          "name",
+                          "message",
+                        ],
+                        "Well alert",
+                      )}
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                    >
+                      {readString(
+                        alert,
+                        [
+                          "message",
+                          "description",
+                          "recommendation",
+                        ],
+                        "",
+                      )}
+                    </Typography>
+                  </Alert>
+                );
+              },
+            )}
+          </Stack>
+        )}
+      </Paper>
+    </Stack>
+  );
+}
+

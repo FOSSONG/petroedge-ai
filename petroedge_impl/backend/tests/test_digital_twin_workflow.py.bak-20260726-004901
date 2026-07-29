@@ -1,0 +1,51 @@
+import pytest
+
+from app.digital_twin import twin_history, twin_registry
+from app.workflows.engine import WorkflowEngine
+from app.workflows.schemas import NodeSpec, RunStatus, WorkflowDefinition, WorkflowRunRequest
+
+
+@pytest.fixture(autouse=True)
+def reset_state() -> None:
+    twin_registry.clear()
+    twin_history.clear()
+
+
+@pytest.mark.asyncio
+async def test_digital_twin_workflow_node() -> None:
+    engine = WorkflowEngine()
+    definition = WorkflowDefinition(
+        id="digital_twin_test",
+        name="Digital Twin Test",
+        description="Test workflow",
+        tags=["test"],
+        nodes=[
+            NodeSpec(id="input", type="input.payload", parameters={"key": "rows"}),
+            NodeSpec(id="twin", type="digital_twin.update", depends_on=["input"]),
+        ],
+    )
+    workflow_registry.register(
+        definition,
+        replace=True,
+    )
+
+    run = await engine.run(
+        "digital_twin_test",
+        WorkflowRunRequest(
+            inputs={
+                "reservoir_id": "GABO",
+                "rows": [
+                    {
+                        "Well_ID": "GABO-18",
+                        "PHI_D": 0.24,
+                        "SW_ARCHIE": 0.30,
+                        "PRESSURE": 4000.0,
+                    }
+                ],
+            }
+        ),
+    )
+
+    assert run.status == RunStatus.succeeded
+    assert run.outputs["twin"]["reservoir_id"] == "GABO"
+    assert twin_registry.get("GABO").wells["GABO-18"].porosity == pytest.approx(0.24)

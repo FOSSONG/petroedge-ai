@@ -1,0 +1,44 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+node_modules/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Runtime data
+backend/data/
+backend/dataset_store/
+backend/model_store/
+backend/experiment_store/
+backend/petroedge.db
+*.db
+*.sqlite
+*.sqlite3
+
+# Backups and archives
+backups/
+*.zip
+*.tar
+*.tar.gz
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

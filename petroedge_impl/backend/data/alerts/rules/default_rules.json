@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "created_at": "2026-07-18T15:39:39.528216+00:00",
+  "rules": [
+    {
+      "rule_id": "high-hydrocarbon-probability",
+      "name": "High Hydrocarbon Probability",
+      "alert_type": "hydrocarbon_indicator",
+      "severity": "info",
+      "message": "Hydrocarbon probability exceeds the configured threshold.",
+      "recommendation": "Review resistivity, porosity and saturation support for this interval.",
+      "conditions": [
+        {
+          "field": "hydrocarbon_probability",
+          "operator": "gte",
+          "threshold": 0.75
+        }
+      ],
+      "tags": [
+        "hydrocarbon",
+        "prospectivity"
+      ]
+    },
+    {
+      "rule_id": "critical-water-saturation",
+      "name": "Critical Water Saturation",
+      "alert_type": "water_saturation",
+      "severity": "critical",
+      "message": "Predicted water saturation is above the critical limit.",
+      "recommendation": "Review fluid interpretation, Rw and Archie parameters.",
+      "conditions": [
+        {
+          "field": "predicted_water_saturation",
+          "operator": "gte",
+          "threshold": 0.85
+        }
+      ],
+      "tags": [
+        "water",
+        "petrophysics"
+      ]
+    },
+    {
+      "rule_id": "low-porosity",
+      "name": "Low Reservoir Porosity",
+      "alert_type": "porosity",
+      "severity": "warning",
+      "message": "Predicted porosity is below the configured reservoir-quality limit.",
+      "recommendation": "Review lithology, compaction and density-neutron response.",
+      "conditions": [
+        {
+          "field": "predicted_porosity",
+          "operator": "lte",
+          "threshold": 0.08
+        }
+      ],
+      "tags": [
+        "porosity",
+        "reservoir_quality"
+      ]
+    },
+    {
+      "rule_id": "low-permeability",
+      "name": "Low Reservoir Permeability",
+      "alert_type": "permeability",
+      "severity": "warning",
+      "message": "Predicted permeability is below the economic-screening threshold.",
+      "recommendation": "Review pore-throat quality and completion implications.",
+      "conditions": [
+        {
+          "field": "predicted_permeability_md",
+          "operator": "lte",
+          "threshold": 1.0
+        }
+      ],
+      "tags": [
+        "permeability",
+        "reservoir_quality"
+      ]
+    },
+    {
+      "rule_id": "poor-reservoir-quality",
+      "name": "Poor Reservoir Quality",
+      "alert_type": "reservoir_quality",
+      "severity": "warning",
+      "message": "The inferred reservoir-quality class is poor.",
+      "recommendation": "Review the interval before selecting completion or test points.",
+      "conditions": [
+        {
+          "field": "reservoir_quality",
+          "operator": "in",
+          "threshold": [
+            "poor",
+            "very poor"
+          ]
+        }
+      ],
+      "tags": [
+        "reservoir_quality"
+      ]
+    },
+    {
+      "rule_id": "missing-critical-curves",
+      "name": "Missing Critical Curves",
+      "alert_type": "data_quality",
+      "severity": "critical",
+      "message": "One or more critical well-log features are missing.",
+      "recommendation": "Check ingestion mappings and curve availability.",
+      "logic": "any",
+      "conditions": [
+        {
+          "field": "gamma_ray_api",
+          "operator": "is_null"
+        },
+        {
+          "field": "resistivity_ohmm",
+          "operator": "is_null"
+        },
+        {
+          "field": "density_gcc",
+          "operator": "is_null"
+        }
+      ],
+      "tags": [
+        "data_quality",
+        "missing_data"
+      ]
+    },
+    {
+      "rule_id": "gamma-ray-spike",
+      "name": "Gamma Ray Spike",
+      "alert_type": "sensor_anomaly",
+      "severity": "warning",
+      "message": "Gamma ray changed sharply relative to the previous sample.",
+      "recommendation": "Inspect acquisition quality, washout and tool stability.",
+      "conditions": [
+        {
+          "field": "gamma_ray_api",
+          "operator": "change_gt",
+          "threshold": 60.0
+        }
+      ],
+      "tags": [
+        "sensor",
+        "anomaly"
+      ]
+    },
+    {
+      "rule_id": "resistivity-anomaly",
+      "name": "Resistivity Anomaly",
+      "alert_type": "sensor_anomaly",
+      "severity": "warning",
+      "message": "Resistivity exhibits an abrupt percentage change.",
+      "recommendation": "Check tool response, invasion effects and depth alignment.",
+      "conditions": [
+        {
+          "field": "resistivity_ohmm",
+          "operator": "pct_change_gt",
+          "threshold": 200.0
+        }
+      ],
+      "tags": [
+        "sensor",
+        "anomaly"
+      ]
+    },
+    {
+      "rule_id": "low-ai-readiness",
+      "name": "Low AI Readiness",
+      "alert_type": "data_quality",
+      "severity": "critical",
+      "message": "The input is not considered AI-ready.",
+      "recommendation": "Review preprocessing warnings, missing features and QC results.",
+      "logic": "any",
+      "conditions": [
+        {
+          "field": "ai_ready",
+          "operator": "eq",
+          "threshold": false
+        },
+        {
+          "field": "qc_score",
+          "operator": "lte",
+          "threshold": 50
+        }
+      ],
+      "tags": [
+        "ai_readiness",
+        "data_quality"
+      ]
+    },
+    {
+      "rule_id": "prospective-pay-zone",
+      "name": "Prospective Pay Zone",
+      "alert_type": "pay_indicator",
+      "severity": "info",
+      "message": "The interval satisfies composite pay criteria.",
+      "recommendation": "Flag the interval for petrophysical validation and possible testing.",
+      "conditions": [
+        {
+          "field": "predicted_porosity",
+          "operator": "gte",
+          "threshold": 0.12
+        },
+        {
+          "field": "predicted_water_saturation",
+          "operator": "lte",
+          "threshold": 0.55
+        },
+        {
+          "field": "hydrocarbon_probability",
+          "operator": "gte",
+          "threshold": 0.65
+        }
+      ],
+      "tags": [
+        "pay",
+        "prospectivity"
+      ]
+    }
+  ]
+}

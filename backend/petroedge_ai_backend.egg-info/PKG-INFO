@@ -1,0 +1,50 @@
+Metadata-Version: 2.4
+Name: petroedge-ai-backend
+Version: 0.2.0
+Summary: Deployable, model-agnostic FastAPI platform for real-time well-log analytics.
+Requires-Python: <3.13,>=3.11
+Requires-Dist: alembic>=1.13.0
+Requires-Dist: fastapi>=0.111.0
+Requires-Dist: joblib>=1.4.0
+Requires-Dist: lasio>=0.31
+Requires-Dist: numpy<3,>=1.26.0
+Requires-Dist: pandas>=2.2.0
+Requires-Dist: passlib[bcrypt]>=1.7.4
+Requires-Dist: pydantic-settings>=2.3.0
+Requires-Dist: python-jose[cryptography]>=3.3.0
+Requires-Dist: python-multipart>=0.0.9
+Requires-Dist: sqlalchemy>=2.0.0
+Requires-Dist: uvicorn[standard]>=0.30.0
+Requires-Dist: scikit-learn>=1.5.0
+Provides-Extra: tree-models
+Requires-Dist: xgboost>=2.1.0; extra == "tree-models"
+Requires-Dist: lightgbm>=4.5.0; extra == "tree-models"
+Requires-Dist: catboost>=1.2.7; extra == "tree-models"
+Provides-Extra: explainability
+Requires-Dist: shap>=0.46.0; extra == "explainability"
+Provides-Extra: onnx
+Requires-Dist: onnx>=1.16.0; extra == "onnx"
+Requires-Dist: onnxruntime>=1.19.0; extra == "onnx"
+Requires-Dist: skl2onnx>=1.17.0; extra == "onnx"
+Provides-Extra: experiments
+Requires-Dist: mlflow>=2.14.0; extra == "experiments"
+Provides-Extra: streaming
+Requires-Dist: aiokafka>=0.10.0; extra == "streaming"
+Requires-Dist: redis>=5.0.0; extra == "streaming"
+Provides-Extra: deep-learning
+Requires-Dist: torch>=2.3.0; extra == "deep-learning"
+Requires-Dist: tensorflow>=2.16.0; extra == "deep-learning"
+Provides-Extra: distributed
+Requires-Dist: dask[dataframe,distributed]>=2025.1.0; extra == "distributed"
+Requires-Dist: ray[data]>=2.40.0; extra == "distributed"
+Requires-Dist: polars>=1.20.0; extra == "distributed"
+Requires-Dist: pyarrow>=18.0.0; extra == "distributed"
+Provides-Extra: postgres
+Requires-Dist: psycopg[binary]>=3.2.0; extra == "postgres"
+Provides-Extra: reports
+Requires-Dist: reportlab>=4.2.0; extra == "reports"
+Provides-Extra: dev
+Requires-Dist: httpx>=0.27.0; extra == "dev"
+Requires-Dist: pytest>=8.2.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.23.0; extra == "dev"
+Requires-Dist: ruff>=0.5.0; extra == "dev"
