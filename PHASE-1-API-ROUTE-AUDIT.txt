@@ -1,0 +1,388 @@
+﻿PETROEDGE AI PHASE 1 API ROUTE AUDIT
+Generated: 2026-07-30 19:10:18 +01:00
+Project: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING
+====================================================================================================
+
+SECTION: Literal duplicated API prefix
+----------------------------------------------------------------------------------------------------
+NO MATCHES FOUND
+
+SECTION: Version-one router prefix
+----------------------------------------------------------------------------------------------------
+backend\app\api\routes\reservoir_v1.py:16: router = APIRouter(prefix="/v1", tags=["Reservoir Intelligence V1"])
+
+MATCH COUNT: 1
+
+SECTION: Full API router prefix
+----------------------------------------------------------------------------------------------------
+backend\app\main.py:26: API_PREFIX = "/api/v1"
+
+MATCH COUNT: 1
+
+SECTION: FastAPI include_router calls
+----------------------------------------------------------------------------------------------------
+backend\app\main.py:119: application.include_router(router, prefix=full_prefix, tags=list(tags))
+
+MATCH COUNT: 1
+
+SECTION: Frontend API base URLs
+----------------------------------------------------------------------------------------------------
+docker-compose.yml:25: VITE_API_BASE_URL: /api/v1
+backend\.env:10: DATABASE_URL=sqlite:///./petroedge.db
+backend\.env.example:10: DATABASE_URL=sqlite:///./petroedge.db
+backend\openapi.json:9: "/api/v1/auth/login": {
+backend\openapi.json:50: "/api/v1/auth/me": {
+backend\openapi.json:80: "/api/v1/dashboard": {
+backend\openapi.json:129: "/api/v1/dashboard/overview": {
+backend\openapi.json:152: "/api/v1/dashboard/operations": {
+backend\openapi.json:175: "/api/v1/dashboard/data-quality": {
+backend\openapi.json:198: "/api/v1/dashboard/models": {
+backend\openapi.json:221: "/api/v1/dashboard/reservoir": {
+backend\openapi.json:244: "/api/v1/dashboard/alerts": {
+backend\openapi.json:267: "/api/v1/dashboard/reports": {
+backend\openapi.json:290: "/api/v1/dashboard/activity": {
+backend\openapi.json:337: "/api/v1/dashboard/health": {
+backend\openapi.json:360: "/api/v1/wells": {
+backend\openapi.json:427: "/api/v1/wells/{well_id}": {
+backend\openapi.json:476: "/api/v1/wells/{well_id}/logs": {
+backend\openapi.json:552: "/api/v1/wells/{well_id}/alerts": {
+backend\openapi.json:615: "/api/v1/models": {
+backend\openapi.json:669: "/api/v1/models/{model_name}": {
+backend\openapi.json:718: "/api/v1/models/{model_name}/health": {
+backend\openapi.json:769: "/api/v1/monitoring/health": {
+backend\openapi.json:792: "/api/v1/monitoring/models": {
+backend\openapi.json:822: "/api/v1/monitoring/alerts": {
+backend\openapi.json:874: "/api/v1/jobs": {
+backend\openapi.json:1001: "/api/v1/jobs/health": {
+backend\openapi.json:1022: "/api/v1/jobs/{job_id}": {
+backend\openapi.json:1064: "/api/v1/jobs/{job_id}/cancel": {
+backend\openapi.json:1106: "/api/v1/realtime/health": {
+backend\openapi.json:1129: "/api/v1/realtime/test-event": {
+backend\openapi.json:1184: "/api/v1/alerts": {
+backend\openapi.json:1286: "/api/v1/alerts/evaluate": {
+backend\openapi.json:1336: "/api/v1/alerts/{alert_id}": {
+backend\openapi.json:1397: "/api/v1/analytics/sample": {
+backend\openapi.json:1457: "/api/v1/analytics/predict": {
+backend\openapi.json:1487: "/api/v1/ingestion/upload": {
+backend\openapi.json:1545: "/api/v1/reports/generate": {
+backend\openapi.json:1588: "/api/v1/reports/dataset/{dataset_id}": {
+backend\openapi.json:1641: "/api/v1/reports/prediction/{prediction_id}": {
+backend\openapi.json:1694: "/api/v1/reports/stream/{stream_id}": {
+backend\openapi.json:1747: "/api/v1/reports": {
+backend\openapi.json:1853: "/api/v1/reports/formats": {
+backend\openapi.json:1876: "/api/v1/reports/health/status": {
+backend\openapi.json:1899: "/api/v1/reports/{report_id}": {
+backend\openapi.json:1985: "/api/v1/reports/{report_id}/files": {
+backend\openapi.json:2029: "/api/v1/reports/{report_id}/download": {
+backend\openapi.json:2074: "/api/v1/reports/{report_id}/preview": {
+backend\openapi.json:2109: "/api/v1/streaming/replay": {
+backend\openapi.json:2157: "/api/v1/upload-las": {
+backend\openapi.json:3239: "tokenUrl": "/api/v1/auth/login"
+backend\alembic\env.py:22: settings.database_url.replace("%", "%%"),
+backend\app\main.py:26: API_PREFIX = "/api/v1"
+backend\app\api\routes\analytics.py:126: "detail": "Use POST /api/v1/analytics/sample with a validated well-log sample.",
+backend\app\core\config.py:23: database_url: str = "sqlite:///./petroedge.db"
+backend\app\core\security.py:16: oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
+backend\app\db\session.py:26: database_url = settings.database_url
+backend\app\db\session.py:32: if database_url.startswith("sqlite"):
+backend\app\db\session.py:34: if database_url in {"sqlite://", "sqlite:///:memory:"}:
+backend\app\db\session.py:37: return create_engine(database_url, **options)
+backend\tests\test_agents_api.py:11: assert "/api/v1/agents" in paths
+backend\tests\test_agents_api.py:12: assert "/api/v1/agents/panel/run" in paths
+backend\tests\test_agents_api.py:13: assert "/api/v1/agents/{agent_key}" in paths
+backend\tests\test_agents_api.py:14: assert "/api/v1/agents/{agent_key}/run" in paths
+backend\tests\test_api.py:15: "/api/v1/auth/login",
+backend\tests\test_api.py:30: "/api/v1/analytics/sample",
+backend\tests\test_milestone1_regressions.py:7: assert "/api/v1/platform/overview" in paths
+backend\tests\test_milestone1_regressions.py:8: assert "/api/v1/platform/platform/overview" not in paths
+backend\tests\test_streaming_api.py:8: assert "/api/v1/streaming/events" in paths
+backend\tests\test_streaming_api.py:9: assert "/api/v1/streaming/telemetry" in paths
+backend\tests\test_streaming_api.py:10: assert "/api/v1/streaming/replay" in paths
+backend\tests\test_streaming_api.py:11: assert "/api/v1/events" in paths
+backend\tests\test_streaming_api.py:12: assert "/api/v1/alerts" in paths
+backend\tests\test_streaming_api.py:13: assert "/api/v1/rules" in paths
+backend\tests\test_twins_api.py:12: assert "/api/v1/twins" in paths
+backend\tests\test_twins_api.py:13: assert "/api/v1/twins/{reservoir_id}" in paths
+backend\tests\test_twins_api.py:14: assert "/api/v1/twins/{reservoir_id}/health" in paths
+backend\tests\test_twins_api.py:15: assert "/api/v1/twins/{reservoir_id}/history" in paths
+backend\tests\test_twins_api.py:16: assert "/api/v1/twins/{reservoir_id}/simulate" in paths
+backend\tests\test_well_registration.py:8: assert "post" in paths["/api/v1/wells"]
+backend\tests\test_well_registration.py:9: schema = paths["/api/v1/wells"]["post"]["requestBody"]["content"]["application/json"]["schema"]
+backend\tests\test_workflows_api.py:11: assert "/api/v1/workflows" in paths
+backend\tests\test_workflows_api.py:12: assert "/api/v1/workflows/templates" in paths
+backend\tests\test_workflows_api.py:13: assert "/api/v1/workflows/nodes" in paths
+backend\tests\test_workflows_api.py:14: assert "/api/v1/workflows/{workflow_id}/run" in paths
+backend\tests\test_workflows_api.py:15: assert "/api/v1/workflows/runs/{run_id}" in paths
+frontend\.env.example:1: VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1
+frontend\.env.example:2: VITE_WS_BASE_URL=ws://127.0.0.1:8000/api/v1
+frontend\src\api\generated.ts:7: "/api/v1/auth/login": {
+frontend\src\api\generated.ts:24: "/api/v1/auth/me": {
+frontend\src\api\generated.ts:41: "/api/v1/dashboard": {
+frontend\src\api\generated.ts:58: "/api/v1/dashboard/overview": {
+frontend\src\api\generated.ts:75: "/api/v1/dashboard/operations": {
+frontend\src\api\generated.ts:92: "/api/v1/dashboard/data-quality": {
+frontend\src\api\generated.ts:109: "/api/v1/dashboard/models": {
+frontend\src\api\generated.ts:126: "/api/v1/dashboard/reservoir": {
+frontend\src\api\generated.ts:143: "/api/v1/dashboard/alerts": {
+frontend\src\api\generated.ts:160: "/api/v1/dashboard/reports": {
+frontend\src\api\generated.ts:177: "/api/v1/dashboard/activity": {
+frontend\src\api\generated.ts:194: "/api/v1/dashboard/health": {
+frontend\src\api\generated.ts:211: "/api/v1/wells": {
+frontend\src\api\generated.ts:228: "/api/v1/wells/{well_id}": {
+frontend\src\api\generated.ts:245: "/api/v1/wells/{well_id}/logs": {
+frontend\src\api\generated.ts:262: "/api/v1/wells/{well_id}/alerts": {
+frontend\src\api\generated.ts:279: "/api/v1/models": {
+frontend\src\api\generated.ts:296: "/api/v1/models/{model_name}": {
+frontend\src\api\generated.ts:313: "/api/v1/models/{model_name}/health": {
+frontend\src\api\generated.ts:330: "/api/v1/monitoring/health": {
+frontend\src\api\generated.ts:347: "/api/v1/monitoring/models": {
+frontend\src\api\generated.ts:364: "/api/v1/monitoring/alerts": {
+frontend\src\api\generated.ts:381: "/api/v1/jobs": {
+frontend\src\api\generated.ts:399: "/api/v1/jobs/health": {
+frontend\src\api\generated.ts:416: "/api/v1/jobs/{job_id}": {
+frontend\src\api\generated.ts:433: "/api/v1/jobs/{job_id}/cancel": {
+frontend\src\api\generated.ts:450: "/api/v1/realtime/health": {
+frontend\src\api\generated.ts:467: "/api/v1/realtime/test-event": {
+frontend\src\api\generated.ts:484: "/api/v1/alerts": {
+frontend\src\api\generated.ts:501: "/api/v1/alerts/evaluate": {
+frontend\src\api\generated.ts:518: "/api/v1/alerts/{alert_id}": {
+frontend\src\api\generated.ts:535: "/api/v1/analytics/sample": {
+frontend\src\api\generated.ts:552: "/api/v1/analytics/predict": {
+frontend\src\api\generated.ts:569: "/api/v1/ingestion/upload": {
+frontend\src\api\generated.ts:586: "/api/v1/reports/generate": {
+frontend\src\api\generated.ts:603: "/api/v1/reports/dataset/{dataset_id}": {
+frontend\src\api\generated.ts:620: "/api/v1/reports/prediction/{prediction_id}": {
+frontend\src\api\generated.ts:637: "/api/v1/reports/stream/{stream_id}": {
+frontend\src\api\generated.ts:654: "/api/v1/reports": {
+frontend\src\api\generated.ts:671: "/api/v1/reports/formats": {
+frontend\src\api\generated.ts:688: "/api/v1/reports/health/status": {
+frontend\src\api\generated.ts:705: "/api/v1/reports/{report_id}": {
+frontend\src\api\generated.ts:723: "/api/v1/reports/{report_id}/files": {
+frontend\src\api\generated.ts:740: "/api/v1/reports/{report_id}/download": {
+frontend\src\api\generated.ts:757: "/api/v1/reports/{report_id}/preview": {
+frontend\src\api\generated.ts:774: "/api/v1/streaming/replay": {
+frontend\src\api\generated.ts:791: "/api/v1/upload-las": {
+frontend\src\api\http.ts:1: const API_BASE_URL =
+frontend\src\api\http.ts:2: import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") ??
+frontend\src\api\http.ts:3: "http://127.0.0.1:8000/api/v1";
+frontend\src\api\http.ts:129: `${API_BASE_URL}${path.startsWith("/") ? path : `/${path}`}`,
+frontend\src\api\http.ts:164: API_BASE_URL,
+frontend\src\api\types.ts:25: paths["/api/v1/wells"]["get"]
+frontend\src\api\types.ts:30: paths["/api/v1/wells/{well_id}"]["get"]
+frontend\src\api\types.ts:35: paths["/api/v1/wells/{well_id}/logs"]["get"]
+frontend\src\api\types.ts:40: paths["/api/v1/wells/{well_id}/alerts"]["get"]
+frontend\src\api\types.ts:45: paths["/api/v1/analytics/sample"]["post"]
+frontend\src\features\platform\platformApi.ts:146: const base = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? "http://127.0.0.1:8000/api/v1";
+frontend\src\features\platform\platformApi.ts:181: (import.meta.env.VITE_API_BASE_URL as string | undefined) ??
+frontend\src\features\platform\platformApi.ts:182: "http://127.0.0.1:8000/api/v1";
+frontend\src\realtime\client.ts:26: const configured = import.meta.env.VITE_WS_BASE_URL?.replace(/\/+$/, "");
+frontend\src\realtime\client.ts:33: import.meta.env.VITE_API_BASE_URL ??
+frontend\src\realtime\client.ts:34: "http://127.0.0.1:8000/api/v1";
+frontend\src\realtime\RealtimeContext.tsx:100: import.meta.env.VITE_API_BASE_URL ??
+frontend\src\realtime\RealtimeContext.tsx:101: "http://127.0.0.1:8000/api/v1";
+patch-backups\pdf-refresh-20260730-032405\platformApi.ts:146: const base = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? "http://127.0.0.1:8000/api/v1";
+patch-backups\pdf-refresh-20260730-032405\platformApi.ts:180: const base=(import.meta.env.VITE_API_BASE_URL as string|undefined)??"http://127.0.0.1:8000/api/v1";
+
+MATCH COUNT: 155
+
+SECTION: Asset route references
+----------------------------------------------------------------------------------------------------
+frontend\src\features\platform\platformApi.ts:176: export const fetchAssets=()=>apiRequest<Array<{asset_id:string;field:string;well:string;dataset_id?:string|null;status:string}>>(`/v1/assets`);
+frontend\src\features\platform\platformApi.ts:177: export const saveAsset=(payload:{field:string;well:string;dataset_id?:string|null})=>apiRequest(`/v1/assets`,{method:"POST",body:JSON.stringify(payload)});
+patch-backups\pdf-refresh-20260730-032405\platformApi.ts:176: export const fetchAssets=()=>apiRequest<Array<{asset_id:string;field:string;well:string;dataset_id?:string|null;status:string}>>(`/v1/assets`);
+patch-backups\pdf-refresh-20260730-032405\platformApi.ts:177: export const saveAsset=(payload:{field:string;well:string;dataset_id?:string|null})=>apiRequest(`/v1/assets`,{method:"POST",body:JSON.stringify(payload)});
+
+MATCH COUNT: 4
+
+====================================================================================================
+DOCKER COMPOSE CONFIGURATION
+====================================================================================================
+name: petroedge-ai-release-40-combined-working
+services:
+  backend:
+    build:
+      context: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\backend
+      dockerfile: Dockerfile
+    container_name: petroedge-mvp-backend
+    environment:
+      ACCESS_TOKEN_EXPIRE_MINUTES: "60"
+      API_HOST: 0.0.0.0
+      API_PORT: "8000"
+      APP_NAME: PetroEdge AI
+      CORS_ORIGINS: http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173,http://127.0.0.1:4173
+      DATABASE_URL: sqlite:///./petroedge.db
+      ENVIRONMENT: local
+      JWT_ALGORITHM: HS256
+      JWT_SECRET: replace-with-a-cryptographically-random-secret-of-at-least-32-characters
+      PETROEDGE_ADMIN_EMAIL: admin@petroedge.ai
+      PETROEDGE_ADMIN_PASSWORD: replace-with-a-strong-development-password
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)
+      timeout: 8s
+      interval: 20s
+      retries: 5
+      start_period: 30s
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8000"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\backend\data
+        target: /app/data
+        bind: {}
+      - type: bind
+        source: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\backend\dataset_store
+        target: /app/dataset_store
+        bind: {}
+      - type: bind
+        source: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\backend\model_store
+        target: /app/model_store
+        bind: {}
+      - type: bind
+        source: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\backend\experiment_store
+        target: /app/experiment_store
+        bind: {}
+  frontend:
+    build:
+      context: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: /api/v1
+    container_name: petroedge-mvp-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+        required: true
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "5173"
+        protocol: tcp
+networks:
+  default:
+    name: petroedge-ai-release-40-combined-working_default
+
+docker compose config exit code: 0
+
+====================================================================================================
+RUNNING CONTAINERS
+====================================================================================================
+NAME                     IMAGE                                               COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+petroedge-mvp-backend    petroedge-ai-release-40-combined-working-backend    "uvicorn app.main:apΓÇª"   backend    12 minutes ago   Up 12 minutes (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-40-combined-working-frontend   "/docker-entrypoint.ΓÇª"   frontend   12 minutes ago   Up 12 minutes             0.0.0.0:5173->80/tcp, [::]:5173->80/tcp
+
+docker compose ps exit code: 0
+
+====================================================================================================
+OPENAPI ROUTE SNAPSHOT
+====================================================================================================
+/
+/api/v1/agents
+/api/v1/agents/{agent_key}
+/api/v1/agents/{agent_key}/run
+/api/v1/agents/panel/run
+/api/v1/alerts
+/api/v1/alerts/{alert_id}
+/api/v1/analytics/predict
+/api/v1/analytics/sample
+/api/v1/auth/login
+/api/v1/auth/me
+/api/v1/dashboard
+/api/v1/dashboard/activity
+/api/v1/dashboard/alerts
+/api/v1/dashboard/data-quality
+/api/v1/dashboard/health
+/api/v1/dashboard/models
+/api/v1/dashboard/operations
+/api/v1/dashboard/overview
+/api/v1/dashboard/reports
+/api/v1/dashboard/reservoir
+/api/v1/edge/capabilities
+/api/v1/edge/dashboard
+/api/v1/edge/devices
+/api/v1/edge/devices/{device_id}/deployments
+/api/v1/edge/devices/{device_id}/heartbeat
+/api/v1/edge/devices/{device_id}/replay
+/api/v1/edge/devices/{device_id}/replay/start
+/api/v1/edge/devices/{device_id}/sync
+/api/v1/edge/replay/jobs/{job_id}
+/api/v1/edge/temporal/predict
+/api/v1/events
+/api/v1/ingestion/upload
+/api/v1/jobs
+/api/v1/jobs/{job_id}
+/api/v1/jobs/{job_id}/cancel
+/api/v1/jobs/health
+/api/v1/models
+/api/v1/models/{model_key}
+/api/v1/models/{model_key}/health
+/api/v1/models/artifacts
+/api/v1/models/status
+/api/v1/monitoring/alerts
+/api/v1/monitoring/health
+/api/v1/monitoring/models
+/api/v1/platform/datasets
+/api/v1/platform/datasets/{dataset_id}
+/api/v1/platform/datasets/{dataset_id}/lineage
+/api/v1/platform/datasets/{dataset_id}/preview
+/api/v1/platform/datasets/{dataset_id}/process-las
+/api/v1/platform/experiments
+/api/v1/platform/experiments/{experiment_id}
+/api/v1/platform/overview
+/api/v1/plugins/modules
+/api/v1/realtime/health
+/api/v1/realtime/test-event
+/api/v1/reports
+/api/v1/reports/{report_id}
+/api/v1/reports/{report_id}/download
+/api/v1/reports/{report_id}/files
+/api/v1/reports/{report_id}/preview
+/api/v1/reports/dataset/{dataset_id}
+/api/v1/reports/formats
+/api/v1/reports/generate
+/api/v1/reports/health/status
+/api/v1/reports/prediction/{prediction_id}
+/api/v1/reports/stream/{stream_id}
+/api/v1/rules
+/api/v1/rules/{rule_id}
+/api/v1/streaming/events
+/api/v1/streaming/replay
+/api/v1/streaming/telemetry
+/api/v1/twins
+/api/v1/twins/{reservoir_id}
+/api/v1/twins/{reservoir_id}/health
+/api/v1/twins/{reservoir_id}/history
+/api/v1/twins/{reservoir_id}/restore/{version}
+/api/v1/twins/{reservoir_id}/simulate
+/api/v1/upload-las
+/api/v1/v1/datasets/{dataset_id}/assistant
+/api/v1/v1/datasets/{dataset_id}/interpretation
+/api/v1/v1/datasets/{dataset_id}/las-wizard
+/api/v1/v1/datasets/{dataset_id}/replay
+/api/v1/v1/datasets/{dataset_id}/report.pdf
+/api/v1/v1/edge-runtime
+/api/v1/v1/modules
+/api/v1/wells
+/api/v1/wells/{well_id}
+/api/v1/wells/{well_id}/alerts
+/api/v1/wells/{well_id}/logs
+/api/v1/workflows
+/api/v1/workflows/{workflow_id}
+/api/v1/workflows/{workflow_id}/run
+/api/v1/workflows/{workflow_id}/status
+/api/v1/workflows/nodes
+/api/v1/workflows/runs/{run_id}
+/api/v1/workflows/templates
+/health
+
+OPENAPI PATH COUNT: 98

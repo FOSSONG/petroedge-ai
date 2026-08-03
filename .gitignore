@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log
+
+# React
+dist/
+build/
+
+# Docker
+*.pid
+docker-data/
+volumes/
+
+# Runtime
+prediction_store/
+processed_data/
+uploads/
+logs/
+temp/
+tmp/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# VSCode
+.vscode/
+
+# JetBrains
+.idea/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Git
+*.orig

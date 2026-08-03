@@ -1,0 +1,7 @@
+﻿PETROEDGE AI RELEASE 4.1.2 FIXED VALIDATION
+[2026-07-31 16:58:23] Validating Docker Compose configuration.
+[2026-07-31 16:58:25] Stopping any existing services from this Compose project.
+[2026-07-31 16:58:26] Removing only conflicting PetroEdge containers that exist.
+[2026-07-31 16:58:26] Container not present, nothing to remove: petroedge-mvp-backend
+[2026-07-31 16:58:26] Container not present, nothing to remove: petroedge-mvp-frontend
+[2026-07-31 16:58:26] Starting the images that were already built.

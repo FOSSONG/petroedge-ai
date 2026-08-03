@@ -1,0 +1,12 @@
+﻿PETROEDGE AI PHASE 5 TWIN AUTH-READY RESULT
+Generated: 2026-07-31 00:23:34 +01:00
+Backup: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\patch-backups\phase5-twin-auth-ready-20260731-002012
+Frontend HTTP status: 200
+
+Compiled recovery marker:
+/usr/share/nginx/html/assets/ReservoirDigitalTwinPanel-Lqms7Byg.js
+
+NAME                     IMAGE                                               COMMAND                  SERVICE    CREATED             STATUS                       PORTS
+petroedge-mvp-backend    petroedge-ai-release-40-combined-working-backend    "uvicorn app.main:apΓÇª"   backend    About an hour ago   Up About an hour (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-40-combined-working-frontend   "/docker-entrypoint.ΓÇª"   frontend   8 seconds ago       Up 6 seconds                 0.0.0.0:5173->80/tcp, [::]:5173->80/tcp
+

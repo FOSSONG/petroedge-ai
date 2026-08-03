@@ -1,0 +1,1751 @@
+﻿PETROEDGE AI PHASE 2 ASSETS INVENTORY
+Generated: 2026-07-30 19:27:34 +01:00
+Project: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING
+
+====================================================================================================
+CURRENT DOCKER STATE
+====================================================================================================
+NAME                     IMAGE                                               COMMAND                  SERVICE    CREATED         STATUS                   PORTS
+petroedge-mvp-backend    petroedge-ai-release-40-combined-working-backend    "uvicorn app.main:apΓÇª"   backend    5 minutes ago   Up 5 minutes (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-40-combined-working-frontend   "/docker-entrypoint.ΓÇª"   frontend   5 minutes ago   Up 5 minutes             0.0.0.0:5173->80/tcp, [::]:5173->80/tcp
+
+====================================================================================================
+BACKEND MAIN APPLICATION
+====================================================================================================
+FILE: backend\app\main.py
+----------------------------------------------------------------------------------------------------
+1: from __future__ import annotations
+2: 
+3: import asyncio
+4: import importlib
+5: import logging
+6: import os
+7: from contextlib import asynccontextmanager
+8: from datetime import datetime, timezone
+9: from pathlib import Path
+10: from typing import Any
+11: 
+12: from alembic import command
+13: from alembic.config import Config
+14: from fastapi import FastAPI
+15: from fastapi.middleware.cors import CORSMiddleware
+16: from fastapi.middleware.gzip import GZipMiddleware
+17: from sqlalchemy import text
+18: 
+19: from app.core.config import settings
+20: from app.db.session import engine
+21: from app.jobs.manager import get_job_manager
+22: from app.realtime.events import EventType, get_event_bus
+23: from app.realtime.manager import get_connection_manager
+24: 
+25: logger = logging.getLogger(__name__)
+26: API_PREFIX = "/api/v1"
+27: APP_VERSION = "2.0.0-edge"
+28: BACKEND_ROOT = Path(__file__).resolve().parents[1]
+29: ALEMBIC_INI_PATH = BACKEND_ROOT / "alembic.ini"
+30: ALEMBIC_SCRIPT_PATH = BACKEND_ROOT / "alembic"
+31: 
+32: ROUTE_MODULES: tuple[tuple[str, str, tuple[str, ...], bool], ...] = (
+33:     ("auth", "/auth", ("Authentication",), True),
+34:     ("dashboard", "/dashboard", ("Dashboard",), True),
+35:     ("wells", "/wells", ("Wells",), True),
+36:     ("models", "/models", ("Models",), True),
+37:     ("workflows", "/workflows", ("Workflow Engine",), True),
+38:     ("agents", "/agents", ("Multi-Agent AI",), True),
+39:     ("twins", "/twins", ("Reservoir Digital Twin",), True),
+40:     ("rules", "/rules", ("Event Rules",), True),
+41:     ("events", "/events", ("Event Bus",), True),
+42:     ("monitoring", "/monitoring", ("Monitoring",), True),
+43:     ("platform", "", ("Platform",), True),
+44:     ("plugins", "/plugins", ("Built-in Modules",), True),
+45:     ("reservoir_v1", "", ("Reservoir Intelligence V1",), True),
+46:     ("jobs", "/jobs", ("Background Jobs",), True),
+47:     ("realtime", "/realtime", ("Real-time Events",), True),
+48:     ("edge", "/edge", ("Edge Computing",), True),
+49:     ("alerts", "/alerts", ("Alerts",), False),
+50:     ("analytics", "/analytics", ("Analytics",), False),
+51:     ("ingestion", "/ingestion", ("Ingestion",), False),
+52:     ("reports", "/reports", ("Reports",), False),
+53:     ("streaming", "/streaming", ("Streaming",), False),
+54:     ("stream", "", ("Stream",), False),
+55:     ("upload", "", ("Upload",), False),
+56: )
+57: 
+58: 
+59: def _parse_boolean(value: str | None, *, default: bool) -> bool:
+60:     if value is None:
+61:         return default
+62:     normalised = value.strip().lower()
+63:     if normalised in {"1", "true", "yes", "on"}:
+64:         return True
+65:     if normalised in {"0", "false", "no", "off"}:
+66:         return False
+67:     logger.warning("Invalid Boolean value %r; using default=%s.", value, default)
+68:     return default
+69: 
+70: 
+71: def _is_production() -> bool:
+72:     return str(settings.environment).strip().lower() in {"production", "prod"}
+73: 
+74: 
+75: def _should_run_migrations() -> bool:
+76:     return _parse_boolean(
+77:         os.getenv("PETROEDGE_RUN_MIGRATIONS"),
+78:         default=not _is_production(),
+79:     )
+80: 
+81: 
+82: def _build_alembic_config() -> Config:
+83:     if not ALEMBIC_INI_PATH.is_file():
+84:         raise FileNotFoundError(f"Alembic configuration not found: {ALEMBIC_INI_PATH}")
+85:     if not ALEMBIC_SCRIPT_PATH.is_dir():
+86:         raise FileNotFoundError(f"Alembic directory not found: {ALEMBIC_SCRIPT_PATH}")
+87:     config = Config(str(ALEMBIC_INI_PATH))
+88:     config.set_main_option("script_location", str(ALEMBIC_SCRIPT_PATH))
+89:     return config
+90: 
+91: 
+92: def _run_database_migrations() -> None:
+93:     command.upgrade(_build_alembic_config(), "head")
+94: 
+95: 
+96: def _check_database_connection() -> None:
+97:     with engine.connect() as connection:
+98:         connection.execute(text("SELECT 1"))
+99: 
+100: 
+101: def _register_routes(application: FastAPI) -> dict[str, dict[str, Any]]:
+102:     state: dict[str, dict[str, Any]] = {}
+103:     registered_router_ids: set[int] = set()
+104: 
+105:     for module_name, prefix, tags, required in ROUTE_MODULES:
+106:         try:
+107:             module = importlib.import_module(f"app.api.routes.{module_name}")
+108:             router = getattr(module, "router", None)
+109:             if router is None:
+110:                 raise AttributeError(f"{module_name!r} does not expose a router object")
+111:             if id(router) in registered_router_ids:
+112:                 state[module_name] = {
+113:                     "status": "skipped",
+114:                     "required": required,
+115:                     "detail": "Router already registered.",
+116:                 }
+117:                 continue
+118:             full_prefix = f"{API_PREFIX}{prefix}"
+119:             application.include_router(router, prefix=full_prefix, tags=list(tags))
+120:             registered_router_ids.add(id(router))
+121:             state[module_name] = {
+122:                 "status": "loaded",
+123:                 "required": required,
+124:                 "prefix": full_prefix,
+125:             }
+126:         except Exception as exc:
+127:             state[module_name] = {
+128:                 "status": "failed",
+129:                 "required": required,
+130:                 "detail": f"{type(exc).__name__}: {exc}",
+131:             }
+132:             logger.exception("Could not load route module %s.", module_name)
+133:             if required:
+134:                 raise RuntimeError(
+135:                     f"Required route module failed to load: {module_name}"
+136:                 ) from exc
+137:     return state
+138: 
+139: 
+140: @asynccontextmanager
+141: async def lifespan(application: FastAPI):
+142:     run_migrations = _should_run_migrations()
+143:     application.state.migration_status = {
+144:         "enabled": run_migrations,
+145:         "status": "not_started",
+146:     }
+147: 
+148:     if run_migrations:
+149:         try:
+150:             await asyncio.to_thread(_run_database_migrations)
+151:             application.state.migration_status = {
+152:                 "enabled": True,
+153:                 "status": "completed",
+154:                 "revision": "head",
+155:             }
+156:         except Exception as exc:
+157:             application.state.migration_status = {
+158:                 "enabled": True,
+159:                 "status": "failed",
+160:                 "detail": f"{type(exc).__name__}: {exc}",
+161:             }
+162:             logger.exception("Database migration failed.")
+163:             raise RuntimeError("Database migration failed; startup aborted.") from exc
+164:     else:
+165:         application.state.migration_status = {
+166:             "enabled": False,
+167:             "status": "skipped",
+168:             "detail": "Run 'alembic upgrade head' before production startup.",
+169:         }
+170: 
+171:     await asyncio.to_thread(_check_database_connection)
+172: 
+173:     realtime_manager = get_connection_manager()
+174:     await realtime_manager.start()
+175:     application.state.realtime_manager = realtime_manager
+176: 
+177:     job_manager = get_job_manager()
+178:     await job_manager.start()
+179:     application.state.job_manager = job_manager
+180: 
+181:     await get_event_bus().emit(
+182:         EventType.SYSTEM_READY,
+183:         {"service": settings.app_name, "version": APP_VERSION},
+184:         channel="global",
+185:     )
+186: 
+187:     try:
+188:         yield
+189:     finally:
+190:         await get_event_bus().emit(
+191:             EventType.SYSTEM_SHUTDOWN,
+192:             {"service": settings.app_name},
+193:             channel="global",
+194:         )
+195:         await job_manager.stop()
+196:         await realtime_manager.stop()
+197:         engine.dispose()
+198: 
+199: 
+200: def create_app() -> FastAPI:
+201:     application = FastAPI(
+202:         title="PetroEdge AI API",
+203:         version=APP_VERSION,
+204:         description="Real-time well logging analytics and reservoir intelligence API.",
+205:         lifespan=lifespan,
+206:         docs_url="/docs",
+207:         redoc_url="/redoc",
+208:         openapi_url="/openapi.json",
+209:     )
+210:     application.add_middleware(
+211:         CORSMiddleware,
+212:         allow_origins=settings.cors_origins_list,
+213:         allow_credentials=True,
+214:         allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+215:         allow_headers=["*"],
+216:     )
+217:     application.add_middleware(GZipMiddleware, minimum_size=1000)
+218:     application.state.route_modules = _register_routes(application)
+219: 
+220:     @application.get("/", tags=["System"])
+221:     async def root() -> dict[str, Any]:
+222:         return {
+223:             "application": settings.app_name,
+224:             "version": APP_VERSION,
+225:             "environment": settings.environment,
+226:             "docs": "/docs",
+227:             "health": "/health",
+228:             "api_prefix": API_PREFIX,
+229:         }
+230: 
+231:     @application.get("/health", tags=["System"])
+232:     async def health() -> dict[str, Any]:
+233:         database_status = "healthy"
+234:         try:
+235:             await asyncio.to_thread(_check_database_connection)
+236:         except Exception as exc:
+237:             database_status = f"unhealthy: {type(exc).__name__}: {exc}"
+238: 
+239:         failed_routes = {
+240:             name: details
+241:             for name, details in application.state.route_modules.items()
+242:             if details.get("status") == "failed"
+243:         }
+244:         migration_status = getattr(
+245:             application.state,
+246:             "migration_status",
+247:             {"enabled": False, "status": "not_started"},
+248:         )
+249:         unhealthy = database_status != "healthy" or migration_status.get("status") == "failed"
+250:         overall = "unhealthy" if unhealthy else ("degraded" if failed_routes else "ok")
+251:         return {
+252:             "status": overall,
+253:             "service": settings.app_name,
+254:             "version": APP_VERSION,
+255:             "timestamp": datetime.now(timezone.utc).isoformat(),
+256:             "database": database_status,
+257:             "migrations": migration_status,
+258:             "routes": application.state.route_modules,
+259:             "background_jobs": {
+260:                 "running": get_job_manager().is_running,
+261:                 "worker_count": get_job_manager().worker_count,
+262:                 "queue_size": get_job_manager().queue_size,
+263:             },
+264:             "realtime": await get_connection_manager().snapshot(),
+265:         }
+266: 
+267:     return application
+268: 
+269: 
+270: app = create_app()
+271: 
+272: 
+
+
+====================================================================================================
+BACKEND ROUTE FILES
+====================================================================================================
+__init__.py
+agents.py
+alerts.py
+analytics.py
+auth.py
+dashboard.py
+edge.py
+events.py
+ingestion.py
+jobs.py
+models.py
+monitoring.py
+platform.py
+plugins.py
+realtime.py
+reports.py
+reservoir_v1.py
+rules.py
+sprint2.py
+stream.py
+streaming.py
+twins.py
+upload.py
+wells.py
+workflows.py
+
+====================================================================================================
+REFERENCE CRUD ROUTES
+====================================================================================================
+FILE: backend\app\api\routes\wells.py
+----------------------------------------------------------------------------------------------------
+1: from __future__ import annotations
+2: 
+3: from typing import Any
+4: 
+5: from fastapi import APIRouter, Depends, HTTPException, Query, status
+6: 
+7: from app.api.dependencies import DBSession, WellRepo
+8: from app.core.rbac import require_roles
+9: from app.realtime.events import EventType, get_event_bus
+10: from app.schemas import WellCreate, WellLogSample, WellSummary
+11: from app.services.alert_engine import AlertEngine
+12: from app.services.domain_services import WellService
+13: from app.services.synthetic import generate_samples
+14: 
+15: router = APIRouter()
+16: 
+17: 
+18: def _actor_id(user: dict[str, Any]) -> str | None:
+19:     value = user.get("user_id") or user.get("uid") or user.get("sub")
+20:     return str(value) if value else None
+21: 
+22: 
+23: @router.post("", response_model=WellSummary, status_code=status.HTTP_201_CREATED)
+24: async def create_well(
+25:     payload: WellCreate,
+26:     wells: WellRepo,
+27:     user: dict[str, Any] = Depends(
+28:         require_roles("admin", "geoscientist", "engineer")
+29:     ),
+30: ) -> WellSummary:
+31:     if wells.get_by_well_id(payload.well_id) is not None:
+32:         raise HTTPException(
+33:             status_code=status.HTTP_409_CONFLICT,
+34:             detail=f"Well '{payload.well_id}' already exists.",
+35:         )
+36: 
+37:     well = wells.get_or_create(
+38:         payload.well_id,
+39:         field_name=payload.field,
+40:         status=payload.status,
+41:     )
+42:     well.total_depth_m = payload.total_depth_m
+43:     well.operator_name = payload.operator
+44:     well.country = payload.country
+45:     well.latitude = payload.latitude
+46:     well.longitude = payload.longitude
+47:     well.metadata_json = {
+48:         **(well.metadata_json or {}),
+49:         "source": "manual-registration",
+50:         "kb_m": payload.kb_m,
+51:     }
+52:     wells.commit()
+53: 
+54:     serialized = WellService.serialize(well)
+55:     await get_event_bus().emit(
+56:         EventType.WELL_CREATED,
+57:         serialized,
+58:         channel="wells",
+59:         correlation_id=well.well_id,
+60:         actor_id=_actor_id(user),
+61:     )
+62:     return WellSummary(**serialized)
+63: 
+64: 
+65: @router.get("", response_model=list[WellSummary])
+66: async def list_wells(
+67:     wells: WellRepo,
+68:     limit: int = Query(default=100, ge=1, le=500),
+69:     offset: int = Query(default=0, ge=0),
+70:     user: dict[str, Any] = Depends(
+71:         require_roles("admin", "geoscientist", "engineer", "viewer")
+72:     ),
+73: ) -> list[WellSummary]:
+74:     service = WellService(wells)
+75:     records = wells.list_ordered(offset=offset, limit=limit)
+76: 
+77:     if not records:
+78:         demo = wells.get_or_create(
+79:             "PETROEDGE-DEMO-01",
+80:             field_name="Niger Delta Demo Field",
+81:         )
+82:         demo.metadata_json = {"source": "synthetic", "kb_m": 42.3}
+83:         demo.total_depth_m = 3560.0
+84:         wells.commit()
+85:         records = [demo]
+86: 
+87:         await get_event_bus().emit(
+88:             EventType.WELL_CREATED,
+89:             service.serialize(demo),
+90:             channel="wells",
+91:             correlation_id=demo.well_id,
+92:             actor_id=_actor_id(user),
+93:         )
+94: 
+95:     return [WellSummary(**service.serialize(record)) for record in records]
+96: 
+97: 
+98: @router.delete("/{well_id}", status_code=status.HTTP_204_NO_CONTENT)
+99: async def delete_well(
+100:     well_id: str,
+101:     wells: WellRepo,
+102:     user: dict[str, Any] = Depends(require_roles("admin", "geoscientist", "engineer")),
+103: ) -> None:
+104:     well = wells.get_by_well_id(well_id)
+105:     if well is None:
+106:         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Well not found.")
+107:     serialized = WellService.serialize(well)
+108:     try:
+109:         wells.delete(well)
+110:         wells.commit()
+111:     except Exception as exc:
+112:         wells.rollback()
+113:         raise HTTPException(
+114:             status_code=status.HTTP_409_CONFLICT,
+115:             detail="The well cannot be deleted because related governed records still reference it.",
+116:         ) from exc
+117:     await get_event_bus().emit(
+118:         EventType.WELL_UPDATED,
+119:         {**serialized, "deleted": True},
+120:         channel="wells",
+121:         correlation_id=well_id,
+122:         actor_id=_actor_id(user),
+123:     )
+124:     return None
+125: 
+126: 
+127: @router.get("/{well_id}", response_model=WellSummary)
+128: def get_well(
+129:     well_id: str,
+130:     wells: WellRepo,
+131:     _: dict[str, Any] = Depends(
+132:         require_roles("admin", "geoscientist", "engineer", "viewer")
+133:     ),
+134: ) -> WellSummary:
+135:     well = wells.get_by_well_id(well_id)
+136:     if well is None:
+137:         raise HTTPException(
+138:             status_code=status.HTTP_404_NOT_FOUND,
+139:             detail="Well not found.",
+140:         )
+141:     return WellSummary(**WellService.serialize(well))
+142: 
+143: 
+144: @router.get("/{well_id}/logs")
+145: async def get_well_logs(
+146:     well_id: str,
+147:     db: DBSession,
+148:     wells: WellRepo,
+149:     rows: int = Query(default=250, ge=1, le=2000),
+150:     emit_alerts: bool = Query(default=True),
+151:     user: dict[str, Any] = Depends(
+152:         require_roles("admin", "geoscientist", "engineer", "viewer")
+153:     ),
+154: ) -> list[dict[str, Any]]:
+155:     bus = get_event_bus()
+156:     actor_id = _actor_id(user)
+157:     well = wells.get_by_well_id(well_id)
+158:     created = well is None
+159: 
+160:     if well is None:
+161:         well = wells.get_or_create(well_id)
+162:         await bus.emit(
+163:             EventType.WELL_CREATED,
+164:             WellService.serialize(well),
+165:             channel="wells",
+166:             correlation_id=well_id,
+167:             actor_id=actor_id,
+168:         )
+169: 
+170:     try:
+171:         from app.services.analytics import analyze_sample
+172:         samples = generate_samples(rows=rows, well_id=well_id)
+173:     except Exception as exc:
+174:         raise HTTPException(
+175:             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+176:             detail=f"Could not generate well-log samples: {exc}",
+177:         ) from exc
+178: 
+179:     enriched: list[dict[str, Any]] = []
+180:     emitted_alert_count = 0
+181:     alert_engine = AlertEngine(db)
+182: 
+183:     for sample in samples:
+184:         result = analyze_sample(WellLogSample(**sample)).model_dump()
+185:         record = {
+186:             **sample,
+187:             "lithology": result["lithology"],
+188:             "hydrocarbon_probability": result["hydrocarbon_probability"],
+189:             "facies": result["facies"],
+190:             "porosity": result["porosity"],
+191:             "water_saturation": result["water_saturation"],
+192:             "permeability_md": result["permeability_md"],
+193:             "qc_score": result["qc_score"],
+194:             "anomaly_score": result["anomaly_score"],
+195:             "is_anomaly": result["is_anomaly"],
+196:         }
+197:         enriched.append(record)
+198: 
+199:         if emit_alerts:
+200:             emitted = alert_engine.evaluate_record(
+201:                 record,
+202:                 source_type="well-log",
+203:                 source_id=well_id,
+204:             )
+205:             emitted_alert_count += len(emitted)
+206:             for alert in emitted:
+207:                 item = alert.to_dict()
+208:                 await bus.emit(
+209:                     EventType.ALERT_CREATED,
+210:                     item,
+211:                     channel="alerts",
+212:                     correlation_id=item.get("alert_id"),
+213:                     actor_id=actor_id,
+214:                 )
+215: 
+216:     well.metadata_json = {
+217:         **(well.metadata_json or {}),
+218:         "sample_count": rows,
+219:     }
+220:     wells.commit()
+221: 
+222:     await bus.emit(
+223:         EventType.WELL_LOGS_LOADED,
+224:         {
+225:             "well_id": well_id,
+226:             "rows": rows,
+227:             "alert_count": emitted_alert_count,
+228:             "created": created,
+229:         },
+230:         channel="wells",
+231:         correlation_id=well_id,
+232:         actor_id=actor_id,
+233:     )
+234: 
+235:     await bus.emit(
+236:         EventType.WELL_UPDATED,
+237:         WellService.serialize(well),
+238:         channel="wells",
+239:         correlation_id=well_id,
+240:         actor_id=actor_id,
+241:     )
+242: 
+243:     return enriched
+244: 
+245: 
+246: @router.get("/{well_id}/alerts")
+247: def get_well_alerts(
+248:     well_id: str,
+249:     db: DBSession,
+250:     wells: WellRepo,
+251:     limit: int = Query(default=50, ge=1, le=500),
+252:     _: dict[str, Any] = Depends(
+253:         require_roles("admin", "geoscientist", "engineer", "viewer")
+254:     ),
+255: ) -> dict[str, Any]:
+256:     well = wells.get_by_well_id(well_id)
+257:     if well is None:
+258:         raise HTTPException(
+259:             status_code=status.HTTP_404_NOT_FOUND,
+260:             detail="Well not found.",
+261:         )
+262:     records = AlertEngine(db).alerts.filtered(
+263:         well_db_id=well.id,
+264:         limit=limit,
+265:     )
+266:     alerts = [
+267:         AlertEngine.serialize_model(item, well_id)
+268:         for item in records
+269:     ]
+270:     return {
+271:         "well_id": well_id,
+272:         "total": len(alerts),
+273:         "alerts": alerts,
+274:     }
+
+FILE: backend\app\api\routes\platform.py
+----------------------------------------------------------------------------------------------------
+1: from __future__ import annotations
+2: 
+3: from typing import Any
+4: from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
+5: 
+6: from app.core.rbac import require_roles
+7: from app.ml_platform.registry import get_model_registry
+8: from app.platform_v1.database import connection, initialise
+9: from app.platform_v1.datasets import delete_dataset, get_dataset, lineage, list_datasets, preview_dataset, process_las, register_upload
+10: from app.platform_v1.experiments import create_experiment, get_experiment, list_experiments
+11: from app.platform_v1.schemas import DatasetLineageNode, DatasetPreview, DatasetSummary, ExperimentCreate, ExperimentSummary, LasProcessRequest, PlatformOverview
+12: 
+13: router = APIRouter(prefix="/platform", tags=["Platform V1"])
+14: READ_ROLES = require_roles("admin", "administrator", "operator", "engineer", "geoscientist", "petrophysicist", "viewer")
+15: WRITE_ROLES = require_roles("admin", "administrator", "operator", "engineer", "geoscientist", "petrophysicist")
+16: initialise()
+17: 
+18: 
+19: def actor(user: dict[str, Any]) -> str | None:
+20:     return str(user.get("uid") or user.get("sub") or "") or None
+21: 
+22: 
+23: @router.get("/overview", response_model=PlatformOverview)
+24: def overview(_: dict[str, Any] = Depends(READ_ROLES)) -> PlatformOverview:
+25:     registry = get_model_registry()
+26:     manifests = registry.list(include_disabled=True)
+27:     with connection() as conn:
+28:         datasets = conn.execute("SELECT COUNT(*) FROM datasets").fetchone()[0]
+29:         experiments = conn.execute("SELECT COUNT(*) FROM experiments").fetchone()[0]
+30:         completed = conn.execute("SELECT COUNT(*) FROM experiments WHERE status = 'completed'").fetchone()[0]
+31:     production = sum(1 for model in manifests if str(model.stage.value if hasattr(model.stage, "value") else model.stage) == "production")
+32:     return PlatformOverview(
+33:         version="1.0.0-mvp", datasets=int(datasets), experiments=int(experiments), completed_experiments=int(completed),
+34:         registered_models=len(manifests), production_models=production,
+35:         capabilities=["dataset_registry", "experiment_tracking", "model_registry", "model_comparison", "hierarchical_fluid_classification", "reservoir_intelligence", "realtime_events", "audit_logging", "portable_sqlite_storage", "docker_deployment"],
+36:     )
+37: 
+38: 
+39: @router.post("/datasets", response_model=DatasetSummary, status_code=status.HTTP_201_CREATED)
+40: def upload_dataset(name: str = Form(...), description: str | None = Form(default=None), dataset_type: str = Form(default="well_log"), field_name: str | None = Form(default=None), well_name: str | None = Form(default=None), reservoir_name: str | None = Form(default=None), file: UploadFile = File(...), user: dict[str, Any] = Depends(WRITE_ROLES)) -> DatasetSummary:
+41:     try:
+42:         return register_upload(name, description, file.filename or "dataset", file.file, actor(user), dataset_type=dataset_type, field_name=field_name, well_name=well_name, reservoir_name=reservoir_name)
+43:     except ValueError as exc:
+44:         raise HTTPException(status_code=422, detail=str(exc)) from exc
+45: 
+46: 
+47: @router.get("/datasets", response_model=list[DatasetSummary])
+48: def datasets(_: dict[str, Any] = Depends(READ_ROLES)) -> list[DatasetSummary]:
+49:     return list_datasets()
+50: 
+51: 
+52: @router.get("/datasets/{dataset_id}", response_model=DatasetSummary)
+53: def dataset(dataset_id: str, _: dict[str, Any] = Depends(READ_ROLES)) -> DatasetSummary:
+54:     try:
+55:         return get_dataset(dataset_id)
+56:     except KeyError as exc:
+57:         raise HTTPException(status_code=404, detail="Dataset not found.") from exc
+58: 
+59: 
+60: @router.get("/datasets/{dataset_id}/preview", response_model=DatasetPreview)
+61: def dataset_preview(dataset_id: str, limit: int = 500, _: dict[str, Any] = Depends(READ_ROLES)) -> DatasetPreview:
+62:     try:
+63:         return DatasetPreview(**preview_dataset(dataset_id, max(1, min(limit, 2000))))
+64:     except KeyError as exc:
+65:         raise HTTPException(status_code=404, detail="Dataset not found.") from exc
+66:     except (ValueError, FileNotFoundError) as exc:
+67:         raise HTTPException(status_code=422, detail=str(exc)) from exc
+68: 
+69: 
+70: @router.get("/datasets/{dataset_id}/lineage", response_model=DatasetLineageNode)
+71: def dataset_lineage(dataset_id: str, _: dict[str, Any] = Depends(READ_ROLES)) -> DatasetLineageNode:
+72:     try: return lineage(dataset_id)
+73:     except KeyError as exc: raise HTTPException(status_code=404, detail="Dataset not found.") from exc
+74: 
+75: 
+76: @router.post("/datasets/{dataset_id}/process-las", response_model=DatasetSummary, status_code=status.HTTP_201_CREATED)
+77: def create_processed_las(dataset_id: str, payload: LasProcessRequest, user: dict[str, Any] = Depends(WRITE_ROLES)) -> DatasetSummary:
+78:     try: return process_las(dataset_id, payload, actor(user))
+79:     except KeyError as exc: raise HTTPException(status_code=404, detail="Dataset not found.") from exc
+80:     except ValueError as exc: raise HTTPException(status_code=422, detail=str(exc)) from exc
+81: 
+82: 
+83: @router.delete("/datasets/{dataset_id}", status_code=status.HTTP_204_NO_CONTENT)
+84: def remove_dataset(dataset_id: str, user: dict[str, Any] = Depends(WRITE_ROLES)) -> None:
+85:     try:
+86:         delete_dataset(dataset_id, actor(user))
+87:     except KeyError as exc:
+88:         raise HTTPException(status_code=404, detail="Dataset not found.") from exc
+89:     except ValueError as exc:
+90:         raise HTTPException(status_code=409, detail=str(exc)) from exc
+91: 
+92: 
+93: @router.post("/experiments", response_model=ExperimentSummary, status_code=status.HTTP_201_CREATED)
+94: def register_experiment(payload: ExperimentCreate, user: dict[str, Any] = Depends(WRITE_ROLES)) -> ExperimentSummary:
+95:     return create_experiment(payload, actor(user))
+96: 
+97: 
+98: @router.get("/experiments", response_model=list[ExperimentSummary])
+99: def experiments(_: dict[str, Any] = Depends(READ_ROLES)) -> list[ExperimentSummary]:
+100:     return list_experiments()
+101: 
+102: 
+103: @router.get("/experiments/{experiment_id}", response_model=ExperimentSummary)
+104: def experiment(experiment_id: str, _: dict[str, Any] = Depends(READ_ROLES)) -> ExperimentSummary:
+105:     try:
+106:         return get_experiment(experiment_id)
+107:     except KeyError as exc:
+108:         raise HTTPException(status_code=404, detail="Experiment not found.") from exc
+
+FILE NOT FOUND: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\backend\app\api\routes\datasets.py
+FILE: backend\app\api\routes\models.py
+----------------------------------------------------------------------------------------------------
+1: from __future__ import annotations
+2: from typing import Any
+3: from fastapi import APIRouter,Depends,HTTPException,Query,status
+4: from app.ai.registry import ModelNotFoundError,registry
+5: from app.core.rbac import require_roles
+6: router=APIRouter(); READ_ROLES=('admin','geoscientist','engineer','viewer')
+7: @router.get('')
+8: async def list_models(family:str|None=Query(default=None),task:str|None=Query(default=None),edge_ready:bool|None=Query(default=None),streaming:bool|None=Query(default=None),_:dict[str,Any]=Depends(require_roles(*READ_ROLES))):
+9:     models=registry.list_capabilities(family=family,task=task,edge_ready=edge_ready,streaming=streaming)
+10:     return {'summary':registry.summary(),'models':[m.model_dump(mode='json') for m in models]}
+11: @router.get('/status')
+12: async def model_status(_:dict[str,Any]=Depends(require_roles(*READ_ROLES))):
+13:     models=registry.list_capabilities(); return {'status':'healthy','registered_models':[m.display_name for m in models],'summary':registry.summary()}
+14: @router.get('/artifacts')
+15: async def list_artifacts(_:dict[str,Any]=Depends(require_roles(*READ_ROLES))):
+16:     artifacts=registry.discover_artifacts(); return {'count':len(artifacts),'artifacts':[a.model_dump(mode='json') for a in artifacts]}
+17: @router.get('/{model_key}')
+18: async def get_model(model_key:str,_:dict[str,Any]=Depends(require_roles(*READ_ROLES))):
+19:     try: return registry.get_capability(model_key).model_dump(mode='json')
+20:     except ModelNotFoundError as exc: raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=str(exc)) from exc
+21: @router.get('/{model_key}/health')
+22: async def model_health(model_key:str,_:dict[str,Any]=Depends(require_roles(*READ_ROLES))):
+23:     try: capability=registry.get_capability(model_key)
+24:     except ModelNotFoundError as exc: raise HTTPException(status_code=404,detail=str(exc)) from exc
+25:     artifacts=[a for a in registry.discover_artifacts() if a.name==model_key or model_key in a.name.lower()]
+26:     return {'model':model_key,'display_name':capability.display_name,'status':'ready' if artifacts else 'capability_only','artifact_count':len(artifacts),'edge_ready':capability.edge_ready,'supports_streaming':capability.supports_streaming,'causal':capability.causal}
+27: # ----------------------------------------------------------------------
+28: # Backwards compatibility for older tests and integrations
+29: # ----------------------------------------------------------------------
+30: 
+31: def _discover_models():
+32:     """
+33:     Legacy compatibility wrapper.
+34:     """
+35:     return registry.list_capabilities()
+
+FILE: backend\app\api\routes\reports.py
+----------------------------------------------------------------------------------------------------
+1: from __future__ import annotations
+2: 
+3: import asyncio
+4: import json
+5: import logging
+6: from pathlib import Path
+7: from typing import Any
+8: from uuid import UUID
+9: 
+10: from fastapi import APIRouter, Body, HTTPException, Query, status
+11: from fastapi.responses import FileResponse
+12: from pydantic import BaseModel, ConfigDict, Field, field_validator
+13: 
+14: from app.services.report_service import (
+15:     DEFAULT_FORMATS,
+16:     REPORT_ROOT,
+17:     SUPPORTED_FORMATS,
+18:     ReportRequest,
+19:     get_report_service,
+20: )
+21: 
+22: 
+23: logger = logging.getLogger(__name__)
+24: 
+25: router = APIRouter()
+26: 
+27: DEFAULT_PAGE_SIZE = 50
+28: MAX_PAGE_SIZE = 500
+29: 
+30: FORMAT_MEDIA_TYPES = {
+31:     "pdf": "application/pdf",
+32:     "xlsx": (
+33:         "application/vnd.openxmlformats-officedocument."
+34:         "spreadsheetml.sheet"
+35:     ),
+36:     "csv": "text/csv",
+37:     "json": "application/json",
+38:     "html": "text/html",
+39:     "metadata": "application/json",
+40: }
+41: 
+42: FORMAT_FILENAMES = {
+43:     "pdf": "report.pdf",
+44:     "xlsx": "report.xlsx",
+45:     "csv": "report.csv",
+46:     "json": "report.json",
+47:     "html": "report.html",
+48:     "metadata": "metadata.json",
+49: }
+50: 
+51: 
+52: # ---------------------------------------------------------------------------
+53: # Request models
+54: # ---------------------------------------------------------------------------
+55: 
+56: class ReportGenerationPayload(BaseModel):
+57:     model_config = ConfigDict(extra="forbid")
+58: 
+59:     source_type: str = Field(
+60:         min_length=1,
+61:         max_length=50,
+62:     )
+63:     source_id: str = Field(
+64:         min_length=1,
+65:         max_length=150,
+66:     )
+67:     title: str | None = Field(
+68:         default=None,
+69:         max_length=300,
+70:     )
+71:     well_id: str | None = Field(
+72:         default=None,
+73:         max_length=150,
+74:     )
+75:     formats: list[str] = Field(
+76:         default_factory=lambda: list(
+77:             DEFAULT_FORMATS
+78:         ),
+79:         min_length=1,
+80:     )
+81:     include_alerts: bool = True
+82:     include_raw_records: bool = False
+83:     include_recommendations: bool = True
+84:     reservoir_porosity_cutoff: float = Field(
+85:         default=0.10,
+86:         ge=0.0,
+87:         le=1.0,
+88:     )
+89:     reservoir_sw_cutoff: float = Field(
+90:         default=0.60,
+91:         ge=0.0,
+92:         le=1.0,
+93:     )
+94:     hydrocarbon_probability_cutoff: float = Field(
+95:         default=0.60,
+96:         ge=0.0,
+97:         le=1.0,
+98:     )
+99:     minimum_interval_thickness: float = Field(
+100:         default=0.5,
+101:         gt=0.0,
+102:     )
+103:     metadata: dict[str, Any] = Field(
+104:         default_factory=dict
+105:     )
+106: 
+107:     @field_validator("source_type")
+108:     @classmethod
+109:     def validate_source_type(
+110:         cls,
+111:         value: str,
+112:     ) -> str:
+113:         normalised = value.strip().lower()
+114:         allowed = {
+115:             "dataset",
+116:             "prediction",
+117:             "stream",
+118:         }
+119: 
+120:         if normalised not in allowed:
+121:             raise ValueError(
+122:                 "source_type must be one of: "
+123:                 "dataset, prediction, stream"
+124:             )
+125: 
+126:         return normalised
+127: 
+128:     @field_validator("formats")
+129:     @classmethod
+130:     def validate_formats(
+131:         cls,
+132:         values: list[str],
+133:     ) -> list[str]:
+134:         normalised = list(
+135:             dict.fromkeys(
+136:                 str(value).strip().lower()
+137:                 for value in values
+138:                 if str(value).strip()
+139:             )
+140:         )
+141: 
+142:         if not normalised:
+143:             raise ValueError(
+144:                 "At least one report format is required."
+145:             )
+146: 
+147:         unsupported = [
+148:             value
+149:             for value in normalised
+150:             if value not in SUPPORTED_FORMATS
+151:         ]
+152: 
+153:         if unsupported:
+154:             raise ValueError(
+155:                 "Unsupported report formats: "
+156:                 + ", ".join(unsupported)
+157:             )
+158: 
+159:         return normalised
+160: 
+161: 
+162: class SourceReportPayload(BaseModel):
+163:     model_config = ConfigDict(extra="forbid")
+164: 
+165:     title: str | None = Field(
+166:         default=None,
+167:         max_length=300,
+168:     )
+169:     well_id: str | None = Field(
+170:         default=None,
+171:         max_length=150,
+172:     )
+173:     formats: list[str] = Field(
+174:         default_factory=lambda: list(
+175:             DEFAULT_FORMATS
+176:         ),
+177:         min_length=1,
+178:     )
+179:     include_alerts: bool = True
+180:     include_raw_records: bool = False
+181:     include_recommendations: bool = True
+182:     reservoir_porosity_cutoff: float = Field(
+183:         default=0.10,
+184:         ge=0.0,
+185:         le=1.0,
+186:     )
+187:     reservoir_sw_cutoff: float = Field(
+188:         default=0.60,
+189:         ge=0.0,
+190:         le=1.0,
+191:     )
+192:     hydrocarbon_probability_cutoff: float = Field(
+193:         default=0.60,
+194:         ge=0.0,
+195:         le=1.0,
+196:     )
+197:     minimum_interval_thickness: float = Field(
+198:         default=0.5,
+199:         gt=0.0,
+200:     )
+201:     metadata: dict[str, Any] = Field(
+202:         default_factory=dict
+203:     )
+204: 
+205:     @field_validator("formats")
+206:     @classmethod
+207:     def validate_formats(
+208:         cls,
+209:         values: list[str],
+210:     ) -> list[str]:
+211:         normalised = list(
+212:             dict.fromkeys(
+213:                 str(value).strip().lower()
+214:                 for value in values
+215:                 if str(value).strip()
+216:             )
+217:         )
+218: 
+219:         unsupported = [
+220:             value
+221:             for value in normalised
+222:             if value not in SUPPORTED_FORMATS
+223:         ]
+224: 
+225:         if unsupported:
+226:             raise ValueError(
+227:                 "Unsupported report formats: "
+228:                 + ", ".join(unsupported)
+229:             )
+230: 
+231:         return normalised or list(
+232:             DEFAULT_FORMATS
+233:         )
+234: 
+235: 
+236: # ---------------------------------------------------------------------------
+237: # Helpers
+238: # ---------------------------------------------------------------------------
+239: 
+240: def _validate_uuid(
+241:     identifier: str,
+242:     label: str,
+243: ) -> None:
+244:     try:
+245:         UUID(identifier)
+246:     except ValueError as exc:
+247:         raise HTTPException(
+248:             status_code=(
+249:                 status.HTTP_400_BAD_REQUEST
+250:             ),
+251:             detail=f"The {label} is invalid.",
+252:         ) from exc
+253: 
+254: 
+255: def _build_request(
+256:     *,
+257:     source_type: str,
+258:     source_id: str,
+259:     payload: SourceReportPayload,
+260: ) -> ReportRequest:
+261:     return ReportRequest(
+262:         source_type=source_type,
+263:         source_id=source_id,
+264:         title=payload.title,
+265:         well_id=payload.well_id,
+266:         formats=tuple(payload.formats),
+267:         include_alerts=(
+268:             payload.include_alerts
+269:         ),
+270:         include_raw_records=(
+271:             payload.include_raw_records
+272:         ),
+273:         include_recommendations=(
+274:             payload.include_recommendations
+275:         ),
+276:         reservoir_porosity_cutoff=(
+277:             payload.reservoir_porosity_cutoff
+278:         ),
+279:         reservoir_sw_cutoff=(
+280:             payload.reservoir_sw_cutoff
+281:         ),
+282:         hydrocarbon_probability_cutoff=(
+283:             payload.hydrocarbon_probability_cutoff
+284:         ),
+285:         minimum_interval_thickness=(
+286:             payload.minimum_interval_thickness
+287:         ),
+288:         metadata=payload.metadata,
+289:     )
+290: 
+291: 
+292: def _report_directory(
+293:     report_id: str,
+294: ) -> Path:
+295:     _validate_uuid(
+296:         report_id,
+297:         "report ID",
+298:     )
+299: 
+300:     directory = REPORT_ROOT / report_id
+301: 
+302:     if not directory.exists():
+303:         raise HTTPException(
+304:             status_code=(
+305:                 status.HTTP_404_NOT_FOUND
+306:             ),
+307:             detail="Report not found.",
+308:         )
+309: 
+310:     return directory
+311: 
+312: 
+313: def _load_report_metadata(
+314:     report_id: str,
+315: ) -> dict[str, Any]:
+316:     directory = _report_directory(
+317:         report_id
+318:     )
+319:     metadata_path = (
+320:         directory / "metadata.json"
+
+TRUNCATED: file contains 838 lines; first 320 included.
+
+
+====================================================================================================
+DATABASE MODELS AND SCHEMAS
+====================================================================================================
+FILE NOT FOUND: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\backend\app\models.py
+FILE: backend\app\schemas.py
+----------------------------------------------------------------------------------------------------
+1: from __future__ import annotations
+2: 
+3: from datetime import datetime
+4: from enum import Enum
+5: from typing import Any, Literal
+6: 
+7: from pydantic import BaseModel, ConfigDict, Field, field_validator
+8: 
+9: 
+10: class LoginRequest(BaseModel):
+11:     model_config = ConfigDict(extra="forbid")
+12: 
+13:     username: str
+14:     password: str = Field(min_length=8, max_length=256)
+15:     mfa_code: str | None = Field(default=None, min_length=6, max_length=8)
+16: 
+17: 
+18: class TokenResponse(BaseModel):
+19:     access_token: str
+20:     token_type: str = "bearer"
+21:     expires_in: int
+22:     roles: list[str]
+23:     user: dict[str, Any] | None = None
+24: 
+25: 
+26: class CurrentUser(BaseModel):
+27:     username: str
+28:     roles: list[str] = Field(default_factory=list)
+29:     full_name: str | None = None
+30:     user_id: str | None = None
+31: 
+32: 
+33: class WellLogSample(BaseModel):
+34:     model_config = ConfigDict(extra="ignore")
+35: 
+36:     well_id: str = Field(min_length=1, max_length=150)
+37:     depth_m: float = Field(ge=0)
+38:     gamma_ray_api: float = Field(ge=0)
+39:     resistivity_ohmm: float = Field(gt=0)
+40:     density_gcc: float = Field(gt=0)
+41:     neutron_porosity_vv: float = Field(ge=-0.15, le=1.0)
+42:     sonic_usft: float = Field(gt=0)
+43:     caliper_in: float = Field(gt=0)
+44: 
+45: 
+46: class AnalyticsResult(BaseModel):
+47:     input: dict[str, Any]
+48:     qc_score: float
+49:     hydrocarbon_probability: float
+50:     lithology: str
+51:     facies: str
+52:     anomaly_score: float
+53:     is_anomaly: bool
+54:     porosity: float
+55:     water_saturation: float
+56:     shale_volume: float
+57:     net_to_gross: float
+58:     permeability_md: float
+59:     explanation: dict[str, Any]
+60: 
+61: 
+62: class Alert(BaseModel):
+63:     id: str
+64:     severity: str
+65:     well_id: str
+66:     message: str
+67:     created_at: datetime
+68:     status: str = "open"
+69:     rule_name: str | None = None
+70:     depth_m: float | None = None
+71: 
+72: 
+73: class SourceType(str, Enum):
+74:     las = "las"
+75:     csv = "csv"
+76:     ascii = "ascii"
+77:     dlis = "dlis"
+78:     witsml = "witsml"
+79: 
+80: 
+81: class IngestionResponse(BaseModel):
+82:     model_config = ConfigDict(extra="allow")
+83: 
+84:     source_type: SourceType
+85:     records_ingested: int = Field(ge=0)
+86:     well_id: str
+87:     preview: list[dict[str, Any]] = Field(default_factory=list)
+88:     dataset_id: str | None = None
+89:     message: str | None = None
+90: 
+91: 
+92: class ReplayRequest(BaseModel):
+93:     las_path: str = Field(min_length=1)
+94:     interval_ms: int = Field(default=500, ge=10, le=60_000)
+95:     max_records: int = Field(default=100, ge=1, le=100_000)
+96: 
+97: 
+98: 
+99: 
+100: class WellCreate(BaseModel):
+101:     model_config = ConfigDict(extra="forbid")
+102: 
+103:     well_id: str = Field(min_length=1, max_length=100, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
+104:     field: str = Field(min_length=1, max_length=200)
+105:     status: Literal["active", "inactive", "suspended", "abandoned"] = "active"
+106:     kb_m: float | None = Field(default=None, ge=0)
+107:     total_depth_m: float | None = Field(default=None, gt=0)
+108:     operator: str | None = Field(default=None, max_length=200)
+109:     country: str | None = Field(default=None, max_length=100)
+110:     latitude: float | None = Field(default=None, ge=-90, le=90)
+111:     longitude: float | None = Field(default=None, ge=-180, le=180)
+112: 
+113: class WellSummary(BaseModel):
+114:     well_id: str
+115:     field: str | None = None
+116:     status: str = "available"
+117:     kb_m: float | None = None
+118:     total_depth_m: float | None = None
+119:     sample_count: int | None = None
+120:     source: str = "synthetic"
+121: 
+122: 
+123: class ModelStatus(BaseModel):
+124:     name: str
+125:     version: str | None = None
+126:     framework: str | None = None
+127:     status: Literal["ready", "missing", "error", "unknown"] = "unknown"
+128:     path: str | None = None
+129:     size_bytes: int | None = None
+130:     modified_at: datetime | None = None
+131:     metadata: dict[str, Any] = Field(default_factory=dict)
+132: 
+133: 
+134: class HealthResponse(BaseModel):
+135:     status: Literal["healthy", "degraded", "unhealthy"]
+136:     service: str
+137:     version: str
+138:     timestamp: datetime
+139:     checks: dict[str, Any] = Field(default_factory=dict)
+140: 
+141: 
+142: class Pagination(BaseModel):
+143:     limit: int = Field(default=50, ge=1, le=500)
+144:     offset: int = Field(default=0, ge=0)
+145: 
+146: 
+147: class AlertStatusUpdate(BaseModel):
+148:     status: Literal["open", "acknowledged", "resolved", "dismissed"]
+149:     note: str | None = Field(default=None, max_length=1000)
+150: 
+151: 
+152: class RoleName(str, Enum):
+153:     admin = "admin"
+154:     geoscientist = "geoscientist"
+155:     engineer = "engineer"
+156:     viewer = "viewer"
+157: 
+158: 
+159: class UserCreate(BaseModel):
+160:     email: str
+161:     full_name: str = Field(min_length=2, max_length=200)
+162:     password: str = Field(min_length=12, max_length=256)
+163:     roles: list[RoleName] = Field(default_factory=lambda: [RoleName.viewer])
+164: 
+165:     @field_validator("roles")
+166:     @classmethod
+167:     def unique_roles(cls, values: list[RoleName]) -> list[RoleName]:
+168:         return list(dict.fromkeys(values))
+
+FILE: backend\app\db\models.py
+----------------------------------------------------------------------------------------------------
+1: from __future__ import annotations
+2: 
+3: import enum
+4: from datetime import datetime, timezone
+5: from typing import Any
+6: from uuid import uuid4
+7: 
+8: from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Index, Integer, JSON, String, Text, UniqueConstraint
+9: from sqlalchemy.orm import Mapped, mapped_column, relationship
+10: 
+11: from app.db.session import Base
+12: 
+13: 
+14: def utcnow() -> datetime:
+15:     return datetime.now(timezone.utc)
+16: 
+17: 
+18: def uuid_str() -> str:
+19:     return str(uuid4())
+20: 
+21: 
+22: class UserRole(str, enum.Enum):
+23:     ADMIN = "admin"
+24:     GEOSCIENTIST = "geoscientist"
+25:     ENGINEER = "engineer"
+26:     VIEWER = "viewer"
+27: 
+28: 
+29: class RecordStatus(str, enum.Enum):
+30:     ACTIVE = "active"
+31:     INACTIVE = "inactive"
+32:     ARCHIVED = "archived"
+33: 
+34: 
+35: class JobStatus(str, enum.Enum):
+36:     PENDING = "pending"
+37:     RUNNING = "running"
+38:     COMPLETED = "completed"
+39:     FAILED = "failed"
+40:     CANCELLED = "cancelled"
+41: 
+42: 
+43: class AlertStatus(str, enum.Enum):
+44:     OPEN = "open"
+45:     ACKNOWLEDGED = "acknowledged"
+46:     RESOLVED = "resolved"
+47:     DISMISSED = "dismissed"
+48: 
+49: 
+50: class TimestampMixin:
+51:     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+52:     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow, nullable=False)
+53: 
+54: 
+55: class User(TimestampMixin, Base):
+56:     __tablename__ = "users"
+57: 
+58:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+59:     email: Mapped[str] = mapped_column(String(320), unique=True, index=True, nullable=False)
+60:     full_name: Mapped[str] = mapped_column(String(200), nullable=False)
+61:     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
+62:     role: Mapped[str] = mapped_column(String(40), default=UserRole.VIEWER.value, nullable=False)
+63:     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+64:     last_login_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+65: 
+66:     datasets: Mapped[list[Dataset]] = relationship(back_populates="owner")
+67:     audit_logs: Mapped[list[AuditLog]] = relationship(back_populates="user")
+68: 
+69: 
+70: class Well(TimestampMixin, Base):
+71:     __tablename__ = "wells"
+72: 
+73:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+74:     well_id: Mapped[str] = mapped_column(String(100), unique=True, index=True, nullable=False)
+75:     well_name: Mapped[str | None] = mapped_column(String(200))
+76:     field_name: Mapped[str] = mapped_column(String(200), nullable=False)
+77:     operator_name: Mapped[str | None] = mapped_column(String(200))
+78:     country: Mapped[str | None] = mapped_column(String(100))
+79:     latitude: Mapped[float | None] = mapped_column(Float)
+80:     longitude: Mapped[float | None] = mapped_column(Float)
+81:     total_depth_m: Mapped[float | None] = mapped_column(Float)
+82:     status: Mapped[str] = mapped_column(String(30), default=RecordStatus.ACTIVE.value, nullable=False)
+83:     metadata_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+84: 
+85:     datasets: Mapped[list[Dataset]] = relationship(back_populates="well", cascade="all, delete-orphan")
+86:     log_samples: Mapped[list[LogSample]] = relationship(back_populates="well")
+87:     predictions: Mapped[list[Prediction]] = relationship(back_populates="well")
+88:     alerts: Mapped[list[AlertRecord]] = relationship(back_populates="well")
+89:     stream_sessions: Mapped[list[StreamSession]] = relationship(back_populates="well")
+90: 
+91: 
+92: class Dataset(TimestampMixin, Base):
+93:     __tablename__ = "datasets"
+94:     __table_args__ = (
+95:         UniqueConstraint("well_id", "name", "version", name="uq_datasets_well_name_version"),
+96:         Index("ix_datasets_status_created_at", "status", "created_at"),
+97:     )
+98: 
+99:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+100:     well_id: Mapped[str] = mapped_column(ForeignKey("wells.id", ondelete="CASCADE"), index=True, nullable=False)
+101:     owner_id: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), index=True)
+102:     name: Mapped[str] = mapped_column(String(255), nullable=False)
+103:     version: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
+104:     source_type: Mapped[str] = mapped_column(String(50), nullable=False)
+105:     original_filename: Mapped[str | None] = mapped_column(String(500))
+106:     storage_path: Mapped[str | None] = mapped_column(String(1000))
+107:     checksum_sha256: Mapped[str | None] = mapped_column(String(64), index=True)
+108:     row_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+109:     curve_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+110:     min_depth_m: Mapped[float | None] = mapped_column(Float)
+111:     max_depth_m: Mapped[float | None] = mapped_column(Float)
+112:     qc_score: Mapped[float | None] = mapped_column(Float)
+113:     ai_readiness_score: Mapped[float | None] = mapped_column(Float)
+114:     status: Mapped[str] = mapped_column(String(30), default=JobStatus.PENDING.value, nullable=False)
+115:     error_message: Mapped[str | None] = mapped_column(Text)
+116:     metadata_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+117: 
+118:     well: Mapped[Well] = relationship(back_populates="datasets")
+119:     owner: Mapped[User | None] = relationship(back_populates="datasets")
+120:     curves: Mapped[list[LogCurve]] = relationship(back_populates="dataset", cascade="all, delete-orphan")
+121:     predictions: Mapped[list[Prediction]] = relationship(back_populates="dataset")
+122:     analytics_runs: Mapped[list[AnalyticsRun]] = relationship(back_populates="dataset")
+123:     reports: Mapped[list[Report]] = relationship(back_populates="dataset")
+124: 
+125: 
+126: class LogCurve(TimestampMixin, Base):
+127:     __tablename__ = "log_curves"
+128:     __table_args__ = (
+129:         UniqueConstraint("dataset_id", "canonical_name", name="uq_log_curves_dataset_canonical"),
+130:     )
+131: 
+132:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+133:     dataset_id: Mapped[str] = mapped_column(ForeignKey("datasets.id", ondelete="CASCADE"), index=True, nullable=False)
+134:     original_name: Mapped[str] = mapped_column(String(100), nullable=False)
+135:     canonical_name: Mapped[str] = mapped_column(String(100), nullable=False)
+136:     unit: Mapped[str | None] = mapped_column(String(50))
+137:     description: Mapped[str | None] = mapped_column(Text)
+138:     sample_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+139:     missing_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+140:     minimum: Mapped[float | None] = mapped_column(Float)
+141:     maximum: Mapped[float | None] = mapped_column(Float)
+142:     mean: Mapped[float | None] = mapped_column(Float)
+143:     standard_deviation: Mapped[float | None] = mapped_column(Float)
+144:     qc_flags: Mapped[list[Any]] = mapped_column(JSON, default=list, nullable=False)
+145: 
+146:     dataset: Mapped[Dataset] = relationship(back_populates="curves")
+147: 
+148: 
+149: class LogSample(Base):
+150:     __tablename__ = "log_samples"
+151:     __table_args__ = (
+152:         Index("ix_log_samples_well_depth", "well_id", "depth_m"),
+153:         Index("ix_log_samples_time", "time"),
+154:     )
+155: 
+156:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+157:     time: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+158:     well_id: Mapped[str] = mapped_column(ForeignKey("wells.well_id", ondelete="CASCADE"), nullable=False)
+159:     depth_m: Mapped[float] = mapped_column(Float, nullable=False)
+160:     gamma_ray_api: Mapped[float | None] = mapped_column(Float)
+161:     resistivity_ohmm: Mapped[float | None] = mapped_column(Float)
+162:     density_gcc: Mapped[float | None] = mapped_column(Float)
+163:     neutron_porosity_vv: Mapped[float | None] = mapped_column(Float)
+164:     sonic_usft: Mapped[float | None] = mapped_column(Float)
+165:     caliper_in: Mapped[float | None] = mapped_column(Float)
+166:     source_type: Mapped[str] = mapped_column(String(50), nullable=False)
+167: 
+168:     well: Mapped[Well] = relationship(back_populates="log_samples", primaryjoin="LogSample.well_id == Well.well_id")
+169: 
+170: 
+171: class ModelRegistry(TimestampMixin, Base):
+172:     __tablename__ = "model_registry"
+173:     __table_args__ = (
+174:         UniqueConstraint("name", "version", name="uq_model_registry_name_version"),
+175:         Index("ix_model_registry_task_status", "task", "status"),
+176:     )
+177: 
+178:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+179:     name: Mapped[str] = mapped_column(String(200), nullable=False)
+180:     version: Mapped[str] = mapped_column(String(100), nullable=False)
+181:     task: Mapped[str] = mapped_column(String(100), nullable=False)
+182:     framework: Mapped[str] = mapped_column(String(50), nullable=False)
+183:     artifact_path: Mapped[str | None] = mapped_column(String(1000))
+184:     checksum_sha256: Mapped[str | None] = mapped_column(String(64))
+185:     status: Mapped[str] = mapped_column(String(30), default=RecordStatus.ACTIVE.value, nullable=False)
+186:     is_default: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+187:     metrics_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+188:     feature_schema_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+189:     metadata_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+190: 
+191:     predictions: Mapped[list[Prediction]] = relationship(back_populates="model")
+192: 
+193: 
+194: class Prediction(TimestampMixin, Base):
+195:     __tablename__ = "predictions"
+196:     __table_args__ = (
+197:         Index("ix_predictions_well_created_at", "well_id", "created_at"),
+198:         Index("ix_predictions_dataset_task", "dataset_id", "task"),
+199:     )
+200: 
+201:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+202:     well_id: Mapped[str] = mapped_column(ForeignKey("wells.id", ondelete="CASCADE"), index=True, nullable=False)
+203:     dataset_id: Mapped[str | None] = mapped_column(ForeignKey("datasets.id", ondelete="SET NULL"), index=True)
+204:     model_id: Mapped[str | None] = mapped_column(ForeignKey("model_registry.id", ondelete="SET NULL"), index=True)
+205:     task: Mapped[str] = mapped_column(String(100), nullable=False)
+206:     status: Mapped[str] = mapped_column(String(30), default=JobStatus.COMPLETED.value, nullable=False)
+207:     depth_from_m: Mapped[float | None] = mapped_column(Float)
+208:     depth_to_m: Mapped[float | None] = mapped_column(Float)
+209:     confidence: Mapped[float | None] = mapped_column(Float)
+210:     runtime_ms: Mapped[float | None] = mapped_column(Float)
+211:     input_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+212:     output_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+213:     explanation_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+214:     error_message: Mapped[str | None] = mapped_column(Text)
+215: 
+216:     well: Mapped[Well] = relationship(back_populates="predictions")
+217:     dataset: Mapped[Dataset | None] = relationship(back_populates="predictions")
+218:     model: Mapped[ModelRegistry | None] = relationship(back_populates="predictions")
+219:     alerts: Mapped[list[AlertRecord]] = relationship(back_populates="prediction")
+220: 
+221: 
+222: class AnalyticsRun(TimestampMixin, Base):
+223:     __tablename__ = "analytics_runs"
+224:     __table_args__ = (Index("ix_analytics_runs_dataset_status", "dataset_id", "status"),)
+225: 
+226:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+227:     dataset_id: Mapped[str | None] = mapped_column(ForeignKey("datasets.id", ondelete="SET NULL"), index=True)
+228:     well_id: Mapped[str | None] = mapped_column(ForeignKey("wells.id", ondelete="SET NULL"), index=True)
+229:     run_type: Mapped[str] = mapped_column(String(100), nullable=False)
+230:     status: Mapped[str] = mapped_column(String(30), default=JobStatus.PENDING.value, nullable=False)
+231:     started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+232:     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+233:     progress_percent: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
+234:     parameters_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+235:     result_summary_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+236:     error_message: Mapped[str | None] = mapped_column(Text)
+237: 
+238:     dataset: Mapped[Dataset | None] = relationship(back_populates="analytics_runs")
+239: 
+240: 
+241: class AnalyticsResultRecord(Base):
+242:     __tablename__ = "analytics_results"
+243:     __table_args__ = (
+244:         Index("ix_analytics_results_well_depth", "well_id", "depth_m"),
+245:         Index("ix_analytics_results_time", "time"),
+246:     )
+247: 
+248:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+249:     time: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+250:     well_id: Mapped[str] = mapped_column(String(100), nullable=False)
+251:     depth_m: Mapped[float] = mapped_column(Float, nullable=False)
+252:     qc_score: Mapped[float] = mapped_column(Float, nullable=False)
+253:     hydrocarbon_probability: Mapped[float] = mapped_column(Float, nullable=False)
+254:     lithology: Mapped[str] = mapped_column(String(100), nullable=False)
+255:     facies: Mapped[str] = mapped_column(String(100), nullable=False)
+256:     anomaly_score: Mapped[float] = mapped_column(Float, nullable=False)
+257:     porosity: Mapped[float] = mapped_column(Float, nullable=False)
+258:     water_saturation: Mapped[float] = mapped_column(Float, nullable=False)
+259:     shale_volume: Mapped[float] = mapped_column(Float, nullable=False)
+260:     net_to_gross: Mapped[float] = mapped_column(Float, nullable=False)
+261:     permeability_md: Mapped[float] = mapped_column(Float, nullable=False)
+262:     explanation: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+263: 
+264: 
+265: class AlertRecord(TimestampMixin, Base):
+266:     __tablename__ = "alerts"
+267:     __table_args__ = (
+268:         Index("ix_alerts_status_severity_created", "status", "severity", "created_at"),
+269:         Index("ix_alerts_well_created", "well_id", "created_at"),
+270:     )
+271: 
+272:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+273:     well_id: Mapped[str | None] = mapped_column(ForeignKey("wells.id", ondelete="SET NULL"), index=True)
+274:     prediction_id: Mapped[str | None] = mapped_column(ForeignKey("predictions.id", ondelete="SET NULL"), index=True)
+275:     alert_type: Mapped[str] = mapped_column(String(100), default="general", nullable=False)
+276:     severity: Mapped[str] = mapped_column(String(30), nullable=False)
+277:     status: Mapped[str] = mapped_column(String(30), default=AlertStatus.OPEN.value, nullable=False)
+278:     title: Mapped[str] = mapped_column(String(255), default="PetroEdge alert", nullable=False)
+279:     message: Mapped[str] = mapped_column(Text, nullable=False)
+280:     acknowledged: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+281:     acknowledged_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+282:     acknowledged_by: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+283:     resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+284:     source: Mapped[str | None] = mapped_column(String(100))
+285:     details_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+286: 
+287:     well: Mapped[Well | None] = relationship(back_populates="alerts")
+288:     prediction: Mapped[Prediction | None] = relationship(back_populates="alerts")
+289: 
+290: 
+291: class Report(TimestampMixin, Base):
+292:     __tablename__ = "reports"
+293:     __table_args__ = (Index("ix_reports_status_created_at", "status", "created_at"),)
+294: 
+295:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+296:     dataset_id: Mapped[str | None] = mapped_column(ForeignKey("datasets.id", ondelete="SET NULL"), index=True)
+297:     prediction_id: Mapped[str | None] = mapped_column(ForeignKey("predictions.id", ondelete="SET NULL"), index=True)
+298:     requested_by: Mapped[str | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), index=True)
+299:     report_type: Mapped[str] = mapped_column(String(100), nullable=False)
+300:     format: Mapped[str] = mapped_column(String(20), nullable=False)
+301:     status: Mapped[str] = mapped_column(String(30), default=JobStatus.PENDING.value, nullable=False)
+302:     title: Mapped[str] = mapped_column(String(255), nullable=False)
+303:     storage_path: Mapped[str | None] = mapped_column(String(1000))
+304:     file_size_bytes: Mapped[int | None] = mapped_column(Integer)
+305:     generated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+306:     parameters_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict, nullable=False)
+307:     error_message: Mapped[str | None] = mapped_column(Text)
+308: 
+309:     dataset: Mapped[Dataset | None] = relationship(back_populates="reports")
+310: 
+311: 
+312: class StreamSession(TimestampMixin, Base):
+313:     __tablename__ = "stream_sessions"
+314:     __table_args__ = (Index("ix_stream_sessions_well_status", "well_id", "status"),)
+315: 
+316:     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid_str)
+317:     well_id: Mapped[str] = mapped_column(ForeignKey("wells.id", ondelete="CASCADE"), index=True, nullable=False)
+318:     source_type: Mapped[str] = mapped_column(String(50), nullable=False)
+319:     status: Mapped[str] = mapped_column(String(30), default=JobStatus.PENDING.value, nullable=False)
+320:     started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+TRUNCATED: file contains 378 lines; first 320 included.
+
+FILE NOT FOUND: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\backend\app\db\base.py
+FILE: backend\app\db\session.py
+----------------------------------------------------------------------------------------------------
+1: from __future__ import annotations
+2: 
+3: from collections.abc import Generator
+4: 
+5: from sqlalchemy import MetaData, create_engine
+6: from sqlalchemy.engine import Engine
+7: from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+8: from sqlalchemy.pool import StaticPool
+9: 
+10: from app.core.config import settings
+11: 
+12: NAMING_CONVENTION = {
+13:     "ix": "ix_%(column_0_label)s",
+14:     "uq": "uq_%(table_name)s_%(column_0_name)s",
+15:     "ck": "ck_%(table_name)s_%(constraint_name)s",
+16:     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+17:     "pk": "pk_%(table_name)s",
+18: }
+19: 
+20: 
+21: class Base(DeclarativeBase):
+22:     metadata = MetaData(naming_convention=NAMING_CONVENTION)
+23: 
+24: 
+25: def _build_engine() -> Engine:
+26:     database_url = settings.database_url
+27:     options: dict[str, object] = {
+28:         "pool_pre_ping": True,
+29:         "future": True,
+30:     }
+31: 
+32:     if database_url.startswith("sqlite"):
+33:         options["connect_args"] = {"check_same_thread": False}
+34:         if database_url in {"sqlite://", "sqlite:///:memory:"}:
+35:             options["poolclass"] = StaticPool
+36: 
+37:     return create_engine(database_url, **options)
+38: 
+39: 
+40: engine = _build_engine()
+41: 
+42: SessionLocal = sessionmaker(
+43:     bind=engine,
+44:     class_=Session,
+45:     autoflush=False,
+46:     expire_on_commit=False,
+47: )
+48: 
+49: 
+50: def get_db() -> Generator[Session, None, None]:
+51:     session = SessionLocal()
+52:     try:
+53:         yield session
+54:     except Exception:
+55:         session.rollback()
+56:         raise
+57:     finally:
+58:         session.close()
+
+FILE: backend\app\core\config.py
+----------------------------------------------------------------------------------------------------
+1: from __future__ import annotations
+2: 
+3: from functools import cached_property
+4: from pathlib import Path
+5: 
+6: from pydantic import Field
+7: from pydantic_settings import BaseSettings, SettingsConfigDict
+8: 
+9: 
+10: BACKEND_ROOT = Path(__file__).resolve().parents[2]
+11: 
+12: 
+13: class Settings(BaseSettings):
+14:     app_name: str = "PetroEdge AI"
+15:     environment: str = "local"
+16:     api_host: str = "127.0.0.1"
+17:     api_port: int = 8000
+18: 
+19:     jwt_secret: str = Field(min_length=32)
+20:     jwt_algorithm: str = "HS256"
+21:     access_token_expire_minutes: int = Field(default=60, ge=5, le=1440)
+22: 
+23:     database_url: str = "sqlite:///./petroedge.db"
+24: 
+25:     petroedge_admin_email: str = "admin@petroedge.ai"
+26:     petroedge_admin_password: str = Field(min_length=12)
+27: 
+28:     cors_origins: str = (
+29:         "http://localhost:3000,"
+30:         "http://127.0.0.1:3000,"
+31:         "http://localhost:5173,"
+32:         "http://127.0.0.1:5173,"
+33:         "http://localhost:4173,"
+34:         "http://127.0.0.1:4173"
+35:     )
+36: 
+37:     model_config = SettingsConfigDict(
+38:         env_file=BACKEND_ROOT / ".env",
+39:         env_file_encoding="utf-8",
+40:         extra="ignore",
+41:         case_sensitive=False,
+42:     )
+43: 
+44:     @cached_property
+45:     def cors_origins_list(self) -> list[str]:
+46:         return list(
+47:             dict.fromkeys(
+48:                 origin.strip().rstrip("/")
+49:                 for origin in self.cors_origins.split(",")
+50:                 if origin.strip()
+51:             )
+52:         )
+53: 
+54: 
+55: settings = Settings()
+
+
+====================================================================================================
+ASSET-RELATED BACKEND REFERENCES
+====================================================================================================
+backend\app\schemas.py:36: well_id: str = Field(min_length=1, max_length=150)
+backend\app\schemas.py:103: well_id: str = Field(min_length=1, max_length=100, pattern=r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
+backend\app\alerts\manager.py:43: asset_id=event.asset_id,
+backend\app\alerts\schemas.py:35: asset_id: str | None = None
+backend\app\api\routes\events.py:18: asset_id: str | None = None,
+backend\app\api\routes\events.py:24: asset_id=asset_id,
+backend\app\api\routes\platform.py:40: def upload_dataset(name: str = Form(...), description: str | None = Form(default=None), dataset_type: str = Form(default="well_log"), field_name: str | None = Form(default=None), well_name: str | None = Form(default=None), reservoir_name: str | None = Form(default=None), file: UploadFile = File(...), user: dict[str, Any] = Depends(WRITE_ROLES)) -> DatasetSummary:
+backend\app\api\routes\platform.py:42: return register_upload(name, description, file.filename or "dataset", file.file, actor(user), dataset_type=dataset_type, field_name=field_name, well_name=well_name, reservoir_name=reservoir_name)
+backend\app\api\routes\reports.py:71: well_id: str | None = Field(
+backend\app\api\routes\reports.py:169: well_id: str | None = Field(
+backend\app\api\routes\reservoir_v1.py:235: answer = "A defensible comparison requires two selected datasets or wells. Use the Digital Twin comparison view or select another dataset so PetroEdge can calculate the same metrics for both assets."
+backend\app\digital_twin\schemas.py:69: wells: dict[str, WellState] = Field(default_factory=dict)
+backend\app\digital_twin\schemas.py:76: active_wells: int = Field(default=0, ge=0)
+backend\app\digital_twin\schemas.py:77: inactive_wells: int = Field(default=0, ge=0)
+backend\app\digital_twin\schemas.py:97: wells: list[WellState] = Field(default_factory=list)
+backend\app\events\bus.py:77: asset_id: str | None = None,
+backend\app\events\bus.py:85: if asset_id:
+backend\app\events\bus.py:86: items = [item for item in items if item.asset_id == asset_id]
+backend\app\events\schemas.py:38: asset_id: str | None = None
+backend\app\events\schemas.py:52: asset_id: str | None = None
+backend\app\platform_v1\database.py:102: ("field_name", "TEXT"), ("well_name", "TEXT"), ("reservoir_name", "TEXT"),
+backend\app\platform_v1\datasets.py:49: def register_upload(name: str, description: str | None, filename: str, stream: BinaryIO, owner_id: str | None, *, dataset_type: str="well_log", field_name: str|None=None, well_name: str|None=None, reservoir_name: str|None=None) -> DatasetSummary:
+backend\app\platform_v1\datasets.py:63: conn.execute("""INSERT INTO datasets(dataset_id,version_id,version_number,parent_dataset_id,root_dataset_id,dataset_type,name,description,source_type,file_path,file_name,file_size_bytes,checksum_sha256,row_count,column_count,columns_json,missing_json,units_json,metadata_json,processing_json,field_name,well_name,reservoir_name,status,owner_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+backend\app\platform_v1\datasets.py:64: (dataset_id,version_id,1,None,dataset_id,dataset_type,name,description,suffix.lstrip('.'),str(destination),filename,size,checksum,rows,len(columns),json.dumps(columns),json.dumps(missing),json.dumps(units),json.dumps(metadata),json.dumps({"operation":"upload"}),field_name,well_name,reservoir_name,"ready",owner_id,now,now))
+backend\app\platform_v1\datasets.py:72: return DatasetSummary(dataset_id=row["dataset_id"],version_id=row["version_id"] or f'{row["dataset_id"]}-v1',version_number=row["version_number"] or 1,parent_dataset_id=row["parent_dataset_id"],root_dataset_id=row["root_dataset_id"] or row["dataset_id"],dataset_type=row["dataset_type"] or "well_log",name=row["name"],description=row["description"],source_type=row["source_type"],file_name=row["file_name"],file_size_bytes=row["file_size_bytes"],checksum_sha256=row["checksum_sha256"] or "",row_count=row["row_count"],column_count=row["column_count"],columns=load("columns_json",[]),missing_values=load("missing_json",{}),units=load("units_json",{}),metadata=load("metadata_json",{}),processing=load("processing_json",{}),field_name=row["field_name"],well_name=row["well_name"],reservoir_name=row["reservoir_name"],status=row["status"],owner_id=row["owner_id"],created_at=row["created_at"],updated_at=row["updated_at"])
+backend\app\platform_v1\datasets.py:114: conn.execute("""INSERT INTO datasets(dataset_id,version_id,version_number,parent_dataset_id,root_dataset_id,dataset_type,name,description,source_type,file_path,file_name,file_size_bytes,checksum_sha256,row_count,column_count,columns_json,missing_json,units_json,metadata_json,processing_json,field_name,well_name,reservoir_name,status,owner_id,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+backend\app\platform_v1\datasets.py:115: (child_id,f"{parent.root_dataset_id}-v{version}",version,parent.dataset_id,parent.root_dataset_id,"processed_well_log",request.name or f"{parent.name} processed v{version}",request.description or f"Processed from {parent.version_id}","las",str(destination),f"{Path(parent.file_name).stem}-processed-v{version}.las",destination.stat().st_size,checksum,rows,len(columns),json.dumps(columns),json.dumps(missing),json.dumps(units),json.dumps(metadata),json.dumps(processing),parent.field_name,parent.well_name,parent.reservoir_name,"ready",actor_id,now,now))
+backend\app\plugins\registry.py:24: BuiltinModule("knowledge-graph", "Knowledge Graph", "Links basins, fields, formations, wells, intervals, predictions and reviews.", "medium", ("entities", "relationships", "provenance", "context retrieval")),
+backend\app\services\domain_services.py:34: "field": well.field_name,
+backend\app\services\report_service.py:1599: logo_path = BACKEND_ROOT / "app" / "assets" / "petroedge-logo.png"
+backend\app\services\reservoir_intelligence.py:18: well_id: str = Field(min_length=1, max_length=150)
+backend\app\streaming\service.py:22: asset_id=request.asset_id,
+backend\app\streaming\service.py:69: asset_id=request.well_id or request.reservoir_id,
+
+====================================================================================================
+FRONTEND ASSETS API AND UI REFERENCES
+====================================================================================================
+frontend\src\features\dashboard\DashboardPage.tsx:114: { label: "Assets", icon: <BriefcaseBusiness size={17} />, panel: <AssetManagementPanel /> },
+frontend\src\features\platform\AssetManagementPanel.tsx:5: import { fetchAssets,fetchDatasets,saveAsset } from "./platformApi";
+frontend\src\features\platform\AssetManagementPanel.tsx:8: const qc=useQueryClient();const assets=useQuery({queryKey:["v1","assets"],queryFn:fetchAssets});const ds=useQuery({queryKey:["platform","datasets"],queryFn:fetchDatasets});
+frontend\src\features\platform\AssetManagementPanel.tsx:10: const refresh=async()=>Promise.all([qc.invalidateQueries({queryKey:["v1","assets"]}),qc.invalidateQueries({queryKey:["platform","datasets"]})]);
+frontend\src\features\platform\AssetManagementPanel.tsx:11: const mutation=useMutation({mutationFn:()=>saveAsset({field,well,dataset_id:dataset||null}),onSuccess:async()=>{await refresh();setWell("");}});
+frontend\src\features\platform\AssetManagementPanel.tsx:12: return <Stack spacing={3}><Stack direction={{xs:"column",sm:"row"}} justifyContent="space-between" gap={1}><Box><Typography variant="h4">Field & Well Management</Typography><Typography color="text.secondary">Assets are linked directly to datasets and the Operations Centre.</Typography></Box><Stack direction="row" gap={1}><Button variant="outlined" startIcon={<RefreshCw size={16}/>} onClick={refresh}>Refresh</Button><Button variant="outlined" startIcon={<Database size={16}/>} onClick={()=>navigate("Datasets")}>Datasets</Button><Button variant="contained" startIcon={<Workflow size={16}/>} onClick={()=>navigate("Operations")}>Operations</Button></Stack></Stack>
+frontend\src\features\platform\AssetManagementPanel.tsx:13: {assets.isError&&<Alert severity="error">{assets.error instanceof Error?assets.error.message:"Unable to load assets."}</Alert>}
+frontend\src\features\platform\AssetManagementPanel.tsx:15: <Grid container spacing={2}>{(assets.data??[]).map(a=><Grid item xs={12} md={4} key={a.asset_id}><Paper variant="outlined" sx={{p:3,height:"100%"}}><Typography variant="overline">{a.field}</Typography><Typography variant="h5">{a.well}</Typography><Typography color="text.secondary">Dataset: {a.dataset_id??"Not assigned"}</Typography><Stack direction="row" gap={1} mt={2}><Button size="small" variant="outlined" onClick={()=>{if(a.dataset_id)sessionStorage.setItem("petroedge_open_dataset_id",a.dataset_id);navigate("Datasets");}}>View dataset</Button><Button size="small" variant="contained" onClick={()=>{sessionStorage.setItem("petroedge_selected_asset",JSON.stringify(a));navigate("Operations");}}>Operations</Button></Stack></Paper></Grid>)}</Grid>
+frontend\src\features\platform\platformApi.ts:176: export const fetchAssets=()=>apiRequest<Array<{asset_id:string;field:string;well:string;dataset_id?:string|null;status:string}>>(`/assets`);
+frontend\src\features\platform\platformApi.ts:177: export const saveAsset=(payload:{field:string;well:string;dataset_id?:string|null})=>apiRequest(`/assets`,{method:"POST",body:JSON.stringify(payload)});
+
+====================================================================================================
+CURRENT OPENAPI ASSET PATHS
+====================================================================================================
+NO ASSET ROUTES CURRENTLY REGISTERED

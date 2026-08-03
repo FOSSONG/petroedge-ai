@@ -1,0 +1,776 @@
+﻿=== DATE ===
+2026-07-30 16:12:15 +01:00
+
+=== PYTHON ===
+Python 3.14.6
+
+=== DOCKER ===
+Docker version 29.6.1, build 8900f1d
+Docker Compose version v5.3.0
+
+=== GIT ===
+fatal: not a git repository (or any of the parent directories): .git
+fatal: not a git repository (or any of the parent directories): .git
+
+=== ROOT FILES ===
+
+Mode   Length LastWriteTime        Name                                
+----   ------ -------------        ----                                
+d-----        7/30/2026 8:38:30 AM backend                             
+d-----        7/30/2026 2:35:56 AM frontend                            
+d-----        7/30/2026 3:24:06 AM patch-backups                       
+d-----        7/30/2026 2:20:39 AM scripts                             
+-a---- 199    7/29/2026 9:16:02 AM .gitignore                          
+-a---- 913    7/29/2026 9:16:02 AM APPLY_FINAL_MVP.ps1                 
+-a---- 812    7/29/2026 9:16:02 AM docker-compose.yml                  
+-a---- 1058   7/29/2026 9:16:02 AM FINAL_DEPLOYMENT_UPDATE.md          
+-a---- 121949 7/30/2026 3:08:09 AM PetroEdge-PDF-Refresh-Diagnostic.zip
+-a---- 101038 7/30/2026 4:12:14 PM PETROEDGE-PHASE-0-INVENTORY.txt     
+-a---- 675    7/29/2026 9:16:02 AM QUICK_START_RELEASE_2.2.md          
+-a---- 728    7/29/2026 9:16:02 AM QUICK_START_WINDOWS.md              
+-a---- 1277   7/29/2026 9:16:02 AM README.md                           
+-a---- 1381   7/29/2026 9:16:02 AM RELEASE-1-NOTES.md                  
+-a---- 1294   7/29/2026 9:16:02 AM RELEASE-2-NOTES.md                  
+-a---- 624    7/29/2026 9:16:02 AM RELEASE-2.1-NOTES.md                
+-a---- 1811   7/29/2026 9:16:02 AM RELEASE-2.2-NOTES.md                
+-a---- 986    7/29/2026 9:19:14 AM RELEASE-2.3-NOTES.md                
+-a---- 1149   7/29/2026 9:20:30 AM VALIDATION-REPORT.md                
+
+
+
+
+=== BACKEND ROUTE FILES ===
+
+Name                           Length LastWriteTime       
+----                           ------ -------------       
+__init__.py                        26 7/29/2026 9:16:02 AM
+agents.py                        4772 7/29/2026 9:16:02 AM
+alerts.py                        1646 7/29/2026 9:16:02 AM
+analytics.py                     3886 7/29/2026 9:16:02 AM
+auth.py                          3145 7/29/2026 9:16:02 AM
+dashboard.py                     8187 7/29/2026 9:16:02 AM
+edge.py                         12277 7/29/2026 9:16:02 AM
+events.py                         741 7/29/2026 9:16:02 AM
+ingestion.py                     3350 7/29/2026 9:16:02 AM
+jobs.py                          4960 7/29/2026 9:16:02 AM
+models.py                        2521 7/29/2026 9:16:02 AM
+monitoring.py                    3985 7/29/2026 9:16:02 AM
+platform.py                      6127 7/29/2026 9:19:14 AM
+plugins.py                        648 7/29/2026 9:16:02 AM
+realtime.py                      8209 7/29/2026 9:16:02 AM
+reports.py                      18756 7/29/2026 9:16:02 AM
+reservoir_v1.py                 27489 7/30/2026 7:16:03 AM
+reservoir_v1.py.before-pdf-fix  27429 7/29/2026 9:16:02 AM
+rules.py                         1416 7/29/2026 9:16:02 AM
+sprint2.py                       8239 7/29/2026 9:16:02 AM
+stream.py                         721 7/29/2026 9:16:02 AM
+streaming.py                     1693 7/29/2026 9:16:02 AM
+twins.py                         4317 7/29/2026 9:16:02 AM
+upload.py                         799 7/29/2026 9:16:02 AM
+wells.py                         8214 7/29/2026 9:16:02 AM
+workflows.py                     3905 7/29/2026 9:16:02 AM
+
+
+
+
+=== FRONTEND API REFERENCES ===
+
+Path                                                                                                                   
+----                                                                                                                   
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\client.ts                                                                        
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\generated.ts                                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\http.ts                                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\http.ts                                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\http.ts                                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\types.ts                                                                         
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\types.ts                                                                         
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\types.ts                                                                         
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\types.ts                                                                         
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\api\types.ts                                                                         
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\alerts\AlertsPanel.tsx                                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\alerts\AlertsPanel.tsx                                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\dashboard\OverviewPanel.tsx                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\dashboard\OverviewPanel.tsx                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\dashboard\OverviewPanel.tsx                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\jobs\JobsPanel.tsx                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\jobs\JobsPanel.tsx                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\jobs\JobsPanel.tsx                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\jobs\JobsPanel.tsx                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\jobs\JobsPanel.tsx                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\jobs\JobsPanel.tsx                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\jobs\JobsPanel.tsx                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\jobs\JobsPanel.tsx                                                          
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\models\ModelMonitoringPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\models\ModelMonitoringPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\models\modelPlatformApi.ts                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\models\modelPlatformApi.ts                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\models\modelPlatformApi.ts                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\AiAgentsPanel.tsx                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\AiAgentsPanel.tsx                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\AiAgentsPanel.tsx                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\AiAgentsPanel.tsx                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\AiWorkspaceOverview.tsx                                            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\AiWorkspaceOverview.tsx                                            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-023556            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-023556            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-023556            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-023556            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-023556            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-023556            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-023556            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-023556            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-023556            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-024019            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-024019            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-024019            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-024019            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-024019            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-024019            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-024019            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-024019            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\EdgeComputingPanel.tsx.before-build-fix-20260730-024019            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\platformApi.ts.before-pdf-fix                                      
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\ReservoirIntelligencePanel.tsx                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\ReservoirIntelligencePanel.tsx                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\Sprint2GovernancePanel.tsx                                         
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\WellLogPlotlyPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\WellLogPlotlyPanel.tsx                                             
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\workflowApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\workflowApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\platform\workflowApi.ts                                                     
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\welllogs\WellLogViewer.tsx                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\wells\api.ts                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\wells\api.ts                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\wells\api.ts                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\wells\api.ts                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\wells\api.ts                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\wells\api.ts                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\wells\WellExplorerPanel.tsx                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\wells\WellExplorerPanel.tsx                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\features\wells\WellExplorerPanel.tsx                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\realtime\client.ts                                                                   
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\frontend\src\realtime\RealtimeContext.tsx                                                         
+
+
+
+
+=== ROUTER DECLARATIONS ===
+
+Path                                                                                                                   
+----                                                                                                                   
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\main.py                                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\main.py                                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\main.py                                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\main.py                                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\main.py                                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\main.py                                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\main.py                                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\main.py                                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\main.py                                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\agents.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\agents.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\alerts.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\alerts.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\analytics.py                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\analytics.py                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\auth.py                                                                    
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\auth.py                                                                    
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\dashboard.py                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\dashboard.py                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\edge.py                                                                    
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\edge.py                                                                    
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\events.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\events.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\ingestion.py                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\ingestion.py                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\jobs.py                                                                    
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\jobs.py                                                                    
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\models.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\models.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\monitoring.py                                                              
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\monitoring.py                                                              
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\platform.py                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\platform.py                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\plugins.py                                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\plugins.py                                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\realtime.py                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\realtime.py                                                                
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\reports.py                                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\reports.py                                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\reservoir_v1.py                                                            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\reservoir_v1.py                                                            
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\rules.py                                                                   
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\rules.py                                                                   
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\sprint2.py                                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\sprint2.py                                                                 
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\stream.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\stream.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\streaming.py                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\streaming.py                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\twins.py                                                                   
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\twins.py                                                                   
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\upload.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\upload.py                                                                  
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\wells.py                                                                   
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\wells.py                                                                   
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\workflows.py                                                               
+C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Da
+ta-Lineage-Reporting\backend\app\api\routes\workflows.py                                                               
+
+
+
+
+=== COMPOSE CONFIGURATION ===
+name: petroedge-ai-release-23-unified-data-lineage-reporting
+services:
+  backend:
+    build:
+      context: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Data-Lineage-Reporting\backend
+      dockerfile: Dockerfile
+    container_name: petroedge-mvp-backend
+    environment:
+      ACCESS_TOKEN_EXPIRE_MINUTES: "60"
+      API_HOST: 0.0.0.0
+      API_PORT: "8000"
+      APP_NAME: PetroEdge AI
+      CORS_ORIGINS: http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173,http://127.0.0.1:4173
+      DATABASE_URL: sqlite:///./petroedge.db
+      ENVIRONMENT: local
+      JWT_ALGORITHM: HS256
+      JWT_SECRET: replace-with-a-cryptographically-random-secret-of-at-least-32-characters
+      PETROEDGE_ADMIN_EMAIL: admin@petroedge.ai
+      PETROEDGE_ADMIN_PASSWORD: replace-with-a-strong-development-password
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)
+      timeout: 8s
+      interval: 20s
+      retries: 5
+      start_period: 30s
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8000"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Data-Lineage-Reporting\backend\data
+        target: /app/data
+        bind: {}
+      - type: bind
+        source: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Data-Lineage-Reporting\backend\dataset_store
+        target: /app/dataset_store
+        bind: {}
+      - type: bind
+        source: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Data-Lineage-Reporting\backend\model_store
+        target: /app/model_store
+        bind: {}
+      - type: bind
+        source: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Data-Lineage-Reporting\backend\experiment_store
+        target: /app/experiment_store
+        bind: {}
+  frontend:
+    build:
+      context: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-2.3-WORKING-20260729-2310\PetroEdge-AI-Release-2.3-Unified-Data-Lineage-Reporting\frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: /api/v1
+    container_name: petroedge-mvp-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+        required: true
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "5173"
+        protocol: tcp
+networks:
+  default:
+    name: petroedge-ai-release-23-unified-data-lineage-reporting_default
+
+=== CONTAINER STATUS ===
+NAME                     IMAGE                                                             COMMAND                  SERVICE    CREATED        STATUS                 PORTS
+petroedge-mvp-backend    petroedge-ai-release-23-unified-data-lineage-reporting-backend    "uvicorn app.main:apΓÇª"   backend    8 hours ago    Up 8 hours (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-23-unified-data-lineage-reporting-frontend   "/docker-entrypoint.ΓÇª"   frontend   10 hours ago   Up 10 hours            0.0.0.0:5173->80/tcp, [::]:5173->80/tcp
+
+=== RECENT BACKEND LOGS ===
+petroedge-mvp-backend  | INFO:     Started server process [1]
+petroedge-mvp-backend  | INFO:     Waiting for application startup.
+petroedge-mvp-backend  | INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+petroedge-mvp-backend  | INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+petroedge-mvp-backend  | INFO  [alembic.runtime.migration] Running upgrade  -> 0001_initial_schema, Create the initial PetroEdge AI relational schema.
+petroedge-mvp-backend  | INFO  [alembic.runtime.migration] Running upgrade 0001_initial_schema -> 0002_unified_orm_schema, Add the unified PetroEdge ORM schema.
+petroedge-mvp-backend  | INFO  [alembic.runtime.migration] Running upgrade 0002_unified_orm_schema -> 0003_background_jobs, add persistent background jobs
+
+=== RECENT FRONTEND LOGS ===
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:18:40 +0000] "GET /assets/CcusWorkspacePanel-BFafE9vN.js HTTP/1.1" 200 2725 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:18:41 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:55 +0000] "GET / HTTP/1.1" 200 1912 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/Button-CecR67SD.js HTTP/1.1" 200 7288 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/index-ysSKIULm.js HTTP/1.1" 200 119657 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/QueryClientProvider-CMaTCL1b.js HTTP/1.1" 200 15297 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/dividerClasses-DdGITvpf.js HTTP/1.1" 200 303 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/LinearProgress-DejJ0FNr.js HTTP/1.1" 200 5424 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/createLucideIcon-BtG4ZYOk.js HTTP/1.1" 200 947 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/bot-BSUpN-VX.js HTTP/1.1" 200 328 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/Grow-CiKhczWM.js HTTP/1.1" 200 140383 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/Divider-DPS3_YtL.js HTTP/1.1" 200 3742 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/Stack-B9gEAZZl.js HTTP/1.1" 200 101730 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/activity-B-Jb4DC3.js HTTP/1.1" 200 234 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/http-KPsel1qd.js HTTP/1.1" 200 1534 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/useTheme-BAar1vgF.js HTTP/1.1" 200 396 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/Chip-ChAvVm9H.js HTTP/1.1" 200 9453 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/Box-CZrYg7oH.js HTTP/1.1" 200 755 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/database-BHQxfjCQ.js HTTP/1.1" 200 243 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/circle-check-C3fXaz5f.js HTTP/1.1" 200 177 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/Grid-B3QIMjh8.js HTTP/1.1" 200 5116 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/Select-DH-53yCl.js HTTP/1.1" 200 64424 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/rolldown-runtime-CNC7AqOf.js HTTP/1.1" 200 879 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:20:56 +0000] "GET /assets/index-DSTN6Ir4.css HTTP/1.1" 200 9495 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:00 +0000] "GET /favicon.ico HTTP/1.1" 200 1912 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:18 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 585 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:18 +0000] "GET /api/v1/auth/me HTTP/1.1" 200 169 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:19 +0000] "GET /assets/useMutation-5cTUxkJB.js HTTP/1.1" 200 2336 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:19 +0000] "GET /assets/AiWorkflowsPanel-iFkTS7aV.js HTTP/1.1" 200 4766 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:19 +0000] "GET /assets/useQuery-CL-tS4E7.js HTTP/1.1" 200 8844 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:19 +0000] "GET /assets/play-BDzOPbBP.js HTTP/1.1" 200 134 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:19 +0000] "GET /assets/platformApi-B_BlPBSy.js HTTP/1.1" 200 3542 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:19 +0000] "GET /assets/Stepper-JY6queer.js HTTP/1.1" 200 9466 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:19 +0000] "GET /petroedge-logo.png HTTP/1.1" 200 3964022 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 2026/07/30 08:21:19 [warn] 29#29: *328 upstream sent duplicate header line: "date: Thu, 30 Jul 2026 08:21:19 GMT", previous value: "Date: Thu, 30 Jul 2026 08:21:19 GMT", ignored while reading response header from upstream, client: 192.168.65.1, server: _, request: "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells", host: "sports-plans-thompson-myth.trycloudflare.com"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:19 +0000] "GET /api/v1/workflows HTTP/1.1" 200 689 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:20 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:25 +0000] "GET /api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 4281 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:28 +0000] "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 224 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:31 +0000] "GET /api/v1/auth/me HTTP/1.1" 200 169 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:31 +0000] "GET /api/v1/workflows HTTP/1.1" 200 689 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:21:32 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 2026/07/30 08:21:32 [warn] 29#29: *335 upstream sent duplicate header line: "date: Thu, 30 Jul 2026 08:21:31 GMT", previous value: "Date: Thu, 30 Jul 2026 08:21:32 GMT", ignored while reading response header from upstream, client: 192.168.65.1, server: _, request: "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells", host: "sports-plans-thompson-myth.trycloudflare.com"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:22:15 +0000] "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 578 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 2026/07/30 08:23:34 [warn] 31#31: *337 upstream sent duplicate header line: "date: Thu, 30 Jul 2026 08:23:34 GMT", previous value: "Date: Thu, 30 Jul 2026 08:23:34 GMT", ignored while reading response header from upstream, client: 192.168.65.1, server: _, request: "GET /api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells", host: "sports-plans-thompson-myth.trycloudflare.com"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:23:44 +0000] "GET /assets/AiAgentsPanel-BzUtqxsz.js HTTP/1.1" 200 4279 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:23:45 +0000] "GET /api/v1/agents HTTP/1.1" 200 640 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:23:52 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:23:58 +0000] "GET /assets/AssetManagementPanel-DezE0Kq0.js HTTP/1.1" 200 3705 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:23:59 +0000] "GET /api/v1/v1/assets HTTP/1.1" 404 22 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:07 +0000] "GET /api/v1/auth/me HTTP/1.1" 200 169 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:08 +0000] "GET /api/v1/workflows HTTP/1.1" 200 689 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 2026/07/30 08:24:08 [warn] 31#31: *347 upstream sent duplicate header line: "date: Thu, 30 Jul 2026 08:24:08 GMT", previous value: "Date: Thu, 30 Jul 2026 08:24:08 GMT", ignored while reading response header from upstream, client: 192.168.65.1, server: _, request: "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells", host: "sports-plans-thompson-myth.trycloudflare.com"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:09 +0000] "GET /assets/ExperimentManagerPanel-C5YEEm4Q.js HTTP/1.1" 200 7681 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:11 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:17 +0000] "GET /api/v1/platform/experiments HTTP/1.1" 200 1515 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:20 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:24 +0000] "GET /api/v1/platform/datasets/ds-25801768b371/preview?limit=800 HTTP/1.1" 200 75526 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 2026/07/30 08:24:27 [warn] 31#31: *339 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000005, client: 192.168.65.1, server: _, request: "POST /api/v1/workflows/historical_replay/run HTTP/1.1", host: "sports-plans-thompson-myth.trycloudflare.com", referrer: "https://sports-plans-thompson-myth.trycloudflare.com/"
+petroedge-mvp-frontend  | 2026/07/30 08:24:27 [warn] 31#31: *339 an upstream response is buffered to a temporary file /var/cache/nginx/proxy_temp/6/00/0000000006 while reading upstream, client: 192.168.65.1, server: _, request: "POST /api/v1/workflows/historical_replay/run HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/workflows/historical_replay/run", host: "sports-plans-thompson-myth.trycloudflare.com", referrer: "https://sports-plans-thompson-myth.trycloudflare.com/"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:28 +0000] "POST /api/v1/workflows/historical_replay/run HTTP/1.1" 200 527168 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:35 +0000] "GET /assets/ModelEvaluationPanel-Brt4bhce.js HTTP/1.1" 200 3769 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:38 +0000] "GET /api/v1/platform/experiments HTTP/1.1" 200 1515 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:46 +0000] "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 399 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:48 +0000] "GET /assets/AiAssistantPanel-Cwe8kZIC.js HTTP/1.1" 200 5278 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:24:56 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 2026/07/30 08:25:06 [warn] 31#31: *356 upstream sent duplicate header line: "date: Thu, 30 Jul 2026 08:25:05 GMT", previous value: "Date: Thu, 30 Jul 2026 08:25:06 GMT", ignored while reading response header from upstream, client: 192.168.65.1, server: _, request: "GET /api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells", host: "sports-plans-thompson-myth.trycloudflare.com"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:25:34 +0000] "GET /api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 956 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36" "102.90.98.18"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:26:14 +0000] "GET /api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 749 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:27:57 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 2026/07/30 08:27:57 [warn] 31#31: *359 upstream sent duplicate header line: "date: Thu, 30 Jul 2026 08:27:56 GMT", previous value: "Date: Thu, 30 Jul 2026 08:27:57 GMT", ignored while reading response header from upstream, client: 192.168.65.1, server: _, request: "GET /api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells", host: "sports-plans-thompson-myth.trycloudflare.com"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:27:57 +0000] "GET /api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 228 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:27:58 +0000] "GET /api/v1/auth/me HTTP/1.1" 200 169 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:27:58 +0000] "GET /api/v1/workflows HTTP/1.1" 200 689 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:27:58 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 2026/07/30 08:27:58 [warn] 30#30: *365 upstream sent duplicate header line: "date: Thu, 30 Jul 2026 08:27:58 GMT", previous value: "Date: Thu, 30 Jul 2026 08:27:58 GMT", ignored while reading response header from upstream, client: 192.168.65.1, server: _, request: "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells", host: "sports-plans-thompson-myth.trycloudflare.com"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:28:06 +0000] "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 224 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 2026/07/30 08:31:02 [warn] 30#30: *367 upstream sent duplicate header line: "date: Thu, 30 Jul 2026 08:31:01 GMT", previous value: "Date: Thu, 30 Jul 2026 08:31:02 GMT", ignored while reading response header from upstream, client: 192.168.65.1, server: _, request: "GET /api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells", host: "sports-plans-thompson-myth.trycloudflare.com"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:02 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:03 +0000] "GET /api/v1/realtime/ws?channels=alerts%2Cglobal%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 228 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:03 +0000] "GET /api/v1/auth/me HTTP/1.1" 200 169 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:04 +0000] "GET /api/v1/workflows HTTP/1.1" 200 689 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:04 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 2026/07/30 08:31:05 [warn] 30#30: *374 upstream sent duplicate header line: "date: Thu, 30 Jul 2026 08:31:04 GMT", previous value: "Date: Thu, 30 Jul 2026 08:31:05 GMT", ignored while reading response header from upstream, client: 192.168.65.1, server: _, request: "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1", upstream: "http://172.18.0.2:8000/api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells", host: "sports-plans-thompson-myth.trycloudflare.com"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:28 +0000] "GET /assets/EdgeComputingPanel-Bxdn77Cd.js HTTP/1.1" 200 23899 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:28 +0000] "GET /assets/DialogTitle-D87ep3Yb.js HTTP/1.1" 200 6680 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:28 +0000] "GET /assets/Slider-BCLxq80R.js HTTP/1.1" 200 19745 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:28 +0000] "GET /assets/server-B4SOoqnD.js HTTP/1.1" 200 338 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:28 +0000] "GET /assets/TableRow-D4ilkiv_.js HTTP/1.1" 200 6596 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:28 +0000] "GET /assets/plotly.min-eo8S21Ka.js HTTP/1.1" 200 4606248 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:38 +0000] "GET /api/v1/edge/dashboard HTTP/1.1" 200 6036 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:38 +0000] "GET /api/v1/edge/capabilities HTTP/1.1" 200 542 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:38 +0000] "GET /api/v1/platform/datasets HTTP/1.1" 200 1187 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:48 +0000] "GET /api/v1/edge/dashboard HTTP/1.1" 200 6036 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:31:59 +0000] "GET /api/v1/edge/dashboard HTTP/1.1" 200 6036 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:32:09 +0000] "GET /api/v1/edge/dashboard HTTP/1.1" 200 6036 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:32:20 +0000] "GET /api/v1/edge/dashboard HTTP/1.1" 200 6036 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:32:30 +0000] "GET /api/v1/edge/dashboard HTTP/1.1" 200 6036 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:32:41 +0000] "GET /api/v1/edge/dashboard HTTP/1.1" 200 6036 "https://sports-plans-thompson-myth.trycloudflare.com/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"
+petroedge-mvp-frontend  | 192.168.65.1 - - [30/Jul/2026:08:32:49 +0000] "GET /api/v1/realtime/ws?channels=global%2Calerts%2Cjobs%2Cmodels%2Cwells HTTP/1.1" 101 1099 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36" "102.90.102.244"

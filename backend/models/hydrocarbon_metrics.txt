@@ -1,0 +1,23 @@
+HYDROCARBON MODEL PERFORMANCE
+========================================
+Accuracy  : 0.7899
+Precision : 0.5739
+Recall    : 0.1841
+F1 Score  : 0.2788
+ROC AUC   : 0.7413
+
+Confusion Matrix
+[[14986   603]
+ [ 3599   812]]
+
+Classification Report
+              precision    recall  f1-score   support
+
+           0       0.81      0.96      0.88     15589
+           1       0.57      0.18      0.28      4411
+
+    accuracy                           0.79     20000
+   macro avg       0.69      0.57      0.58     20000
+weighted avg       0.76      0.79      0.75     20000
+
+

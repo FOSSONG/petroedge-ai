@@ -1,0 +1,15 @@
+﻿PETROEDGE AI PHASE 3 FRONTEND ROUTE ALIGNMENT RESULT
+Generated: 2026-07-30 19:47:22 +01:00
+Backup: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\patch-backups\phase3-frontend-route-alignment-20260730-194625
+
+Missing required canonical paths: 0
+
+Duplicated /api/v1/v1 paths: 0
+
+Assets route registered: True
+OpenAPI path count: 101
+
+Docker state:
+NAME                     IMAGE                                               COMMAND                  SERVICE    CREATED          STATUS                   PORTS
+petroedge-mvp-backend    petroedge-ai-release-40-combined-working-backend    "uvicorn app.main:apΓÇª"   backend    23 seconds ago   Up 8 seconds (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-40-combined-working-frontend   "/docker-entrypoint.ΓÇª"   frontend   20 seconds ago   Up 1 second              0.0.0.0:5173->80/tcp, [::]:5173->80/tcp

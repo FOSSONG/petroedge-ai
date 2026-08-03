@@ -1,0 +1,291 @@
+﻿PETROEDGE AI PHASE 5 TWIN CREATE RUNTIME DIAGNOSTIC LITE
+Generated: 2026-07-30 23:48:53 +01:00
+Project: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING
+
+====================================================================================================
+DOCKER STATUS
+====================================================================================================
+NAME                     IMAGE                                               COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+petroedge-mvp-backend    petroedge-ai-release-40-combined-working-backend    "uvicorn app.main:apâ€¦"   backend    27 minutes ago   Up 27 minutes (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-40-combined-working-frontend   "/docker-entrypoint.â€¦"   frontend   27 minutes ago   Up 27 minutes             0.0.0.0:5173->80/tcp, [::]:5173->80/tcp
+Exit code: 
+
+====================================================================================================
+BACKEND HEALTH
+====================================================================================================
+{
+    "status":  "ok",
+    "service":  "PetroEdge AI",
+    "version":  "2.0.0-edge",
+    "timestamp":  "2026-07-30T22:48:55.362442+00:00",
+    "database":  "healthy",
+    "migrations":  {
+                       "enabled":  true,
+                       "status":  "completed",
+                       "revision":  "head"
+                   },
+    "routes":  {
+                   "auth":  {
+                                "status":  "loaded",
+                                "required":  true,
+                                "prefix":  "/api/v1/auth"
+                            },
+                   "dashboard":  {
+                                     "status":  "loaded",
+                                     "required":  true,
+                                     "prefix":  "/api/v1/dashboard"
+                                 },
+                   "wells":  {
+                                 "status":  "loaded",
+                                 "required":  true,
+                                 "prefix":  "/api/v1/wells"
+                             },
+                   "assets":  {
+                                  "status":  "loaded",
+                                  "required":  true,
+                                  "prefix":  "/api/v1/assets"
+                              },
+                   "ccus":  {
+                                "status":  "loaded",
+                                "required":  true,
+                                "prefix":  "/api/v1/ccus"
+                            },
+                   "models":  {
+                                  "status":  "loaded",
+                                  "required":  true,
+                                  "prefix":  "/api/v1/models"
+                              },
+                   "workflows":  {
+                                     "status":  "loaded",
+                                     "required":  true,
+                                     "prefix":  "/api/v1/workflows"
+                                 },
+                   "agents":  {
+                                  "status":  "loaded",
+                                  "required":  true,
+                                  "prefix":  "/api/v1/agents"
+                              },
+                   "twins":  {
+                                 "status":  "loaded",
+                                 "required":  true,
+                                 "prefix":  "/api/v1/twins"
+                             },
+                   "twin_workspace":  {
+                                          "status":  "loaded",
+                                          "required":  true,
+                                          "prefix":  "/api/v1/twin-workspace"
+                                      },
+                   "rules":  {
+                                 "status":  "loaded",
+                                 "required":  true,
+                                 "prefix":  "/api/v1/rules"
+                             },
+                   "events":  {
+                                  "status":  "loaded",
+                                  "required":  true,
+                                  "prefix":  "/api/v1/events"
+                              },
+                   "monitoring":  {
+                                      "status":  "loaded",
+                                      "required":  true,
+                                      "prefix":  "/api/v1/monitoring"
+                                  },
+                   "platform":  {
+                                    "status":  "loaded",
+                                    "required":  true,
+                                    "prefix":  "/api/v1"
+                                },
+                   "plugins":  {
+                                   "status":  "loaded",
+                                   "required":  true,
+                                   "prefix":  "/api/v1/plugins"
+                               },
+                   "reservoir_v1":  {
+                                        "status":  "loaded",
+                                        "required":  true,
+                                        "prefix":  "/api/v1"
+                                    },
+                   "jobs":  {
+                                "status":  "loaded",
+                                "required":  true,
+                                "prefix":  "/api/v1/jobs"
+                            },
+                   "realtime":  {
+                                    "status":  "loaded",
+                                    "required":  true,
+                                    "prefix":  "/api/v1/realtime"
+                                },
+                   "edge":  {
+                                "status":  "loaded",
+                                "required":  true,
+                                "prefix":  "/api/v1/edge"
+                            },
+                   "alerts":  {
+                                  "status":  "loaded",
+                                  "required":  false,
+                                  "prefix":  "/api/v1/alerts"
+                              },
+                   "analytics":  {
+                                     "status":  "loaded",
+                                     "required":  false,
+                                     "prefix":  "/api/v1/analytics"
+                                 },
+                   "ingestion":  {
+                                     "status":  "loaded",
+                                     "required":  false,
+                                     "prefix":  "/api/v1/ingestion"
+                                 },
+                   "reports":  {
+                                   "status":  "loaded",
+                                   "required":  false,
+                                   "prefix":  "/api/v1/reports"
+                               },
+                   "streaming":  {
+                                     "status":  "loaded",
+                                     "required":  false,
+                                     "prefix":  "/api/v1/streaming"
+                                 },
+                   "stream":  {
+                                  "status":  "loaded",
+                                  "required":  false,
+                                  "prefix":  "/api/v1"
+                              },
+                   "upload":  {
+                                  "status":  "loaded",
+                                  "required":  false,
+                                  "prefix":  "/api/v1"
+                              }
+               },
+    "background_jobs":  {
+                            "running":  true,
+                            "worker_count":  2,
+                            "queue_size":  0
+                        },
+    "realtime":  {
+                     "status":  "healthy",
+                     "started":  true,
+                     "connections":  0,
+                     "channels":  {
+
+                                  }
+                 }
+}
+
+====================================================================================================
+OPENAPI DIGITAL TWIN ROUTES AND SCHEMA
+====================================================================================================
+/api/v1/twins -> get, post
+/api/v1/twins/{reservoir_id} -> get, patch, delete
+/api/v1/twin-workspace/{reservoir_id}/summary -> get
+TwinCreate schema:
+{
+    "properties":  {
+                       "reservoir_id":  {
+                                            "type":  "string",
+                                            "title":  "Reservoir Id"
+                                        },
+                       "name":  {
+                                    "type":  "string",
+                                    "title":  "Name"
+                                },
+                       "field":  {
+                                     "anyOf":  [
+                                                   {
+                                                       "type":  "string"
+                                                   },
+                                                   {
+                                                       "type":  "null"
+                                                   }
+                                               ],
+                                     "title":  "Field"
+                                 },
+                       "metadata":  {
+                                        "additionalProperties":  true,
+                                        "type":  "object",
+                                        "title":  "Metadata"
+                                    }
+                   },
+    "type":  "object",
+    "required":  [
+                     "reservoir_id",
+                     "name"
+                 ],
+    "title":  "TwinCreate"
+}
+
+====================================================================================================
+HOST SOURCE MARKERS
+====================================================================================================
+23: READ_ROLES = ("admin", "administrator", "operator", "engineer", "geoscientist", "petrophysicist", "viewer")
+24: WRITE_ROLES = ("admin", "administrator", "operator", "engineer", "geoscientist", "petrophysicist")
+29: _: dict[str, Any] = Depends(require_roles(*READ_ROLES)),
+39: async def create_twin(
+41: _: dict[str, Any] = Depends(require_roles(*WRITE_ROLES)),
+53: _: dict[str, Any] = Depends(require_roles(*READ_ROLES)),
+66: _: dict[str, Any] = Depends(require_roles(*WRITE_ROLES)),
+90: _: dict[str, Any] = Depends(require_roles(*READ_ROLES)),
+102: _: dict[str, Any] = Depends(require_roles(*READ_ROLES)),
+120: _: dict[str, Any] = Depends(require_roles(*WRITE_ROLES)),
+133: _: dict[str, Any] = Depends(require_roles(*WRITE_ROLES)),
+fetchAssets -> line 5
+fetchAssets -> line 15
+Source asset -> line 60
+No reservoir twin exists yet -> line 46
+twins.isError -> line 43
+twins.isError -> line 46
+setCreateOpen(true) -> line 40
+
+====================================================================================================
+ACTIVE BACKEND ROLE DEFINITIONS
+====================================================================================================
+Usage: grep [OPTION]... PATTERNS [FILE]...
+Try 'grep --help' for more information.
+Exit code: 
+
+====================================================================================================
+ACTIVE FRONTEND BUNDLE MARKERS
+====================================================================================================
+BusyBox v1.37.0 (2025-01-17 18:12:01 UTC) multi-call binary.
+
+Usage: grep [-HhnlLoqvsrRiwFE] [-m N] [-A|B|C N] { PATTERN | -e PATTERN... | -f FILE... } [FILE]...
+
+Search for PATTERN in FILEs (or stdin)
+
+	-H	Add 'filename:' prefix
+	-h	Do not add 'filename:' prefix
+	-n	Add 'line_no:' prefix
+	-l	Show only names of files that match
+	-L	Show only names of files that don't match
+	-c	Show only count of matching lines
+	-o	Show only the matching part of line
+	-q	Quiet. Return 0 if PATTERN is found, 1 otherwise
+	-v	Select non-matching lines
+	-s	Suppress open and read errors
+	-r	Recurse
+	-R	Recurse and dereference symlinks
+	-i	Ignore case
+	-w	Match whole words only
+	-x	Match whole lines only
+	-F	PATTERN is a literal (not regexp)
+	-E	PATTERN is an extended regexp
+	-m N	Match up to N times per file
+	-A N	Print N lines of trailing context
+	-B N	Print N lines of leading context
+	-C N	Same as '-A N -B N'
+	-e PTRN	Pattern to match
+	-f FILE	Read pattern from file
+Exit code: 
+
+====================================================================================================
+RECENT BACKEND TWIN REQUESTS
+====================================================================================================
+Exit code: 
+
+====================================================================================================
+INTERPRETATION
+====================================================================================================
+If host frontend markers exist but container bundle markers do not, the frontend image is stale.
+If both marker sets exist, inspect recent backend logs for 401, 403, 409, 422 or 500 responses.
+If /api/v1/twins is missing from OpenAPI, route registration failed.
+If TwinCreate requires fields beyond reservoir_id and name, the frontend payload must be expanded.
+This report is written incrementally, so it remains available even if a later step times out.

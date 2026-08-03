@@ -1,0 +1,9 @@
+﻿PETROEDGE AI PHASE 4 CCUS REPLACEALL FIX RESULT
+Generated: 2026-07-30 22:23:39 +01:00
+Backup: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\patch-backups\phase4-ccus-replaceall-fix-20260730-221017
+Missing CCUS paths: 0
+
+NAME                     IMAGE                                               COMMAND                  SERVICE    CREATED          STATUS                   PORTS
+petroedge-mvp-backend    petroedge-ai-release-40-combined-working-backend    "uvicorn app.main:apΓÇª"   backend    12 minutes ago   Up 8 seconds (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-40-combined-working-frontend   "/docker-entrypoint.ΓÇª"   frontend   12 minutes ago   Up 1 second              0.0.0.0:5173->80/tcp, [::]:5173->80/tcp
+

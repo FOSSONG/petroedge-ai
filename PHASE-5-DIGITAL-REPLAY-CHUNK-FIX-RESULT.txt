@@ -1,0 +1,14 @@
+﻿PETROEDGE AI DIGITAL REPLAY CHUNK FIX RESULT
+Generated: 2026-07-30 23:07:47 +01:00
+
+Frontend index status: 200
+Indexed root assets: 20
+Missing indexed assets: 0
+
+Digital Replay chunks in active frontend container:
+/usr/share/nginx/html/assets/DigitalReplayPanel-Df-D_3d2.js
+
+Docker state:
+NAME                     IMAGE                                               COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+petroedge-mvp-backend    petroedge-ai-release-40-combined-working-backend    "uvicorn app.main:apΓÇª"   backend    10 minutes ago   Up 10 minutes (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-40-combined-working-frontend   "/docker-entrypoint.ΓÇª"   frontend   10 seconds ago   Up 7 seconds              0.0.0.0:5173->80/tcp, [::]:5173->80/tcp

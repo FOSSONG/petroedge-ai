@@ -1,0 +1,21 @@
+{
+  "algorithm": "random_forest",
+  "dataset_id": "ds-5b61bb4af10d",
+  "display_name": "PetroEdge registered model",
+  "feature_columns": [
+    "gamma_ray_api",
+    "NP",
+    "density_gcc",
+    "resistivity_ohmm",
+    "micro_resistivity_ohmm"
+  ],
+  "group_column": null,
+  "hyperparameters": {},
+  "parent_model_id": null,
+  "random_seed": 42,
+  "target_column": "PHIE",
+  "task_type": "regression",
+  "test_size": 0.2,
+  "time_column": null,
+  "validation_strategy": "random"
+}

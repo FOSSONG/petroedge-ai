@@ -1,0 +1,1 @@
+"""Executable model adapters register from this package."""

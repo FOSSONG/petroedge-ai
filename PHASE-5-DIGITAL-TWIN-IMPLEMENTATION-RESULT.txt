@@ -1,0 +1,9 @@
+﻿PETROEDGE AI PHASE 5 DIGITAL TWIN IMPLEMENTATION RESULT
+Generated: 2026-07-30 22:57:06 +01:00
+Backup: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\patch-backups\phase5-digital-twin-20260730-225608
+Missing required paths: 0
+
+NAME                     IMAGE                                               COMMAND                  SERVICE    CREATED          STATUS                   PORTS
+petroedge-mvp-backend    petroedge-ai-release-40-combined-working-backend    "uvicorn app.main:apΓÇª"   backend    11 seconds ago   Up 8 seconds (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-40-combined-working-frontend   "/docker-entrypoint.ΓÇª"   frontend   9 seconds ago    Up 1 second              0.0.0.0:5173->80/tcp, [::]:5173->80/tcp
+

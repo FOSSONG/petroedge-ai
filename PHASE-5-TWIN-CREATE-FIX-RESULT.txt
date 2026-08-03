@@ -1,0 +1,13 @@
+﻿PETROEDGE AI PHASE 5 TWIN CREATE FIX RESULT
+Generated: 2026-07-30 23:21:38 +01:00
+Backup: C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.0-COMBINED-WORKING\patch-backups\phase5-twin-create-fix-20260730-232037
+Missing required paths: 0
+
+Corrected roles:
+READ_ROLES = ("admin", "administrator", "operator", "engineer", "geoscientist", "petrophysicist", "viewer")
+WRITE_ROLES = ("admin", "administrator", "operator", "engineer", "geoscientist", "petrophysicist")
+
+NAME                     IMAGE                                               COMMAND                  SERVICE    CREATED          STATUS                   PORTS
+petroedge-mvp-backend    petroedge-ai-release-40-combined-working-backend    "uvicorn app.main:apΓÇª"   backend    21 seconds ago   Up 8 seconds (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+petroedge-mvp-frontend   petroedge-ai-release-40-combined-working-frontend   "/docker-entrypoint.ΓÇª"   frontend   19 seconds ago   Up 1 second              0.0.0.0:5173->80/tcp, [::]:5173->80/tcp
+
