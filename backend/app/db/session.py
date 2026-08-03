@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Generator
 
-from sqlalchemy import MetaData, create_engine
+from sqlalchemy import MetaData, create_engine, event
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 from sqlalchemy.pool import StaticPool
@@ -30,7 +30,10 @@ def _build_engine() -> Engine:
     }
 
     if database_url.startswith("sqlite"):
-        options["connect_args"] = {"check_same_thread": False}
+        options["connect_args"] = {
+            "check_same_thread": False,
+            "timeout": 30,
+        }
         if database_url in {"sqlite://", "sqlite:///:memory:"}:
             options["poolclass"] = StaticPool
 
@@ -38,6 +41,18 @@ def _build_engine() -> Engine:
 
 
 engine = _build_engine()
+
+
+if settings.database_url.startswith("sqlite"):
+    @event.listens_for(engine, "connect")
+    def _configure_sqlite_connection(dbapi_connection, _connection_record) -> None:
+        cursor = dbapi_connection.cursor()
+        try:
+            cursor.execute("PRAGMA journal_mode=WAL")
+            cursor.execute("PRAGMA busy_timeout=30000")
+            cursor.execute("PRAGMA foreign_keys=ON")
+        finally:
+            cursor.close()
 
 SessionLocal = sessionmaker(
     bind=engine,

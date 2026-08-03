@@ -24,7 +24,7 @@ from app.realtime.manager import get_connection_manager
 
 logger = logging.getLogger(__name__)
 API_PREFIX = "/api/v1"
-APP_VERSION = "4.1.1"
+APP_VERSION = "4.5.0"
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 ALEMBIC_INI_PATH = BACKEND_ROOT / "alembic.ini"
 ALEMBIC_SCRIPT_PATH = BACKEND_ROOT / "alembic"
@@ -162,7 +162,10 @@ async def lifespan(application: FastAPI):
 
     if run_migrations:
         try:
-            await asyncio.to_thread(_run_database_migrations)
+            await asyncio.wait_for(
+                asyncio.to_thread(_run_database_migrations),
+                timeout=90,
+            )
             application.state.migration_status = {
                 "enabled": True,
                 "status": "completed",
@@ -179,36 +182,99 @@ async def lifespan(application: FastAPI):
     else:
         application.state.migration_status = {
             "enabled": False,
-            "status": "skipped",
-            "detail": "Run 'alembic upgrade head' before production startup.",
+            "status": "external",
+            "detail": "Database migrations are managed by the Compose migrate service.",
         }
 
-    await asyncio.to_thread(_check_database_connection)
-
-    realtime_manager = get_connection_manager()
-    await realtime_manager.start()
-    application.state.realtime_manager = realtime_manager
-
-    job_manager = get_job_manager()
-    await job_manager.start()
-    application.state.job_manager = job_manager
-
-    await get_event_bus().emit(
-        EventType.SYSTEM_READY,
-        {"service": settings.app_name, "version": APP_VERSION},
-        channel="global",
+    await asyncio.wait_for(
+        asyncio.to_thread(_check_database_connection),
+        timeout=20,
     )
 
+    realtime_manager = get_connection_manager()
+    job_manager = get_job_manager()
+    realtime_started = False
+    jobs_started = False
+
+    application.state.realtime_status = {
+        "status": "not_started",
+    }
+    application.state.job_manager_status = {
+        "status": "not_started",
+    }
+
     try:
+        try:
+            await asyncio.wait_for(realtime_manager.start(), timeout=15)
+            realtime_started = True
+            application.state.realtime_status = {
+                "status": "running",
+            }
+        except Exception as exc:
+            application.state.realtime_status = {
+                "status": "degraded",
+                "detail": f"{type(exc).__name__}: {exc}",
+            }
+            logger.exception(
+                "Realtime manager did not start; API startup will continue in degraded mode."
+            )
+
+        try:
+            await asyncio.wait_for(job_manager.start(), timeout=15)
+            jobs_started = True
+            application.state.job_manager_status = {
+                "status": "running",
+            }
+        except Exception as exc:
+            application.state.job_manager_status = {
+                "status": "degraded",
+                "detail": f"{type(exc).__name__}: {exc}",
+            }
+            logger.exception(
+                "Background job manager did not start; API startup will continue in degraded mode."
+            )
+
+        application.state.realtime_manager = realtime_manager
+        application.state.job_manager = job_manager
+
+        try:
+            await asyncio.wait_for(
+                get_event_bus().emit(
+                    EventType.SYSTEM_READY,
+                    {"service": settings.app_name, "version": APP_VERSION},
+                    channel="global",
+                ),
+                timeout=10,
+            )
+        except Exception:
+            logger.exception("SYSTEM_READY event could not be emitted.")
+
         yield
     finally:
-        await get_event_bus().emit(
-            EventType.SYSTEM_SHUTDOWN,
-            {"service": settings.app_name},
-            channel="global",
-        )
-        await job_manager.stop()
-        await realtime_manager.stop()
+        try:
+            await asyncio.wait_for(
+                get_event_bus().emit(
+                    EventType.SYSTEM_SHUTDOWN,
+                    {"service": settings.app_name},
+                    channel="global",
+                ),
+                timeout=10,
+            )
+        except Exception:
+            logger.exception("SYSTEM_SHUTDOWN event could not be emitted.")
+
+        if jobs_started:
+            try:
+                await asyncio.wait_for(job_manager.stop(), timeout=15)
+            except Exception:
+                logger.exception("Background job manager did not stop cleanly.")
+
+        if realtime_started:
+            try:
+                await asyncio.wait_for(realtime_manager.stop(), timeout=15)
+            except Exception:
+                logger.exception("Realtime manager did not stop cleanly.")
+
         engine.dispose()
 
 
