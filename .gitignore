@@ -43,4 +43,12 @@ Thumbs.db
 Desktop.ini
 
 # Git
-*.orig
+*.orig# PetroEdge runtime files
+patch-backups/
+runtime-backups/
+backend/data/*.db-shm
+backend/data/*.db-wal
+backend/data/*.db-journal
+backend/prediction_store/
+backend/logs/
+RELEASE-*-REPORT-*.txt
