@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import {
   AppBar,
   Box,
@@ -47,29 +47,30 @@ import { ModuleHub } from "../../plugins/ModuleHub";
 import { builtInModules } from "../../plugins/registry";
 import { PanelErrorBoundary } from "../../components/PanelErrorBoundary";
 import { usePetroEdgeTheme } from "../../theme";
+import { lazyWithRetry } from "../../utils/lazyWithRetry";
 
-const AiWorkflowsPanel = lazy(() => import("../platform/AiWorkflowsPanel").then((m) => ({ default: m.AiWorkflowsPanel })));
-const ReservoirIntelligencePanel = lazy(() => import("../platform/ReservoirIntelligencePanel").then((m) => ({ default: m.ReservoirIntelligencePanel })));
-const DatasetRegistryPanel = lazy(() => import("../platform/DatasetRegistryPanel").then((m) => ({ default: m.DatasetRegistryPanel })));
-const TrainingWorkspacePanel = lazy(() => import("../platform/TrainingWorkspacePanel").then((m) => ({ default: m.TrainingWorkspacePanel })));
-const ExperimentManagerPanel = lazy(() => import("../platform/ExperimentManagerPanel").then((m) => ({ default: m.ExperimentManagerPanel })));
-const DemoModePanel = lazy(() => import("../platform/DemoModePanel").then((m) => ({ default: m.DemoModePanel })));
-const OverviewPanel = lazy(() => import("./OverviewPanel").then((m) => ({ default: m.OverviewPanel })));
-const WellLogViewer = lazy(() => import("../welllogs/WellLogViewer").then((m) => ({ default: m.WellLogViewer })));
-const AlertsPanel = lazy(() => import("../alerts/AlertsPanel").then((m) => ({ default: m.AlertsPanel })));
-const ModelMonitoringPanel = lazy(() => import("../models/ModelMonitoringPanel").then((m) => ({ default: m.ModelMonitoringPanel })));
-const JobsPanel = lazy(() => import("../jobs/JobsPanel").then((m) => ({ default: m.JobsPanel })));
-const RealtimeEventFeed = lazy(() => import("../../realtime/RealtimeEventFeed").then((m) => ({ default: m.RealtimeEventFeed })));
-const WellLogPlotlyPanel = lazy(() => import("../platform/WellLogPlotlyPanel").then((m) => ({ default: m.WellLogPlotlyPanel })));
-const LasWizardPanel = lazy(() => import("../platform/LasWizardPanel").then((m) => ({ default: m.LasWizardPanel })));
-const DigitalReplayPanel = lazy(() => import("../platform/DigitalReplayPanel").then((m) => ({ default: m.DigitalReplayPanel })));
-const ReservoirDigitalTwinPanel = lazy(() => import("../platform/ReservoirDigitalTwinPanel").then((m) => ({ default: m.ReservoirDigitalTwinPanel })));
-const AiAssistantPanel = lazy(() => import("../platform/AiAssistantPanel").then((m) => ({ default: m.AiAssistantPanel })));
-const AssetManagementPanel = lazy(() => import("../platform/AssetManagementPanel").then((m) => ({ default: m.AssetManagementPanel })));
-const EdgeComputingPanel = lazy(() => import("../platform/EdgeComputingPanel").then((m) => ({ default: m.EdgeComputingPanel })));
-const ModelEvaluationPanel = lazy(() => import("../platform/ModelEvaluationPanel").then((m) => ({ default: m.ModelEvaluationPanel })));
-const AiAgentsPanel = lazy(() => import("../platform/AiAgentsPanel").then((m) => ({ default: m.AiAgentsPanel })));
-const CcusWorkspacePanel = lazy(() => import("../platform/CcusWorkspacePanel").then((m) => ({ default: m.CcusWorkspacePanel })));
+const AiWorkflowsPanel = lazyWithRetry(() => import("../platform/AiWorkflowsPanel").then((m) => ({ default: m.AiWorkflowsPanel })));
+const ReservoirIntelligencePanel = lazyWithRetry(() => import("../platform/ReservoirIntelligencePanel").then((m) => ({ default: m.ReservoirIntelligencePanel })));
+const DatasetRegistryPanel = lazyWithRetry(() => import("../platform/DatasetRegistryPanel").then((m) => ({ default: m.DatasetRegistryPanel })));
+const TrainingWorkspacePanel = lazyWithRetry(() => import("../platform/TrainingWorkspacePanel").then((m) => ({ default: m.TrainingWorkspacePanel })));
+const ExperimentManagerPanel = lazyWithRetry(() => import("../platform/ExperimentManagerPanel").then((m) => ({ default: m.ExperimentManagerPanel })));
+const DemoModePanel = lazyWithRetry(() => import("../platform/DemoModePanel").then((m) => ({ default: m.DemoModePanel })));
+const OverviewPanel = lazyWithRetry(() => import("./OverviewPanel").then((m) => ({ default: m.OverviewPanel })));
+const WellLogViewer = lazyWithRetry(() => import("../welllogs/WellLogViewer").then((m) => ({ default: m.WellLogViewer })));
+const AlertsPanel = lazyWithRetry(() => import("../alerts/AlertsPanel").then((m) => ({ default: m.AlertsPanel })));
+const ModelMonitoringPanel = lazyWithRetry(() => import("../models/ModelMonitoringPanel").then((m) => ({ default: m.ModelMonitoringPanel })));
+const JobsPanel = lazyWithRetry(() => import("../jobs/JobsPanel").then((m) => ({ default: m.JobsPanel })));
+const RealtimeEventFeed = lazyWithRetry(() => import("../../realtime/RealtimeEventFeed").then((m) => ({ default: m.RealtimeEventFeed })));
+const WellLogPlotlyPanel = lazyWithRetry(() => import("../platform/WellLogPlotlyPanel").then((m) => ({ default: m.WellLogPlotlyPanel })));
+const LasWizardPanel = lazyWithRetry(() => import("../platform/LasWizardPanel").then((m) => ({ default: m.LasWizardPanel })));
+const DigitalReplayPanel = lazyWithRetry(() => import("../platform/DigitalReplayPanel").then((m) => ({ default: m.DigitalReplayPanel })));
+const ReservoirDigitalTwinPanel = lazyWithRetry(() => import("../platform/ReservoirDigitalTwinPanel").then((m) => ({ default: m.ReservoirDigitalTwinPanel })));
+const AiAssistantPanel = lazyWithRetry(() => import("../platform/AiAssistantPanel").then((m) => ({ default: m.AiAssistantPanel })));
+const AssetManagementPanel = lazyWithRetry(() => import("../platform/AssetManagementPanel").then((m) => ({ default: m.AssetManagementPanel })));
+const EdgeComputingPanel = lazyWithRetry(() => import("../platform/EdgeComputingPanel").then((m) => ({ default: m.EdgeComputingPanel })));
+const ModelEvaluationPanel = lazyWithRetry(() => import("../platform/ModelEvaluationPanel").then((m) => ({ default: m.ModelEvaluationPanel })));
+const AiAgentsPanel = lazyWithRetry(() => import("../platform/AiAgentsPanel").then((m) => ({ default: m.AiAgentsPanel })));
+const CcusWorkspacePanel = lazyWithRetry(() => import("../platform/CcusWorkspacePanel").then((m) => ({ default: m.CcusWorkspacePanel })));
 
 interface Props {
   user: AuthenticatedUser;
@@ -204,7 +205,7 @@ export function DashboardPage({ user, onLogout }: Props) {
             <Typography variant="caption" color="text.secondary">Sovereign reservoir intelligence · {user.email}</Typography>
           </Box>
           {(user.roles ?? []).slice(0, 2).map((role: string) => <Chip key={role} label={role} size="small" variant="outlined" />)}
-          <Chip label="PetroEdge AI MVP · Release 4.1.1" color="success" size="small" />
+          <Chip label="PetroEdge AI - Release 4.5" color="success" size="small" />
           <Tooltip title={`Switch to ${mode === "dark" ? "light" : "dark"} mode`}>
             <IconButton color="inherit" onClick={toggleMode} aria-label="Toggle colour mode">
               {mode === "dark" ? <Sun size={19} /> : <Moon size={19} />}

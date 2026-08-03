@@ -5,7 +5,18 @@ import App from "./App";
 import "./styles.css";
 import { queryClient } from "./query/queryClient";
 import { PetroEdgeThemeProvider } from "./theme";
+import { ApplicationErrorBoundary } from "./components/ApplicationErrorBoundary";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Unable to find the application root element (#root).");
-ReactDOM.createRoot(rootElement).render(<React.StrictMode><QueryClientProvider client={queryClient}><PetroEdgeThemeProvider><App/></PetroEdgeThemeProvider></QueryClientProvider></React.StrictMode>);
+ReactDOM.createRoot(rootElement).render(
+  <React.StrictMode>
+    <ApplicationErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <PetroEdgeThemeProvider>
+          <App />
+        </PetroEdgeThemeProvider>
+      </QueryClientProvider>
+    </ApplicationErrorBoundary>
+  </React.StrictMode>,
+);
