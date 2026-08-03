@@ -67,3 +67,4 @@ backend/uploads/
 backend/logs/
 patch-backups/
 runtime-backups/
+backend/data/
