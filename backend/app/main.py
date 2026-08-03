@@ -4,6 +4,7 @@ import asyncio
 import importlib
 import logging
 import os
+import time
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -18,6 +19,7 @@ from sqlalchemy import text
 
 from app.core.config import settings
 from app.core.logging_config import configure_logging
+from app.core.request_context import RequestContextMiddleware
 from app.db.session import engine
 from app.jobs.manager import get_job_manager
 from app.realtime.events import EventType, get_event_bus
@@ -158,6 +160,8 @@ def _register_routes(application: FastAPI) -> dict[str, dict[str, Any]]:
 
 @asynccontextmanager
 async def lifespan(application: FastAPI):
+    startup_started_monotonic = time.perf_counter()
+    application.state.startup_started_at = datetime.now(timezone.utc).isoformat()
     run_migrations = _should_run_migrations()
     application.state.migration_status = {
         "enabled": run_migrations,
@@ -253,6 +257,10 @@ async def lifespan(application: FastAPI):
         except Exception:
             logger.exception("SYSTEM_READY event could not be emitted.")
 
+        application.state.ready_at = datetime.now(timezone.utc).isoformat()
+        application.state.startup_duration_ms = round((time.perf_counter() - startup_started_monotonic) * 1000, 2)
+        logger.info("Application startup completed.", extra={"event": "startup_completed", "component": "application", "duration_ms": application.state.startup_duration_ms, "status": "ready"})
+
         yield
     finally:
         try:
@@ -300,6 +308,7 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
     application.add_middleware(GZipMiddleware, minimum_size=1000)
+    application.add_middleware(RequestContextMiddleware)
     application.state.route_modules = _register_routes(application)
 
     @application.get("/", tags=["System"])
