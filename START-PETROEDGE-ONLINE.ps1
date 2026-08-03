@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$Report = Join-Path $env:TEMP "PETROEDGE-OFFLINE-STARTUP-$(Get-Date -Format 'yyyyMMdd-HHmmss').txt"
+$Report = Join-Path $env:TEMP "PETROEDGE-ONLINE-STARTUP-$(Get-Date -Format 'yyyyMMdd-HHmmss').txt"
 Set-Location $ProjectRoot
 
 function Log([string]$Message) {
@@ -32,19 +32,16 @@ try {
     Log "Validating Compose."
     docker compose config --quiet
 
-    $Images = @(docker compose config --images | Sort-Object -Unique)
-    $Missing = @()
-    foreach ($Image in $Images) {
-        docker image inspect $Image *> $null
-        if ($LASTEXITCODE -ne 0) { $Missing += $Image }
-    }
-    if ($Missing.Count -gt 0) {
-        throw "Local image(s) missing: $($Missing -join ', '). Run START-PETROEDGE-ONLINE.ps1 once while connected."
-    }
+    Log "Building current Release 4.5 images."
+    docker compose build migrate backend frontend
+    if ($LASTEXITCODE -ne 0) { throw "Docker build failed." }
 
-    Log "Starting from local images only."
+    Log "Stopping only this Compose project."
+    docker compose down --remove-orphans --timeout 15
+
+    Log "Starting migration, backend and frontend."
     docker compose up -d --no-build
-    if ($LASTEXITCODE -ne 0) { throw "Offline Docker startup failed." }
+    if ($LASTEXITCODE -ne 0) { throw "Docker startup failed." }
 
     Log "Waiting for backend readiness."
     Wait-Url "http://localhost:8000/api/v1/readiness" 180
@@ -53,11 +50,11 @@ try {
     Wait-Url "http://localhost:5173/" 120
 
     docker compose ps -a | Tee-Object -FilePath $Report -Append
-    Log "PetroEdge AI offline startup completed."
+    Log "PetroEdge AI online startup completed."
     Start-Process "http://localhost:5173"
 }
 catch {
-    Log "OFFLINE STARTUP FAILED: $($_.Exception.Message)"
+    Log "ONLINE STARTUP FAILED: $($_.Exception.Message)"
     docker compose ps -a | Tee-Object -FilePath $Report -Append
     docker compose logs --timestamps --tail 250 migrate backend frontend |
         Tee-Object -FilePath $Report -Append

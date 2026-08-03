@@ -17,11 +17,13 @@ from fastapi.middleware.gzip import GZipMiddleware
 from sqlalchemy import text
 
 from app.core.config import settings
+from app.core.logging_config import configure_logging
 from app.db.session import engine
 from app.jobs.manager import get_job_manager
 from app.realtime.events import EventType, get_event_bus
 from app.realtime.manager import get_connection_manager
 
+configure_logging()
 logger = logging.getLogger(__name__)
 API_PREFIX = "/api/v1"
 APP_VERSION = "4.5.0"
@@ -50,6 +52,7 @@ ROUTE_MODULES: tuple[tuple[str, str, tuple[str, ...], bool], ...] = (
     ("realtime", "/realtime", ("Real-time Events",), True),
     ("edge", "/edge", ("Edge Computing",), True),
     ("training_lifecycle", "/training-lifecycle", ("Model Training and Lifecycle",), True),
+    ("system_diagnostics", "", ("System Diagnostics",), True),
     ("alerts", "/alerts", ("Alerts",), False),
     ("analytics", "/analytics", ("Analytics",), False),
     ("ingestion", "/ingestion", ("Ingestion",), False),

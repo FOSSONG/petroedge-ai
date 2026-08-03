@@ -52,3 +52,4 @@ backend/data/*.db-journal
 backend/prediction_store/
 backend/logs/
 RELEASE-*-REPORT-*.txt
+PETROEDGE-DIAGNOSTIC-*.txt
