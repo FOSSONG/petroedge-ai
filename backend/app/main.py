@@ -24,6 +24,7 @@ from app.realtime.events import EventType, get_event_bus
 from app.realtime.manager import get_connection_manager
 
 configure_logging()
+configure_logging()
 logger = logging.getLogger(__name__)
 API_PREFIX = "/api/v1"
 APP_VERSION = "4.5.0"
