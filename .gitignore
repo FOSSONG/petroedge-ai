@@ -54,3 +54,16 @@ backend/logs/
 RELEASE-*-REPORT-*.txt
 PETROEDGE-DIAGNOSTIC-*.txt
 PETROEDGE-DIAGNOSTIC-*.txt
+backend/data/*.db
+backend/data/*.db-shm
+backend/data/*.db-wal
+backend/data/*.db-journal
+backend/data/edge_runtime.json
+backend/dataset_store/
+backend/model_store/
+backend/experiment_store/
+backend/prediction_store/
+backend/uploads/
+backend/logs/
+patch-backups/
+runtime-backups/
