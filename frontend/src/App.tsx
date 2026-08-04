@@ -64,6 +64,7 @@ export default function App() {
         if (authStatus.setup_required) {
           clearSession();
           setUser(null);
+          setChecking(false);
           return;
         }
       } catch {
