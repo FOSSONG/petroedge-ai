@@ -2,6 +2,8 @@ name: petroedge-release45
 
 services:
   migrate:
+    profiles:
+      - maintenance
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -32,9 +34,6 @@ services:
       - ./backend/model_store:/app/model_store
       - ./backend/experiment_store:/app/experiment_store
       - ./backend/prediction_store:/app/prediction_store
-    depends_on:
-      migrate:
-        condition: service_completed_successfully
     healthcheck:
       test:
         - CMD
