@@ -90,11 +90,9 @@ function fallbackUser(
 export function LoginPage({
   onAuthenticated,
 }: Props) {
-  const [email, setEmail] =
-    useState("admin@petroedge.ai");
+  const [email, setEmail] = useState("");
 
-  const [password, setPassword] =
-    useState("petroedge123");
+  const [password, setPassword] = useState("");
 
   const [mfa, setMfa] = useState("");
   const [error, setError] = useState("");
@@ -187,7 +185,8 @@ export function LoginPage({
             <TextField
               label="Email"
               type="email"
-              autoComplete="username"
+              name="petroedge-login-email-manual"
+              autoComplete="off"
               value={email}
               onChange={(event) =>
                 setEmail(event.target.value)
@@ -199,7 +198,8 @@ export function LoginPage({
             <TextField
               label="Password"
               type="password"
-              autoComplete="current-password"
+              name="petroedge-login-password-manual"
+              autoComplete="new-password"
               value={password}
               onChange={(event) =>
                 setPassword(event.target.value)

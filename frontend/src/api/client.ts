@@ -10,6 +10,8 @@ import type {
   BackgroundJob,
   DashboardSnapshot,
   LoginResponse,
+  AuthenticationStatus,
+  BootstrapAdministratorPayload,
   ModelStatus,
   WellLogSample,
 } from "./types";
@@ -127,4 +129,29 @@ export function cancelJob(
       method: "POST",
     },
   );
+}
+
+export function fetchAuthenticationStatus(): Promise<AuthenticationStatus> {
+  return apiRequest<AuthenticationStatus>("/auth/status");
+}
+
+export async function bootstrapAdministrator(
+  payload: BootstrapAdministratorPayload,
+): Promise<LoginResponse> {
+  const response = await apiRequest<LoginResponse>(
+    "/auth/bootstrap-admin",
+    {
+      method: "POST",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  if (!response.access_token) {
+    throw new Error(
+      "Administrator setup succeeded, but no access token was returned.",
+    );
+  }
+
+  setAccessToken(response.access_token);
+  return response;
 }

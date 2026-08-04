@@ -7,7 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 
-import { fetchCurrentUser } from "./api/client";
+import {
+  fetchAuthenticationStatus,
+  fetchCurrentUser,
+} from "./api/client";
 import {
   AUTH_EXPIRED_EVENT,
   getAccessToken,
@@ -18,6 +21,7 @@ import {
   restoreSession,
 } from "./auth/session";
 import { LoginPage } from "./features/auth/LoginPage";
+import { FirstRunSetupPage } from "./features/auth/FirstRunSetupPage";
 import { DashboardPage } from "./features/dashboard/DashboardPage";
 
 import {
@@ -33,6 +37,7 @@ export default function App() {
 
   const [startupError, setStartupError] =
     useState("");
+  const [setupRequired, setSetupRequired] = useState(false);
 
   const endSession = useCallback(() => {
     clearSession();
@@ -46,6 +51,28 @@ export default function App() {
     async function restoreAuthentication(): Promise<void> {
       setChecking(true);
       setStartupError("");
+
+      try {
+        const authStatus = await fetchAuthenticationStatus();
+
+        if (!active) {
+          return;
+        }
+
+        setSetupRequired(authStatus.setup_required);
+
+        if (authStatus.setup_required) {
+          clearSession();
+          setUser(null);
+          return;
+        }
+      } catch {
+        if (active) {
+          setStartupError(
+            "Cannot verify PetroEdge authentication setup.",
+          );
+        }
+      }
 
       const restored = restoreSession();
       const token =
@@ -136,6 +163,17 @@ export default function App() {
           </Typography>
         </Stack>
       </Box>
+    );
+  }
+
+  if (setupRequired && !user) {
+    return (
+      <FirstRunSetupPage
+        onAuthenticated={(authenticatedUser) => {
+          setSetupRequired(false);
+          setUser(authenticatedUser);
+        }}
+      />
     );
   }
 

@@ -226,3 +226,16 @@ export interface ModelStatus {
   generated_at?: string;
   [key: string]: unknown;
 }
+
+export interface AuthenticationStatus {
+  setup_required: boolean;
+  user_count: number;
+  manual_login: boolean;
+}
+
+export interface BootstrapAdministratorPayload {
+  email: string;
+  full_name: string;
+  password: string;
+  confirm_password: string;
+}
