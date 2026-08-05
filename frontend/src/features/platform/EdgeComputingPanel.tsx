@@ -28,8 +28,18 @@ type EdgeRun = { run_id:string; device_id:string; model_id:string; model_kind:st
 type ReplayJob = { job_id:string; device_id:string; status:"queued"|"running"|"completed"|"failed"; predictions_completed:number; total_predictions:number; rows_examined?:number; skipped_rows?:number; progress_percent:number; current_depth?:number; latest_result?:EdgeResult; latest_latency_ms?:number; runtime?:string|null; fallback?:boolean|null; recent_results?:EdgeResult[]; plot_points?:PlotPoint[]; pay_zone_count?:number; anomaly_count?:number; error?:string; run?:EdgeRun; };
 type Dashboard = { summary:{registered_devices:number;online_devices:number;deployed_models:number;total_inferences:number;pending_sync_items:number;average_latency_ms:number}; devices:Device[]; deployments:Array<Record<string,unknown>>; recent_runs:EdgeRun[]; };
 type Capabilities = { edge_ready:boolean; architectures:string[]; accelerators:string[]; connectors:string[]; temporal_models:string[]; workflows:string[]; release:string; };
+type LiveInferenceStatus = {
+  physics_ready:boolean;
+  trained_gru_installed:boolean;
+  trained_gru_path:string;
+  live_demo_fallback_allowed:boolean;
+  fusion_policy:string;
+  bigru_live_allowed:boolean;
+};
+
 
 const fetchCapabilities=()=>apiRequest<Capabilities>("/edge/capabilities");
+const fetchLiveInferenceStatus=()=>apiRequest<LiveInferenceStatus>("/streaming/edge/inference/status");
 const fetchDashboard=()=>apiRequest<Dashboard>("/edge/dashboard");
 const registerDevice=(payload:Record<string,unknown>)=>apiRequest<Device>("/edge/devices",{method:"POST",body:JSON.stringify(payload)});
 const deployModel=(deviceId:string,payload:Record<string,unknown>)=>apiRequest(`/edge/devices/${deviceId}/deployments`,{method:"POST",body:JSON.stringify(payload)});
@@ -47,6 +57,7 @@ export function EdgeComputingPanel(){
   const [modelKind,setModelKind]=useState("gru"); const [workflow,setWorkflow]=useState("digital_twin_state"); const [offline,setOffline]=useState(false);
   const [intervalMs,setIntervalMs]=useState(100); const [registerOpen,setRegisterOpen]=useState(false); const [replayJobId,setReplayJobId]=useState(""); const [deviceName,setDeviceName]=useState("Field Edge Node");
   const capabilities=useQuery({queryKey:["edge","capabilities"],queryFn:fetchCapabilities});
+  const liveInference=useQuery({queryKey:["edge","live-inference-status"],queryFn:fetchLiveInferenceStatus,refetchInterval:10000});
   const dashboard=useQuery({queryKey:["edge","dashboard"],queryFn:fetchDashboard,refetchInterval:10000});
   const datasets=useQuery({queryKey:["platform","datasets"],queryFn:fetchDatasets});
   const activeDataset=datasetId||datasets.data?.[0]?.dataset_id||"";
@@ -64,6 +75,31 @@ export function EdgeComputingPanel(){
 
   return <Stack spacing={3}>
     <Paper className="hero-panel" sx={{p:3}}><Stack direction={{xs:"column",md:"row"}} justifyContent="space-between" gap={2}><Stack direction="row" gap={1.5} alignItems="center"><Cpu/><Box><Typography variant="h4" fontWeight={900}>Edge Computing</Typography><Typography>Depth-indexed real-time petrophysical interpretation, edge replay and offline synchronisation.</Typography></Box></Stack><Stack direction="row" gap={1}><Chip color="success" label={`Release ${capabilities.data?.release??"2.2.0"}`}/><Button startIcon={<RefreshCw size={17}/>} onClick={()=>dashboard.refetch()}>Refresh</Button></Stack></Stack></Paper>
+    <Paper variant="outlined" sx={{p:2.5}}>
+      <Stack spacing={1.5}>
+        <Stack direction={{xs:"column",md:"row"}} justifyContent="space-between" gap={1}>
+          <Box>
+            <Typography variant="h6" fontWeight={900}>Live B2 inference status</Typography>
+            <Typography variant="body2" color="text.secondary">Operational stream path: B1 quality gate → deterministic petrophysics → causal GRU when a validated ONNX artefact is installed → provenance-aware fusion.</Typography>
+          </Box>
+          <Stack direction="row" gap={1} flexWrap="wrap">
+            <Chip color={liveInference.data?.physics_ready?"success":"error"} label={liveInference.data?.physics_ready?"Physics ready":"Physics unavailable"}/>
+            <Chip color={liveInference.data?.trained_gru_installed?"success":"warning"} label={liveInference.data?.trained_gru_installed?"TRAINED_MODEL":"PHYSICS_ONLY"}/>
+            <Chip color={liveInference.data?.live_demo_fallback_allowed?"error":"success"} label={liveInference.data?.live_demo_fallback_allowed?"Demo fallback enabled":"Live demo fallback blocked"}/>
+          </Stack>
+        </Stack>
+        {liveInference.isLoading&&<LinearProgress/>}
+        {liveInference.isError&&<Alert severity="warning">The B2 live inference status endpoint could not be loaded. Existing edge replay remains available, but live model provenance cannot be verified from this panel.</Alert>}
+        {liveInference.data&&!liveInference.data.trained_gru_installed&&<Alert severity="warning">No validated causal GRU ONNX artefact is installed. Live B2 interpretation therefore remains in PHYSICS_ONLY mode. This is intentional: PetroEdge will not present deterministic demo fallback as trained AI.</Alert>}
+        {liveInference.data?.trained_gru_installed&&<Alert severity="success">A trained causal GRU artefact is installed. Live streaming can enter TRAINED_MODEL mode after the causal warm-up window is satisfied.</Alert>}
+        {liveInference.data&&<Grid container spacing={1.5}>
+          <Grid item xs={12} md={4}><Paper variant="outlined" sx={{p:1.5,height:"100%"}}><Typography variant="caption" color="text.secondary">Fusion policy</Typography><Typography variant="body2" fontWeight={700}>{liveInference.data.fusion_policy}</Typography></Paper></Grid>
+          <Grid item xs={12} md={4}><Paper variant="outlined" sx={{p:1.5,height:"100%"}}><Typography variant="caption" color="text.secondary">GRU artefact</Typography><Typography variant="body2" sx={{wordBreak:"break-all"}}>{liveInference.data.trained_gru_path}</Typography></Paper></Grid>
+          <Grid item xs={12} md={4}><Paper variant="outlined" sx={{p:1.5,height:"100%"}}><Typography variant="caption" color="text.secondary">Live BiGRU</Typography><Typography variant="body2" fontWeight={700}>{liveInference.data.bigru_live_allowed?"Allowed":"Blocked — replay/historical only"}</Typography></Paper></Grid>
+        </Grid>}
+        <Alert severity="info">The “Rig-site replay” tab below is the existing historical/depth replay workflow. The status above reports the new B2 live-stream inference path and its actual model provenance.</Alert>
+      </Stack>
+    </Paper>
     {(dashboard.isLoading||capabilities.isLoading)&&<LinearProgress/>}{(dashboard.isError||capabilities.isError)&&<Alert severity="error">The Edge Computing API could not be loaded.</Alert>}
     <Grid container spacing={2}><Grid item xs={12} sm={6} md={2.4}><MetricCard label="Registered devices" value={summary?.registered_devices??0} icon={<Server/>}/></Grid><Grid item xs={12} sm={6} md={2.4}><MetricCard label="Online" value={summary?.online_devices??0} icon={<Radio/>}/></Grid><Grid item xs={12} sm={6} md={2.4}><MetricCard label="Models deployed" value={summary?.deployed_models??0} icon={<UploadCloud/>}/></Grid><Grid item xs={12} sm={6} md={2.4}><MetricCard label="Inference outputs" value={summary?.total_inferences??0} icon={<Cpu/>}/></Grid><Grid item xs={12} sm={6} md={2.4}><MetricCard label="Pending sync" value={summary?.pending_sync_items??0} icon={<WifiOff/>}/></Grid></Grid>
     <Paper variant="outlined"><Tabs value={tab} onChange={(_e,v)=>setTab(v)} variant="scrollable"><Tab label="Device dashboard"/><Tab label="Model deployment"/><Tab label="Rig-site replay"/><Tab label="Run history"/></Tabs></Paper>
