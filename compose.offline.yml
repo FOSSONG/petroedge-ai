@@ -1,0 +1,10 @@
+services:
+  backend:
+    image: petroedge-release45-backend
+    pull_policy: never
+    restart: unless-stopped
+
+  frontend:
+    image: petroedge-release45-frontend
+    pull_policy: never
+    restart: unless-stopped
