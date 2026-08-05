@@ -1,41 +1,27 @@
 $ErrorActionPreference = "Stop"
-Set-StrictMode -Version Latest
-
-$ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$ProjectRoot = "C:\Users\GUILIANNO FOSSONG\Documents\PetroEdge-AI-Release-4.1.2-DATA-PREPARATION-STUDIO"
 $Desktop = [Environment]::GetFolderPath("Desktop")
 $Shell = New-Object -ComObject WScript.Shell
 
-$Definitions = @(
-    @{
-        Name = "Start PetroEdge AI Online"
-        Script = "START-PETROEDGE-ONLINE.ps1"
-    },
-    @{
-        Name = "Start PetroEdge AI Offline"
-        Script = "START-PETROEDGE-OFFLINE.ps1"
-    },
-    @{
-        Name = "Stop PetroEdge AI"
-        Script = "STOP-PETROEDGE.ps1"
-    },
-    @{
-        Name = "Diagnose PetroEdge AI"
-        Script = "DIAGNOSE-PETROEDGE.ps1"
-    }
+$Items = @(
+    @{Name="Open PetroEdge AI"; Script="OPEN-PETROEDGE.ps1"},
+    @{Name="Start PetroEdge AI"; Script="START-PETROEDGE.ps1"},
+    @{Name="Restart PetroEdge AI"; Script="RESTART-PETROEDGE.ps1"},
+    @{Name="Stop PetroEdge AI"; Script="STOP-PETROEDGE.ps1"}
 )
 
-foreach ($Definition in $Definitions) {
+foreach ($Item in $Items) {
     $Shortcut = $Shell.CreateShortcut(
-        (Join-Path $Desktop "$($Definition.Name).lnk")
+        (Join-Path $Desktop "$($Item.Name).lnk")
     )
     $Shortcut.TargetPath = "powershell.exe"
     $Shortcut.Arguments = (
         '-NoProfile -ExecutionPolicy Bypass -File "' +
-        (Join-Path $ProjectRoot $Definition.Script) +
+        (Join-Path $ProjectRoot $Item.Script) +
         '"'
     )
     $Shortcut.WorkingDirectory = $ProjectRoot
     $Shortcut.Save()
 }
 
-Write-Host "PetroEdge desktop shortcuts created." -ForegroundColor Green
+Write-Host "PetroEdge shortcuts created." -ForegroundColor Green
