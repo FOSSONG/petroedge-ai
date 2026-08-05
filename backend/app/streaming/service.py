@@ -9,6 +9,7 @@ from app.events import Event, EventCreate, EventDelivery, event_bus
 from app.rules import register_default_rules, rule_engine
 from app.streaming.edge_pipeline import edge_stream_pipeline
 from app.streaming.schemas import EdgeStreamBatch, EdgeStreamSample, ReplayRequest, TelemetryBatch
+from app.services.realtime_inference import real_time_interpretation_service
 
 
 class StreamingService:
@@ -83,9 +84,10 @@ class StreamingService:
             operational_state=request.operational_state,
             metadata=request.metadata,
         )
+        interpretation = real_time_interpretation_service.interpret(processed)
         delivery = await self.ingest(
             EventCreate(
-                event_type="edge.telemetry.normalized",
+                event_type="edge.telemetry.interpreted",
                 source="sensor",
                 reservoir_id=request.reservoir_id,
                 well_id=request.well_id,
@@ -93,6 +95,7 @@ class StreamingService:
                 occurred_at=request.source_timestamp,
                 payload={
                     "stream": processed,
+                    "interpretation": interpretation,
                     "rows": [processed["canonical_channels"]] if processed["inference_ready"] else [],
                 },
                 metadata={
@@ -100,11 +103,14 @@ class StreamingService:
                     "quality_state": processed["quality_state"],
                     "inference_ready": processed["inference_ready"],
                     "raw_record_sha256": processed["raw_record_sha256"],
+                    "interpretation_status": interpretation["status"],
+                    "ml_status": interpretation["ml"]["status"],
                 },
             )
         )
         return {
             "stream": processed,
+            "interpretation": interpretation,
             "delivery": delivery.model_dump(mode="json"),
         }
 

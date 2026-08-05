@@ -103,6 +103,7 @@ class EdgeTemporalInferenceService:
         values: Sequence[Sequence[float]],
         *,
         execution_mode: str,
+        allow_demo_fallback: bool = True,
     ) -> dict[str, Any]:
         mode = execution_mode.strip().lower()
         if manifest.kind == TemporalModelKind.BIGRU and mode not in {"batch", "replay", "historical"}:
@@ -120,6 +121,11 @@ class EdgeTemporalInferenceService:
             runtime = "onnxruntime"
             fallback = False
         else:
+            if not allow_demo_fallback:
+                raise RuntimeError(
+                    f"trained model artefact unavailable for {manifest.model_id}; "
+                    "demo fallback is disabled for live operational inference"
+                )
             score = self._demo_temporal_score(window, manifest.kind)
             runtime = "deterministic-demo-fallback"
             fallback = True

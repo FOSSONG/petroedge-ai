@@ -8,6 +8,7 @@ from app.core.rbac import require_roles
 from app.events import EventCreate, event_bus
 from app.streaming import EdgeStreamBatch, EdgeStreamSample, ReplayRequest, TelemetryBatch, streaming_service
 from app.streaming.channel_registry import registry_payload
+from app.services.realtime_inference import real_time_interpretation_service
 
 router = APIRouter()
 
@@ -31,6 +32,21 @@ async def ingest_telemetry(
 ) -> dict[str, Any]:
     delivery = await streaming_service.ingest_telemetry(request)
     return delivery.model_dump(mode="json")
+
+
+@router.get("/edge/inference/status")
+async def edge_inference_status(
+    _: dict[str, Any] = Depends(require_roles(*READ_ROLES)),
+) -> dict[str, Any]:
+    model_path = real_time_interpretation_service.model_root / "gru_live.onnx"
+    return {
+        "physics_ready": True,
+        "trained_gru_installed": model_path.is_file(),
+        "trained_gru_path": str(model_path),
+        "live_demo_fallback_allowed": False,
+        "fusion_policy": "physics + trained causal GRU when installed; otherwise physics-only",
+        "bigru_live_allowed": False,
+    }
 
 
 @router.get("/edge/channels")
