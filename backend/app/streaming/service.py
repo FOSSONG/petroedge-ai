@@ -7,7 +7,8 @@ from datetime import datetime, timezone
 from app.digital_twin import digital_twin_orchestrator
 from app.events import Event, EventCreate, EventDelivery, event_bus
 from app.rules import register_default_rules, rule_engine
-from app.streaming.schemas import ReplayRequest, TelemetryBatch
+from app.streaming.edge_pipeline import edge_stream_pipeline
+from app.streaming.schemas import EdgeStreamBatch, EdgeStreamSample, ReplayRequest, TelemetryBatch
 
 
 class StreamingService:
@@ -71,6 +72,57 @@ class StreamingService:
                 metadata=request.metadata,
             )
         )
+
+    async def ingest_edge_sample(self, request: EdgeStreamSample) -> dict[str, object]:
+        processed = edge_stream_pipeline.process(
+            stream_id=request.stream_id,
+            sequence=request.sequence,
+            source_timestamp=request.source_timestamp,
+            channels=request.channels,
+            units=request.units,
+            operational_state=request.operational_state,
+            metadata=request.metadata,
+        )
+        delivery = await self.ingest(
+            EventCreate(
+                event_type="edge.telemetry.normalized",
+                source="sensor",
+                reservoir_id=request.reservoir_id,
+                well_id=request.well_id,
+                asset_id=request.well_id or request.reservoir_id or request.stream_id,
+                occurred_at=request.source_timestamp,
+                payload={
+                    "stream": processed,
+                    "rows": [processed["canonical_channels"]] if processed["inference_ready"] else [],
+                },
+                metadata={
+                    **request.metadata,
+                    "quality_state": processed["quality_state"],
+                    "inference_ready": processed["inference_ready"],
+                    "raw_record_sha256": processed["raw_record_sha256"],
+                },
+            )
+        )
+        return {
+            "stream": processed,
+            "delivery": delivery.model_dump(mode="json"),
+        }
+
+    async def ingest_edge_batch(self, request: EdgeStreamBatch) -> dict[str, object]:
+        results = []
+        for sample in request.samples:
+            results.append(await self.ingest_edge_sample(sample))
+        return {
+            "count": len(results),
+            "inference_ready_count": sum(
+                1 for item in results if item["stream"]["inference_ready"]
+            ),
+            "quarantined_count": sum(
+                1 for item in results
+                if item["stream"]["quality_state"] == "QUARANTINED"
+            ),
+            "results": results,
+        }
 
     async def replay(self, request: ReplayRequest) -> list[EventDelivery]:
         deliveries: list[EventDelivery] = []

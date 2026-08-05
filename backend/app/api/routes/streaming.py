@@ -6,7 +6,8 @@ from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect
 
 from app.core.rbac import require_roles
 from app.events import EventCreate, event_bus
-from app.streaming import ReplayRequest, TelemetryBatch, streaming_service
+from app.streaming import EdgeStreamBatch, EdgeStreamSample, ReplayRequest, TelemetryBatch, streaming_service
+from app.streaming.channel_registry import registry_payload
 
 router = APIRouter()
 
@@ -30,6 +31,30 @@ async def ingest_telemetry(
 ) -> dict[str, Any]:
     delivery = await streaming_service.ingest_telemetry(request)
     return delivery.model_dump(mode="json")
+
+
+@router.get("/edge/channels")
+async def edge_channel_registry(
+    _: dict[str, Any] = Depends(require_roles(*READ_ROLES)),
+) -> dict[str, Any]:
+    channels = registry_payload()
+    return {"count": len(channels), "channels": channels}
+
+
+@router.post("/edge/sample")
+async def ingest_edge_sample(
+    request: EdgeStreamSample,
+    _: dict[str, Any] = Depends(require_roles(*WRITE_ROLES)),
+) -> dict[str, Any]:
+    return await streaming_service.ingest_edge_sample(request)
+
+
+@router.post("/edge/batch")
+async def ingest_edge_batch(
+    request: EdgeStreamBatch,
+    _: dict[str, Any] = Depends(require_roles(*WRITE_ROLES)),
+) -> dict[str, Any]:
+    return await streaming_service.ingest_edge_batch(request)
 
 
 @router.post("/replay")
