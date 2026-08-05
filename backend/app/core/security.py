@@ -8,27 +8,83 @@ from uuid import uuid4
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import ExpiredSignatureError, JWTError, jwt
-from passlib.context import CryptContext
+from argon2 import PasswordHasher
+from argon2.exceptions import (
+    HashingError,
+    InvalidHashError,
+    VerificationError,
+    VerifyMismatchError,
+)
 
 from app.core.config import settings
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+password_hasher = PasswordHasher(
+    time_cost=3,
+    memory_cost=65536,
+    parallelism=2,
+    hash_len=32,
+    salt_len=16,
+)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
-def hash_password(password: str) -> str:
-    if not password:
+def _validate_password_input(password: str) -> str:
+    if not isinstance(password, str) or not password:
         raise ValueError("Password cannot be empty.")
-    return pwd_context.hash(password)
+
+    password_length = len(password.encode("utf-8"))
+
+    if password_length < 12:
+        raise ValueError("Password must contain at least 12 UTF-8 bytes.")
+
+    if password_length > 1024:
+        raise ValueError("Password is too long.")
+
+    return password
 
 
-def verify_password(plain_password: str, hashed_password: str) -> bool:
+def hash_password(password: str) -> str:
+    validated = _validate_password_input(password)
+
+    try:
+        return password_hasher.hash(validated)
+    except HashingError as exc:
+        raise ValueError("Password hashing failed.") from exc
+
+
+def verify_password(
+    plain_password: str,
+    hashed_password: str,
+) -> bool:
     if not plain_password or not hashed_password:
         return False
-    try:
-        return pwd_context.verify(plain_password, hashed_password)
-    except (ValueError, TypeError):
+
+    if not hashed_password.startswith("$argon2"):
         return False
+
+    try:
+        return password_hasher.verify(
+            hashed_password,
+            plain_password,
+        )
+    except (
+        VerifyMismatchError,
+        VerificationError,
+        InvalidHashError,
+        TypeError,
+        ValueError,
+    ):
+        return False
+
+
+def password_hash_needs_rehash(hashed_password: str) -> bool:
+    if not hashed_password or not hashed_password.startswith("$argon2"):
+        return True
+
+    try:
+        return password_hasher.check_needs_rehash(hashed_password)
+    except (InvalidHashError, TypeError, ValueError):
+        return True
 
 
 def create_access_token(
