@@ -1,0 +1,17 @@
+import { useState } from "react";
+import { useMutation,useQuery,useQueryClient } from "@tanstack/react-query";
+import { Alert,Box,Button,FormControl,Grid,InputLabel,MenuItem,Paper,Select,Stack,TextField,Typography } from "@mui/material";
+import { Database, RefreshCw, Workflow } from "lucide-react";
+import { fetchAssets,fetchDatasets,saveAsset } from "./platformApi";
+const navigate=(tab:string)=>window.dispatchEvent(new CustomEvent("petroedge:navigate",{detail:{tab}}));
+export function AssetManagementPanel(){
+ const qc=useQueryClient();const assets=useQuery({queryKey:["v1","assets"],queryFn:fetchAssets});const ds=useQuery({queryKey:["platform","datasets"],queryFn:fetchDatasets});
+ const [field,setField]=useState("Niger Delta");const [well,setWell]=useState("");const [dataset,setDataset]=useState("");
+ const refresh=async()=>Promise.all([qc.invalidateQueries({queryKey:["v1","assets"]}),qc.invalidateQueries({queryKey:["platform","datasets"]})]);
+ const mutation=useMutation({mutationFn:()=>saveAsset({field,well,dataset_id:dataset||null}),onSuccess:async()=>{await refresh();setWell("");}});
+ return <Stack spacing={3}><Stack direction={{xs:"column",sm:"row"}} justifyContent="space-between" gap={1}><Box><Typography variant="h4">Field & Well Management</Typography><Typography color="text.secondary">Assets are linked directly to datasets and the Operations Centre.</Typography></Box><Stack direction="row" gap={1}><Button variant="outlined" startIcon={<RefreshCw size={16}/>} onClick={refresh}>Refresh</Button><Button variant="outlined" startIcon={<Database size={16}/>} onClick={()=>navigate("Datasets")}>Datasets</Button><Button variant="contained" startIcon={<Workflow size={16}/>} onClick={()=>navigate("Operations")}>Operations</Button></Stack></Stack>
+ {assets.isError&&<Alert severity="error">{assets.error instanceof Error?assets.error.message:"Unable to load assets."}</Alert>}
+ <Paper variant="outlined" sx={{p:3}}><Grid container spacing={2}><Grid item xs={12} md={3}><TextField fullWidth label="Field" value={field} onChange={e=>setField(e.target.value)}/></Grid><Grid item xs={12} md={3}><TextField fullWidth required label="Well" value={well} onChange={e=>setWell(e.target.value)}/></Grid><Grid item xs={12} md={4}><FormControl fullWidth><InputLabel>Logs/Dataset</InputLabel><Select label="Logs/Dataset" value={dataset} onChange={e=>setDataset(e.target.value)}><MenuItem value="">Not assigned</MenuItem>{(ds.data??[]).map(d=><MenuItem value={d.dataset_id} key={d.dataset_id}>{d.name}</MenuItem>)}</Select></FormControl></Grid><Grid item xs={12} md={2}><Button fullWidth sx={{height:56}} variant="contained" disabled={!well.trim()||mutation.isPending} onClick={()=>mutation.mutate()}>{mutation.isPending?"Registering…":"Register well"}</Button></Grid></Grid></Paper>
+ <Grid container spacing={2}>{(assets.data??[]).map(a=><Grid item xs={12} md={4} key={a.asset_id}><Paper variant="outlined" sx={{p:3,height:"100%"}}><Typography variant="overline">{a.field}</Typography><Typography variant="h5">{a.well}</Typography><Typography color="text.secondary">Dataset: {a.dataset_id??"Not assigned"}</Typography><Stack direction="row" gap={1} mt={2}><Button size="small" variant="outlined" onClick={()=>{if(a.dataset_id)sessionStorage.setItem("petroedge_open_dataset_id",a.dataset_id);navigate("Datasets");}}>View dataset</Button><Button size="small" variant="contained" onClick={()=>{sessionStorage.setItem("petroedge_selected_asset",JSON.stringify(a));navigate("Operations");}}>Operations</Button></Stack></Paper></Grid>)}</Grid>
+ </Stack>;
+}

@@ -1,0 +1,95 @@
+{
+  "enabled": true,
+  "models": [
+    {
+      "id": "gabo-porosity-190",
+      "name": "GABO-51 / porosity / 190_bar",
+      "artifact": "gabo-porosity-190.joblib",
+      "sha256": "f00d7521a5029f9dbeb0e020153b98437c71d843b97de0facb1e6073d12ca81b",
+      "features": [
+        {
+          "name": "gr_api",
+          "unit": "API",
+          "min": 34.3709,
+          "max": 121.9121
+        },
+        {
+          "name": "bulk_density_g_cm3",
+          "unit": "g/cm3",
+          "min": 2.0462,
+          "max": 2.5618
+        },
+        {
+          "name": "neutron_porosity_v_v",
+          "unit": "v/v",
+          "min": 0.0927,
+          "max": 0.3099
+        },
+        {
+          "name": "deep_resistivity_ohm_m",
+          "unit": "ohm.m",
+          "min": 1.8996,
+          "max": 114.1822
+        }
+      ],
+      "target": "porosity",
+      "condition": "190_bar",
+      "unit": "fraction",
+      "validation_mae": 0.038369836534957784,
+      "validation_rows": 15,
+      "training_rows": 51,
+      "source_sha256": "364baea00c607420ee768779c0ce301e00ba74f7c37f7672aca784b0c5cff49b",
+      "production_eligible": false,
+      "limitations": [
+        "Single parent well; small reused validation partition, not independent-well confirmation.",
+        "Output is specific to the recorded laboratory target and condition.",
+        "Training-range screening cannot establish geological similarity or prediction confidence."
+      ]
+    },
+    {
+      "id": "gabo-permeability-225",
+      "name": "GABO-51 / permeability_air_horizontal / 225_bar",
+      "artifact": "gabo-permeability-225.joblib",
+      "sha256": "2d6c419e62b8a503070638e0abdad968e10f75fb8ff6a7b6e3d64d64c8ed8d12",
+      "features": [
+        {
+          "name": "gr_api",
+          "unit": "API",
+          "min": 29.5703,
+          "max": 111.6442
+        },
+        {
+          "name": "bulk_density_g_cm3",
+          "unit": "g/cm3",
+          "min": 2.1038,
+          "max": 2.5293
+        },
+        {
+          "name": "neutron_porosity_v_v",
+          "unit": "v/v",
+          "min": 0.0971,
+          "max": 0.2978
+        },
+        {
+          "name": "deep_resistivity_ohm_m",
+          "unit": "ohm.m",
+          "min": 4.5388,
+          "max": 112.2221
+        }
+      ],
+      "target": "permeability_air_horizontal",
+      "condition": "225_bar",
+      "unit": "mD",
+      "validation_mae": 403.6875608794264,
+      "validation_rows": 9,
+      "training_rows": 31,
+      "source_sha256": "0612872bbe883e23c014b65e6a87da14c5a50df8affdb48c54367036dd55623b",
+      "production_eligible": false,
+      "limitations": [
+        "Single parent well; small reused validation partition, not independent-well confirmation.",
+        "Output is specific to the recorded laboratory target and condition.",
+        "Training-range screening cannot establish geological similarity or prediction confidence."
+      ]
+    }
+  ]
+}

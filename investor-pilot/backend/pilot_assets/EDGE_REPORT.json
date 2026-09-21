@@ -1,0 +1,4008 @@
+{
+  "name": "3W real-event detector",
+  "mode": "experimental_binary_event_detection",
+  "production_eligible": false,
+  "features": [
+    "P-TPT_current",
+    "T-TPT_current",
+    "P-MON-CKP_current",
+    "T-JUS-CKP_current",
+    "P-TPT_mean60s",
+    "T-TPT_mean60s",
+    "P-MON-CKP_mean60s",
+    "T-JUS-CKP_mean60s",
+    "P-TPT_std60s",
+    "T-TPT_std60s",
+    "P-MON-CKP_std60s",
+    "T-JUS-CKP_std60s"
+  ],
+  "source_archive": "3w_dataset_2.0.0.zip",
+  "selection_files": 131,
+  "manifest": [
+    {
+      "member": "0/WELL-00002_20170808090000.parquet",
+      "sha256": "2f4fd46b26407a0903915ccdb30a5a4d0ff05fe02ddb45dff6a8765b38eff3b9",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "0/WELL-00006_20170826160103.parquet",
+      "sha256": "0266b610f732dc771fce4bd80f6fd57dcd184fe4dce48374c8fa533668034662",
+      "well": "WELL-00006",
+      "partition": "train",
+      "rows_used": 299
+    },
+    {
+      "member": "0/WELL-00005_20170817190000.parquet",
+      "sha256": "a72e8843a12fbd9fcf5127b5e94626a37146b8d1e76dc59d19c026631d8a53dc",
+      "well": "WELL-00005",
+      "partition": "validation",
+      "rows_used": 178
+    },
+    {
+      "member": "0/WELL-00002_20170218000237.parquet",
+      "sha256": "0ae4ccaac73a0293fa70562a79f3360bce48da54b3f0bb1ffafd02fc2abb99f0",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "0/WELL-00006_20170208080053.parquet",
+      "sha256": "1ce4198acb7e58637f9de7b0f06f061337554dd10835cb6ad571d3711cdfafc7",
+      "well": "WELL-00006",
+      "partition": "train",
+      "rows_used": 300
+    },
+    {
+      "member": "0/WELL-00002_20170617000127.parquet",
+      "sha256": "5b182e5e9236baffd6e39e6b80bdd82480fdaa52d2ccdcb3d9fe3bcbf9ba9d9a",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "0/WELL-00002_20170611190000.parquet",
+      "sha256": "3bc9179a54742bf3b9629c7ce63cfddd9d3a5fde8cde16b06cdf7c98905526a3",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "0/WELL-00001_20170527050000.parquet",
+      "sha256": "e02daa51c2a426ea333dcf8ce422a8a3c6e904321004ec5a442741902e5d637b",
+      "well": "WELL-00001",
+      "partition": "train",
+      "rows_used": 300
+    },
+    {
+      "member": "0/WELL-00002_20170622180316.parquet",
+      "sha256": "411d2e904d9824fe61746dc1914e7b70b3b3d7646402592c6c185bd96339042e",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "0/WELL-00005_20170817070000.parquet",
+      "sha256": "6376487607c11749b47f7fe1b80efb9675fbed223121886cd4eb610186001a83",
+      "well": "WELL-00005",
+      "partition": "validation",
+      "rows_used": 180
+    },
+    {
+      "member": "0/WELL-00006_20170223200000.parquet",
+      "sha256": "21813bc53a50728d6d550fbc625936ab830193e3b01187d310c498f5a2af3dae",
+      "well": "WELL-00006",
+      "partition": "train",
+      "rows_used": 299
+    },
+    {
+      "member": "0/WELL-00006_20170209190114.parquet",
+      "sha256": "7b4512cdd6f076cf759f49e07193ed74c246643a58eab02c789f4dfce1524fe1",
+      "well": "WELL-00006",
+      "partition": "train",
+      "rows_used": 299
+    },
+    {
+      "member": "0/WELL-00002_20170625010200.parquet",
+      "sha256": "eb557c40364e41d4aeddbf17c1764fdc0cb6f1a3927352163e7266792276ba37",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "0/WELL-00001_20170826170000.parquet",
+      "sha256": "fe8d8a830e985c7dedeaba6c7d30de4e8f6b784f83da828f3b4a862f7086fffb",
+      "well": "WELL-00001",
+      "partition": "train",
+      "rows_used": 300
+    },
+    {
+      "member": "0/WELL-00005_20170815040000.parquet",
+      "sha256": "0d34a084a621c6d667ad1edf5a41acf4b73cabd80073722644a79b1cefe50098",
+      "well": "WELL-00005",
+      "partition": "validation",
+      "rows_used": 178
+    },
+    {
+      "member": "0/WELL-00006_20170508130053.parquet",
+      "sha256": "4f1084569fe572680f485d01cabf0afb44bda35e8d34487712382f84d0d508fc",
+      "well": "WELL-00006",
+      "partition": "train",
+      "rows_used": 300
+    },
+    {
+      "member": "1/WELL-00001_20140124083303.parquet",
+      "sha256": "2a8c7d4cb0557356d272b6d116f11d9896dc98953da3d1f3ab1d15a885155467",
+      "well": "WELL-00001",
+      "partition": "train",
+      "rows_used": 811
+    },
+    {
+      "member": "1/WELL-00002_20140126180030.parquet",
+      "sha256": "fc5862ae8a6ee73b7cb4844ede90d481785c8941c846e93694887fc53c7db0b1",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "1/WELL-00006_20170731170930.parquet",
+      "sha256": "48faa507b3bfce52164be8ffd4742d5efaed9f1d9d5306ba0729ab10d2c08527",
+      "well": "WELL-00006",
+      "partition": "train",
+      "rows_used": 944
+    },
+    {
+      "member": "1/WELL-00006_20180617190257.parquet",
+      "sha256": "6ec75a7bf06a676c8b390dc05553ecdc590a900e8d6719d8d4e786b771b98484",
+      "well": "WELL-00006",
+      "partition": "train",
+      "rows_used": 734
+    },
+    {
+      "member": "2/WELL-00011_20140929210121.parquet",
+      "sha256": "8e7f25e6ff3d2f96f4d39632a65430561641dd6a2582a42c32698adee067847d",
+      "well": "WELL-00011",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00013_20170329010229.parquet",
+      "sha256": "0346dfb611a987058797d5b8b423c4d83a9b40a7631e437255f67420a51793be",
+      "well": "WELL-00013",
+      "partition": "validation",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00011_20140916050300.parquet",
+      "sha256": "64fc00f4ca6e578ce50aa7ba7283b7411414de676225c364bd532eab2761d39d",
+      "well": "WELL-00011",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00012_20170320011000.parquet",
+      "sha256": "c4d6c34aa0ef269ec811a41ff0979d5d022c6865c45a801d9b37624c6aa56d01",
+      "well": "WELL-00012",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00002_20131104004101.parquet",
+      "sha256": "d0ad21a089741bb97c08823eee1e00df2db9915715c8f8c3561dd9ee1e8644e0",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00011_20141005160056.parquet",
+      "sha256": "90e4423ccf9a2765294ba1957ddaa14aea9fe332fe5d2669839749916c9c95f4",
+      "well": "WELL-00011",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00011_20140823230118.parquet",
+      "sha256": "910244ab75f3f592483271473325cfdaa87126ba0352c3c787b97af7f75540a6",
+      "well": "WELL-00011",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00003_20170728130240.parquet",
+      "sha256": "85cc427ebce6b13ac99162ebeb943fdc9439eb7fa490886c4cf28a9a78363037",
+      "well": "WELL-00003",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00012_20170320123144.parquet",
+      "sha256": "a667d93b008f8c26916067a1ca208dca0e912963ea21c49efeafeddb243b093d",
+      "well": "WELL-00012",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00011_20140921183228.parquet",
+      "sha256": "6b3d1f03861d2258c48094913b647c322c9abc1bfc8ffb25bf21dbc749d0c5bb",
+      "well": "WELL-00011",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00011_20141006150121.parquet",
+      "sha256": "b825ad1aa38f16b644c7c9d8e5c4b8a9fbbd294051f7a84bd53f5eed396fe835",
+      "well": "WELL-00011",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00011_20140726165720.parquet",
+      "sha256": "b3229da7166d9bc21b6cef9f65e15ab4637add8b381095467d69e5cafcb4cab9",
+      "well": "WELL-00011",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00009_20170313150804.parquet",
+      "sha256": "0fe0f5d5120c8f34dc0bbd66c757ff1b5dc90d610a2909cd79b581f59d816594",
+      "well": "WELL-00009",
+      "partition": "train",
+      "rows_used": 78
+    },
+    {
+      "member": "2/WELL-00011_20140720110102.parquet",
+      "sha256": "8947f09f56e9bbac53914ba78dcdacc470cc205142795e8c27e7ce77846f52a5",
+      "well": "WELL-00011",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00011_20140929153332.parquet",
+      "sha256": "1514c90aa5bed0b5a25f1c6333ebab08e063d7b6c4665ffb5abb8acc067fe37a",
+      "well": "WELL-00011",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "2/WELL-00010_20171218180131.parquet",
+      "sha256": "94c96755e5001ce5a699a4a0157a46a4c3c4c7029feb7a2cc621bb7283c2dcab",
+      "well": "WELL-00010",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "3/WELL-00014_20170926010340.parquet",
+      "sha256": "12af57fc639b915e974d2994d335ca0f0bb0afda51706340ab05440b6c61efa9",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 293
+    },
+    {
+      "member": "3/WELL-00014_20170921140042.parquet",
+      "sha256": "110206d6fd24172a7406cd43b66e1556ae962d518305c43eff2c9b775c65b248",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 300
+    },
+    {
+      "member": "3/WELL-00014_20170925050042.parquet",
+      "sha256": "c1da1b6c2c4ded6955f864e2d616a1dcc628967bf95d801e205b783bcfcdb7dc",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 300
+    },
+    {
+      "member": "3/WELL-00014_20170926110103.parquet",
+      "sha256": "76b69c3b3f72f35f9a4e9782adf8952aee26ec1ae7fafe063748a910e680b3dd",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 296
+    },
+    {
+      "member": "3/WELL-00014_20170920050228.parquet",
+      "sha256": "2cc12e401f4d355e04120cd0a43df7d393d9b3db8b29b57efd3e0555f0023a32",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 298
+    },
+    {
+      "member": "3/WELL-00014_20170918060135.parquet",
+      "sha256": "064b0d8ef7e762a89a27abbb6078861500e23b03c08f54814fc4d3461567ed42",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 299
+    },
+    {
+      "member": "3/WELL-00014_20170920180207.parquet",
+      "sha256": "5f062452b8516a53db1ce47bc7d999787f8bf2be08e0a07f16a7135b75c05620",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 298
+    },
+    {
+      "member": "3/WELL-00014_20170918110103.parquet",
+      "sha256": "e980a4c6dac77a11a694c227d8644b451a38425c3fd8df50e77fc79d558ebc4f",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 299
+    },
+    {
+      "member": "3/WELL-00014_20170926160228.parquet",
+      "sha256": "7f4c11d785e14b495b0d519f6d04c37fc8307df9ad691b63f53f21d03e9b58d8",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 298
+    },
+    {
+      "member": "3/WELL-00014_20170920230053.parquet",
+      "sha256": "ad7873ca61290e61a63b1e0f9133429439243a4d16c8f36e472f3b92444b2db7",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 300
+    },
+    {
+      "member": "3/WELL-00014_20170919200016.parquet",
+      "sha256": "ebabfa676f1ae3dd8052d7fab8fb0916e850ba3ad41febd3e6cc6ba19e3ad91e",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 240
+    },
+    {
+      "member": "3/WELL-00014_20170926060042.parquet",
+      "sha256": "e955dde085adcde96d2011149214c9f9e665380c97e848e0bb5ec6893306c5aa",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 300
+    },
+    {
+      "member": "3/WELL-00014_20170917190000.parquet",
+      "sha256": "d226987c1d5a9d7f6c9c2ef472b060c975ae2e5487530d825c14cf430c11cd52",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 300
+    },
+    {
+      "member": "3/WELL-00014_20170920100053.parquet",
+      "sha256": "0724659cfbc69a0273818169695f46d3c87d44890801335f350f1e8b44482973",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 300
+    },
+    {
+      "member": "3/WELL-00014_20170925200042.parquet",
+      "sha256": "b8779b074b797f043c0533e5985bde173fc4bf7e2c13e89fb6bb8a7fde9d5e0d",
+      "well": "WELL-00014",
+      "partition": "test",
+      "rows_used": 300
+    },
+    {
+      "member": "3/WELL-00001_20170320120025.parquet",
+      "sha256": "1ba4c1385ff94b09d5bf9e424bebc77d05b61e99469b4f22a305e6722dc86672",
+      "well": "WELL-00001",
+      "partition": "train",
+      "rows_used": 300
+    },
+    {
+      "member": "4/WELL-00005_20170626140141.parquet",
+      "sha256": "fa957a1feb3c746b3c0f975ce0e8777245eeab5f4dd1f7bc7eaf724cca2a4dc7",
+      "well": "WELL-00005",
+      "partition": "validation",
+      "rows_used": 119
+    },
+    {
+      "member": "4/WELL-00002_20140121110117.parquet",
+      "sha256": "f08f7f0aacdc3553f6e2a375bcbfe1926f83092457d0b9fb9307b68bd764dda7",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "4/WELL-00010_20180423130025.parquet",
+      "sha256": "96639c557d9ec1383682fd6ca0065cdeccf333e393b434a3ef7d7c95092fceef",
+      "well": "WELL-00010",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "4/WELL-00010_20180425030224.parquet",
+      "sha256": "23757545ebc0ae4e4d7071217a247032c06879c25e2fd6a777420fe5bf2860c5",
+      "well": "WELL-00010",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "4/WELL-00007_20170518100129.parquet",
+      "sha256": "497fafb4f475967d6fd0641ceb5ed2e9977468cca4ae160ac36078d966fea026",
+      "well": "WELL-00007",
+      "partition": "train",
+      "rows_used": 119
+    },
+    {
+      "member": "4/WELL-00005_20170624190107.parquet",
+      "sha256": "91c8ee145f9829d9e810390a9bb8edad1c815cdcb5adccf178e2b611fe77dbca",
+      "well": "WELL-00005",
+      "partition": "validation",
+      "rows_used": 119
+    },
+    {
+      "member": "4/WELL-00002_20140122090112.parquet",
+      "sha256": "1aee95667bf02cf6931b1b1cfd2221eb535aa41e6cf29fda8a32e95a68e94cde",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "4/WELL-00010_20180423210016.parquet",
+      "sha256": "8a30e21718bb8cfd82384850ce8b4c092d4b9830a7eb48c54317c4950c973ef5",
+      "well": "WELL-00010",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "4/WELL-00010_20180423190021.parquet",
+      "sha256": "572a179942602bd03f798e06833ad9c346ae8d3a695e3747c051c35d92b3c9af",
+      "well": "WELL-00010",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "4/WELL-00007_20170518000012.parquet",
+      "sha256": "39d4274e873fe3affc3e746a459c27c23ba611f488ebc224dccc3d53a7117835",
+      "well": "WELL-00007",
+      "partition": "train",
+      "rows_used": 120
+    },
+    {
+      "member": "4/WELL-00002_20140121210041.parquet",
+      "sha256": "9d22fe8153ec84796fbbba30e8fa80d54c7384cdafffed77c4fb415a3f07f38e",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "4/WELL-00004_20140804190012.parquet",
+      "sha256": "47692b711ea3b356335abc4d78df988e9c1b85e7ba834f11e753a0d57a65dbea",
+      "well": "WELL-00004",
+      "partition": "train",
+      "rows_used": 120
+    },
+    {
+      "member": "4/WELL-00001_20170318030000.parquet",
+      "sha256": "f5c14ba27541b5a611443bba624c1efd3dff757487d72c6c978fbb61a8135688",
+      "well": "WELL-00001",
+      "partition": "train",
+      "rows_used": 120
+    },
+    {
+      "member": "4/WELL-00004_20140806170008.parquet",
+      "sha256": "0a0c1fef0b020f78cf952369a64d597853e72525b93da1a24edec02fe3d42b6a",
+      "well": "WELL-00004",
+      "partition": "train",
+      "rows_used": 120
+    },
+    {
+      "member": "4/WELL-00005_20170625103000.parquet",
+      "sha256": "41aac8aeec9cc8fdb4a2ae8ed120dc9016890a35e0480df15c46fce857cc5850",
+      "well": "WELL-00005",
+      "partition": "validation",
+      "rows_used": 120
+    },
+    {
+      "member": "4/WELL-00010_20180424010059.parquet",
+      "sha256": "b91cd09865ae6832f3957bc54e0c7dc8c5e954a074c6f049cf3f46ccbd36b9b6",
+      "well": "WELL-00010",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "5/WELL-00020_20140318005900.parquet",
+      "sha256": "14689680f47200a661499f3f37fcb5b954fb003e6334e6ee94eaff22b19d8910",
+      "well": "WELL-00020",
+      "partition": "validation",
+      "rows_used": 61
+    },
+    {
+      "member": "5/WELL-00016_20180426135108.parquet",
+      "sha256": "05abb116b065e032a5856021742d4049477d0e60ac6e5785e24358aaae90a51a",
+      "well": "WELL-00016",
+      "partition": "train",
+      "rows_used": 12
+    },
+    {
+      "member": "5/WELL-00016_20180405005319.parquet",
+      "sha256": "115eda1c2bce454fdbe0c6165f0446aa3cc319c36ebcd68c49cff2643981e01c",
+      "well": "WELL-00016",
+      "partition": "train",
+      "rows_used": 32
+    },
+    {
+      "member": "5/WELL-00020_20140318135038.parquet",
+      "sha256": "49b453fe19a4b250d1d644e34592288c41ae59de57b5f17fccc9ccf36adae72b",
+      "well": "WELL-00020",
+      "partition": "validation",
+      "rows_used": 136
+    },
+    {
+      "member": "5/WELL-00016_20180426131710.parquet",
+      "sha256": "dc1366b1d1b7b9f9c403ad173a48b9a4685b8bed50a4f3e7cb3bd115ca654dc6",
+      "well": "WELL-00016",
+      "partition": "train",
+      "rows_used": 9
+    },
+    {
+      "member": "5/WELL-00016_20180517212322.parquet",
+      "sha256": "fb6ea69f93be175030afff435df8e9a45618e79088e371111e4784667ab482e2",
+      "well": "WELL-00016",
+      "partition": "train",
+      "rows_used": 148
+    },
+    {
+      "member": "5/WELL-00020_20140319110000.parquet",
+      "sha256": "093b19d1cf6dcb0575adce6ed7ca2052dcd54cdbc6e995d88a97968dcc4a2f75",
+      "well": "WELL-00020",
+      "partition": "validation",
+      "rows_used": 240
+    },
+    {
+      "member": "5/WELL-00015_20170620122925.parquet",
+      "sha256": "7339f5640405b9664390cde256574bf6389fd6ff3f640124636c1e082b2ecafb",
+      "well": "WELL-00015",
+      "partition": "test",
+      "rows_used": 202
+    },
+    {
+      "member": "5/WELL-00020_20140317130658.parquet",
+      "sha256": "8682c37c01181bd10e524bc5a9d66931d305186139a785b2a5c3c65ade15f681",
+      "well": "WELL-00020",
+      "partition": "validation",
+      "rows_used": 165
+    },
+    {
+      "member": "5/WELL-00020_20140314144539.parquet",
+      "sha256": "6cbeb245b98992b5b87a8fa7b7f5e3b73fc71870642195f8fb5cf34872981ce1",
+      "well": "WELL-00020",
+      "partition": "validation",
+      "rows_used": 140
+    },
+    {
+      "member": "5/WELL-00020_20140319021600.parquet",
+      "sha256": "5fd36d58f367b5b751009b339fa0107315f0d255e91c136148245c35fb33d09c",
+      "well": "WELL-00020",
+      "partition": "validation",
+      "rows_used": 166
+    },
+    {
+      "member": "6/WELL-00002_20140325160304.parquet",
+      "sha256": "a29d75d4384fef3c4faf42d9b813d4308156a64f18003af3a47871f8635f4310",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "6/WELL-00002_20140212160333.parquet",
+      "sha256": "61e5b364a5f0e1b865c60143d21d4b2ae74029e704a83577e75d88d711f5ccbc",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "6/WELL-00004_20171031184839.parquet",
+      "sha256": "02edb08dfe121700e8d0fd1b8dc317d460162bc844689a1f8bd6a12fd2911813",
+      "well": "WELL-00004",
+      "partition": "train",
+      "rows_used": 30
+    },
+    {
+      "member": "6/WELL-00002_20140301141700.parquet",
+      "sha256": "7e73f2233c048fb878d6758a9a2b33ea309eb7c5dc1f30065f7c3cdef583b11f",
+      "well": "WELL-00002",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "6/WELL-00004_20171031181500.parquet",
+      "sha256": "0ce2320e895a9c26c160d388539566bbc1ebe4a247775ed5dcb3dedc3d361d4f",
+      "well": "WELL-00004",
+      "partition": "train",
+      "rows_used": 26
+    },
+    {
+      "member": "6/WELL-00004_20171031171509.parquet",
+      "sha256": "94037e0b45b52d33695a1f93f4eda2298ee8a1f8076c5dd7e2b0c6af3b5085a9",
+      "well": "WELL-00004",
+      "partition": "train",
+      "rows_used": 48
+    },
+    {
+      "member": "7/WELL-00024_20161001112049.parquet",
+      "sha256": "3606491bad676fef21a7c9932263235c9728649fa8341047d7eb857b896fbd42",
+      "well": "WELL-00024",
+      "partition": "train",
+      "rows_used": 311
+    },
+    {
+      "member": "7/WELL-00023_20181019115124.parquet",
+      "sha256": "a6ac33d3e2fef038948ccdfa88041a134092c9d2d02595be43750389adc43310",
+      "well": "WELL-00023",
+      "partition": "validation",
+      "rows_used": 0
+    },
+    {
+      "member": "7/WELL-00006_20180620152903.parquet",
+      "sha256": "204f6a798ede12f76d8e935969530d9f3ee5d9d6f2a7aee8952a0a614f9928a7",
+      "well": "WELL-00006",
+      "partition": "train",
+      "rows_used": 562
+    },
+    {
+      "member": "7/WELL-00024_20160729172014.parquet",
+      "sha256": "c3f81737dbe61e0fa34a7d2840cb590dd417bea16088b52e1645c6200175285c",
+      "well": "WELL-00024",
+      "partition": "train",
+      "rows_used": 282
+    },
+    {
+      "member": "7/WELL-00024_20160722105543.parquet",
+      "sha256": "c6dc5019f64036e9267fab2d80fe230fd53998abf9b6fa67f7971bebf9ad646a",
+      "well": "WELL-00024",
+      "partition": "train",
+      "rows_used": 542
+    },
+    {
+      "member": "7/WELL-00021_20190403013307.parquet",
+      "sha256": "ffbac17992b7f1d05de4fd4f0e21d868576c576b8aa9c720be375086bd07842c",
+      "well": "WELL-00021",
+      "partition": "validation",
+      "rows_used": 446
+    },
+    {
+      "member": "7/WELL-00006_20180618103000.parquet",
+      "sha256": "79a799357b75c0cee2b716e2771a6393be5054afc9771b6813b36314c4a5c1a3",
+      "well": "WELL-00006",
+      "partition": "train",
+      "rows_used": 146
+    },
+    {
+      "member": "7/WELL-00024_20160920153331.parquet",
+      "sha256": "5eac279ff21c0850bccb4b0947997081d1bbddfce126063faba3af696375045e",
+      "well": "WELL-00024",
+      "partition": "train",
+      "rows_used": 108
+    },
+    {
+      "member": "7/WELL-00024_20160911063934.parquet",
+      "sha256": "f80da6f3867414a264d17c6bd905f61757da797fa14d80877c87dbcaf7047ec9",
+      "well": "WELL-00024",
+      "partition": "train",
+      "rows_used": 32
+    },
+    {
+      "member": "7/WELL-00022_20180802233838.parquet",
+      "sha256": "ee204bd44915a45abbe2cc0e3347e20cdf593cf14f6eed794476d347694fa950",
+      "well": "WELL-00022",
+      "partition": "test",
+      "rows_used": 1377
+    },
+    {
+      "member": "7/WELL-00022_20181020133850.parquet",
+      "sha256": "01fb22d735055919340ed3c816dcd58c1ac08eef59c698b4bc531da95b30cc65",
+      "well": "WELL-00022",
+      "partition": "test",
+      "rows_used": 568
+    },
+    {
+      "member": "7/WELL-00024_20160926072123.parquet",
+      "sha256": "acaf306a330a643eb9a82242cd8ac0c1cd7dc3eb7dd3fa21cd8e8af64dc35cd8",
+      "well": "WELL-00024",
+      "partition": "train",
+      "rows_used": 146
+    },
+    {
+      "member": "7/WELL-00024_20160825100303.parquet",
+      "sha256": "180629e35f9029ffc8e115e9cc8c4614125feaac36ffe4c3bcf355be7b34bbd4",
+      "well": "WELL-00024",
+      "partition": "train",
+      "rows_used": 600
+    },
+    {
+      "member": "7/WELL-00001_20170226130146.parquet",
+      "sha256": "0ad0b0696d627c4c21ff95414b5da3524b478a28312cd82280d792f62a5ace92",
+      "well": "WELL-00001",
+      "partition": "train",
+      "rows_used": 579
+    },
+    {
+      "member": "7/WELL-00024_20160909220000.parquet",
+      "sha256": "ac548972c8265f24d4b37c446e3884e967bf6d5a1c8de15d2adf3f61aa104e08",
+      "well": "WELL-00024",
+      "partition": "train",
+      "rows_used": 1140
+    },
+    {
+      "member": "7/WELL-00021_20180611011218.parquet",
+      "sha256": "efd18fadf8c7f0b8cde024a6bd38cdcddde44222317e1bd0f9a427f906cbbbd7",
+      "well": "WELL-00021",
+      "partition": "validation",
+      "rows_used": 322
+    },
+    {
+      "member": "8/WELL-00019_20210617032654.parquet",
+      "sha256": "062018e03576e4b47c7e7f9ca4f4945cf8d0d56248d1851c5d10b091ec826656",
+      "well": "WELL-00019",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00019_20150614025713.parquet",
+      "sha256": "907fa7186d34e8f0ec8e320636414453e1cb30d20ab208afb6de7d835e77e34a",
+      "well": "WELL-00019",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00025_20200629194141.parquet",
+      "sha256": "d95c64a7b6cff6e6a9f0b517a960fa8a2235647692d636a6a98dc709abc915c8",
+      "well": "WELL-00025",
+      "partition": "validation",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00031_20140403170404.parquet",
+      "sha256": "431ba42866d22ef563a940c7a183f3e8effe1f01b43b72c7c108105506dd5cdd",
+      "well": "WELL-00031",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00028_20210617053128.parquet",
+      "sha256": "55048742a60a4abac2c993a5ab804f40a23bce50a866f9d8f12915b8d722d5de",
+      "well": "WELL-00028",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00029_20201020231724.parquet",
+      "sha256": "ebfb814d1fe7098a551ccddf4cf6321e5593b0dfdb669abbe091499c467d1851",
+      "well": "WELL-00029",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00019_20141117190526.parquet",
+      "sha256": "6f2b8d2c4c5820c950ef77f7a8a9e0b177d643c53ef3721a079de601c97ef8b1",
+      "well": "WELL-00019",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00026_20160601130000.parquet",
+      "sha256": "a8be0fc7abb170459453669857e35a5a4f6ef1e79d846e921b7f19db1b937a58",
+      "well": "WELL-00026",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00030_20141108012623.parquet",
+      "sha256": "abf57fc53470686c0f0322a66dd8b02916a7dc21a51f3bbc6d983a8c1ea0c63f",
+      "well": "WELL-00030",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00026_20170608230000.parquet",
+      "sha256": "674db16a222c8dbe522aa7c436f5a62b37dfcd6717df0a53781d58f0da467872",
+      "well": "WELL-00026",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00027_20230918170106.parquet",
+      "sha256": "23bf3aa58095109766980af80c9a4a8a050c457a65bbf3230377c61f36e72f97",
+      "well": "WELL-00027",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00032_20110830235321.parquet",
+      "sha256": "a98bda0c38685baf62889a378ad9f0cea9bd8158e2d963655de3ad1e99e45bcf",
+      "well": "WELL-00032",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00026_20170207230000.parquet",
+      "sha256": "b0a68e78076f89bc7030e1b8df4e7d2657bd854044cfd36829a44c7192cdcefa",
+      "well": "WELL-00026",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "8/WELL-00019_20120601165020.parquet",
+      "sha256": "b3777daded47b80dd525b1650aa9dbe19adb9ef8842cc47fee9d529a1d426e91",
+      "well": "WELL-00019",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "9/WELL-00020_20131004225400.parquet",
+      "sha256": "4c2076d1136d7eba2b0f086d9757ba170503b53b782f80aa53861573b1ffe357",
+      "well": "WELL-00020",
+      "partition": "validation",
+      "rows_used": 61
+    },
+    {
+      "member": "9/WELL-00033_20190925190420.parquet",
+      "sha256": "88aafbeffc3ffc1f114cac26403ca47adbdb9df3b93e0b4ff812bb6b8b13a71e",
+      "well": "WELL-00033",
+      "partition": "validation",
+      "rows_used": 0
+    },
+    {
+      "member": "9/WELL-00033_20191004020000.parquet",
+      "sha256": "7f063b2e6d86e9d0a8475f65e661920f20d4847eb14d7ce658da62eb50cc60e9",
+      "well": "WELL-00033",
+      "partition": "validation",
+      "rows_used": 0
+    },
+    {
+      "member": "9/WELL-00041_20181013160201.parquet",
+      "sha256": "3cc25d974f0224cdf8b46b9e4afa0927eeab9679dfab4f6a04206aaaf3ca4e38",
+      "well": "WELL-00041",
+      "partition": "train",
+      "rows_used": 299
+    },
+    {
+      "member": "9/WELL-00010_20180715083053.parquet",
+      "sha256": "2fc27957c25f5844cf123a1e5c8d580a211d5eefbfd3e816c326d6466231f3c8",
+      "well": "WELL-00010",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "9/WELL-00038_20190924212924.parquet",
+      "sha256": "dffb5eea20dadc8e3fe981faf4e2bde9dd8e3f43dbcd968df48e15e60130a429",
+      "well": "WELL-00038",
+      "partition": "test",
+      "rows_used": 509
+    },
+    {
+      "member": "9/WELL-00035_20190827090706.parquet",
+      "sha256": "36078c3c49923c0068246a0899673d10d02d818f3d3153645a1b717565fbaccf",
+      "well": "WELL-00035",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "9/WELL-00042_20141217142745.parquet",
+      "sha256": "b22406b5ab0fe43adf85db8c3ad212765ddaf7505444be6bc9c35d46aacb613e",
+      "well": "WELL-00042",
+      "partition": "train",
+      "rows_used": 302
+    },
+    {
+      "member": "9/WELL-00016_20190924191606.parquet",
+      "sha256": "0344c72ee5f908491500841378ec70b2d10846b7b39b16e6d0ee9fd620e75c0f",
+      "well": "WELL-00016",
+      "partition": "train",
+      "rows_used": 698
+    },
+    {
+      "member": "9/WELL-00010_20180723134436.parquet",
+      "sha256": "136f550e61f1d92cb09d4c8123a1ce81dc56b0063e0417e2e04af0243fc188a5",
+      "well": "WELL-00010",
+      "partition": "train",
+      "rows_used": 0
+    },
+    {
+      "member": "9/WELL-00039_20190924200204.parquet",
+      "sha256": "954c81f2ed44604eb00328bc27632ca156d5879ce37521288bb3b105f70d28dc",
+      "well": "WELL-00039",
+      "partition": "validation",
+      "rows_used": 626
+    },
+    {
+      "member": "9/WELL-00035_20190925061122.parquet",
+      "sha256": "254c04a51cac4f9db7fb733cc36df645f98156bacefc000e51219f2f450b769e",
+      "well": "WELL-00035",
+      "partition": "test",
+      "rows_used": 0
+    },
+    {
+      "member": "9/WELL-00033_20190930190000.parquet",
+      "sha256": "806cc3d2103de0e9c3816870f493933113fec659bdcb563020f6032901c79870",
+      "well": "WELL-00033",
+      "partition": "validation",
+      "rows_used": 0
+    },
+    {
+      "member": "9/WELL-00039_20190918150111.parquet",
+      "sha256": "8d00873d60af130739c02efb5b8d718ad2c753f5af7d4f0aeba5e307779a7f2f",
+      "well": "WELL-00039",
+      "partition": "validation",
+      "rows_used": 358
+    },
+    {
+      "member": "9/WELL-00037_20190924193953.parquet",
+      "sha256": "b36d86762e6bda266179437817aefb367352a8133490bfdb06ffad9e40e17ae0",
+      "well": "WELL-00037",
+      "partition": "validation",
+      "rows_used": 111
+    },
+    {
+      "member": "9/WELL-00041_20190819163753.parquet",
+      "sha256": "3531705922567b38402087cc458e7d6d979d3e3b6b61fa401ad76d427eea1029",
+      "well": "WELL-00041",
+      "partition": "train",
+      "rows_used": 2000
+    }
+  ],
+  "metrics": {
+    "train": {
+      "rows": 13615,
+      "wells": 9,
+      "macro_f1": 0.9335761749397782,
+      "balanced_accuracy": 0.982692627725079,
+      "baseline_macro_f1": 0.46884874965864315,
+      "confusion_matrix": [
+        [
+          11602,
+          416
+        ],
+        [
+          0,
+          1597
+        ]
+      ]
+    },
+    "validation": {
+      "rows": 3726,
+      "wells": 5,
+      "macro_f1": 0.8218710878748609,
+      "balanced_accuracy": 0.8634371184371185,
+      "baseline_macro_f1": 0.46786632390745503,
+      "confusion_matrix": [
+        [
+          3051,
+          225
+        ],
+        [
+          92,
+          358
+        ]
+      ]
+    },
+    "test": {
+      "rows": 7077,
+      "wells": 4,
+      "macro_f1": 0.12911061885652114,
+      "balanced_accuracy": 0.19526501709512534,
+      "baseline_macro_f1": 0.27206336144826165,
+      "confusion_matrix": [
+        [
+          1024,
+          1621
+        ],
+        [
+          4417,
+          15
+        ]
+      ]
+    }
+  },
+  "limitations": [
+    "Bounded real-file subset, not the full 3W benchmark.",
+    "Not a GRU; random forest baseline uses causal sensor windows.",
+    "Missing sensors withhold prediction. Native 3W sensor conventions only.",
+    "No field latency, false alarms/day or early-warning qualification.",
+    "Measured classification scores do not establish probability calibration."
+  ],
+  "replay": [
+    {
+      "sample": 0,
+      "timestamp": "2017-09-26 02:03:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 1,
+      "timestamp": "2017-09-26 02:04:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 2,
+      "timestamp": "2017-09-26 02:05:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 3,
+      "timestamp": "2017-09-26 02:06:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 4,
+      "timestamp": "2017-09-26 02:07:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 5,
+      "timestamp": "2017-09-26 02:08:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 6,
+      "timestamp": "2017-09-26 02:09:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 7,
+      "timestamp": "2017-09-26 02:10:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 8,
+      "timestamp": "2017-09-26 02:11:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 9,
+      "timestamp": "2017-09-26 02:12:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 10,
+      "timestamp": "2017-09-26 02:13:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 11,
+      "timestamp": "2017-09-26 02:14:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 12,
+      "timestamp": "2017-09-26 02:15:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 13,
+      "timestamp": "2017-09-26 02:16:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 14,
+      "timestamp": "2017-09-26 02:17:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 15,
+      "timestamp": "2017-09-26 02:18:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 16,
+      "timestamp": "2017-09-26 02:19:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 17,
+      "timestamp": "2017-09-26 02:20:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 18,
+      "timestamp": "2017-09-26 02:21:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 19,
+      "timestamp": "2017-09-26 02:22:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 20,
+      "timestamp": "2017-09-26 02:23:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 21,
+      "timestamp": "2017-09-26 02:24:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 22,
+      "timestamp": "2017-09-26 02:25:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 23,
+      "timestamp": "2017-09-26 02:26:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 24,
+      "timestamp": "2017-09-26 02:27:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 25,
+      "timestamp": "2017-09-26 02:28:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 26,
+      "timestamp": "2017-09-26 02:29:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 27,
+      "timestamp": "2017-09-26 02:30:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 28,
+      "timestamp": "2017-09-26 02:31:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 29,
+      "timestamp": "2017-09-26 02:32:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 30,
+      "timestamp": "2017-09-26 02:33:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 31,
+      "timestamp": "2017-09-26 02:34:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 32,
+      "timestamp": "2017-09-26 02:35:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 33,
+      "timestamp": "2017-09-26 02:36:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 34,
+      "timestamp": "2017-09-26 02:37:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 35,
+      "timestamp": "2017-09-26 02:38:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 36,
+      "timestamp": "2017-09-26 02:39:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 37,
+      "timestamp": "2017-09-26 02:40:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 38,
+      "timestamp": "2017-09-26 02:41:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 39,
+      "timestamp": "2017-09-26 02:42:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 40,
+      "timestamp": "2017-09-26 02:43:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 41,
+      "timestamp": "2017-09-26 02:44:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 42,
+      "timestamp": "2017-09-26 02:45:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 43,
+      "timestamp": "2017-09-26 02:46:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 44,
+      "timestamp": "2017-09-26 02:47:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 45,
+      "timestamp": "2017-09-26 02:48:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 46,
+      "timestamp": "2017-09-26 02:49:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 47,
+      "timestamp": "2017-09-26 02:50:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 48,
+      "timestamp": "2017-09-26 02:51:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 49,
+      "timestamp": "2017-09-26 02:52:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 50,
+      "timestamp": "2017-09-26 02:53:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 51,
+      "timestamp": "2017-09-26 02:54:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 52,
+      "timestamp": "2017-09-26 02:55:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 53,
+      "timestamp": "2017-09-26 02:56:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 54,
+      "timestamp": "2017-09-26 02:57:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 55,
+      "timestamp": "2017-09-26 02:58:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 56,
+      "timestamp": "2017-09-26 02:59:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 57,
+      "timestamp": "2017-09-26 03:00:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 58,
+      "timestamp": "2017-09-26 03:01:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 59,
+      "timestamp": "2017-09-26 03:02:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 60,
+      "timestamp": "2017-09-26 03:03:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 61,
+      "timestamp": "2017-09-26 03:04:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 62,
+      "timestamp": "2017-09-26 03:05:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 63,
+      "timestamp": "2017-09-26 03:06:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 64,
+      "timestamp": "2017-09-26 03:07:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 65,
+      "timestamp": "2017-09-26 03:08:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 66,
+      "timestamp": "2017-09-26 03:09:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 67,
+      "timestamp": "2017-09-26 03:10:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 68,
+      "timestamp": "2017-09-26 03:11:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 69,
+      "timestamp": "2017-09-26 03:12:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 70,
+      "timestamp": "2017-09-26 03:13:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 71,
+      "timestamp": "2017-09-26 03:14:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 72,
+      "timestamp": "2017-09-26 03:15:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 73,
+      "timestamp": "2017-09-26 03:16:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 74,
+      "timestamp": "2017-09-26 03:17:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 75,
+      "timestamp": "2017-09-26 03:18:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 76,
+      "timestamp": "2017-09-26 03:19:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 77,
+      "timestamp": "2017-09-26 03:20:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 78,
+      "timestamp": "2017-09-26 03:21:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 79,
+      "timestamp": "2017-09-26 03:22:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 80,
+      "timestamp": "2017-09-26 03:23:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 81,
+      "timestamp": "2017-09-26 03:24:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 82,
+      "timestamp": "2017-09-26 03:25:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 83,
+      "timestamp": "2017-09-26 03:26:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 84,
+      "timestamp": "2017-09-26 03:27:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 85,
+      "timestamp": "2017-09-26 03:28:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 86,
+      "timestamp": "2017-09-26 03:29:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 87,
+      "timestamp": "2017-09-26 03:30:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 88,
+      "timestamp": "2017-09-26 03:31:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 89,
+      "timestamp": "2017-09-26 03:32:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 90,
+      "timestamp": "2017-09-26 03:33:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 91,
+      "timestamp": "2017-09-26 03:34:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 92,
+      "timestamp": "2017-09-26 03:35:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 93,
+      "timestamp": "2017-09-26 03:36:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 94,
+      "timestamp": "2017-09-26 03:37:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 95,
+      "timestamp": "2017-09-26 03:38:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 96,
+      "timestamp": "2017-09-26 03:39:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 97,
+      "timestamp": "2017-09-26 03:40:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 98,
+      "timestamp": "2017-09-26 03:41:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 99,
+      "timestamp": "2017-09-26 03:42:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 100,
+      "timestamp": "2017-09-26 03:43:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 101,
+      "timestamp": "2017-09-26 03:44:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 102,
+      "timestamp": "2017-09-26 03:45:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 103,
+      "timestamp": "2017-09-26 03:46:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 104,
+      "timestamp": "2017-09-26 03:47:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 105,
+      "timestamp": "2017-09-26 03:48:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 106,
+      "timestamp": "2017-09-26 03:49:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 107,
+      "timestamp": "2017-09-26 03:50:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 108,
+      "timestamp": "2017-09-26 03:51:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 109,
+      "timestamp": "2017-09-26 03:52:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 110,
+      "timestamp": "2017-09-26 03:53:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 111,
+      "timestamp": "2017-09-26 03:54:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 112,
+      "timestamp": "2017-09-26 03:55:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 113,
+      "timestamp": "2017-09-26 03:56:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 114,
+      "timestamp": "2017-09-26 03:57:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 115,
+      "timestamp": "2017-09-26 03:58:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 116,
+      "timestamp": "2017-09-26 03:59:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 117,
+      "timestamp": "2017-09-26 04:00:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 118,
+      "timestamp": "2017-09-26 04:01:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 119,
+      "timestamp": "2017-09-26 04:02:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 120,
+      "timestamp": "2017-09-26 04:03:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 121,
+      "timestamp": "2017-09-26 04:04:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 122,
+      "timestamp": "2017-09-26 04:05:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 123,
+      "timestamp": "2017-09-26 04:06:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 124,
+      "timestamp": "2017-09-26 04:07:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 125,
+      "timestamp": "2017-09-26 04:08:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 126,
+      "timestamp": "2017-09-26 04:09:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 127,
+      "timestamp": "2017-09-26 04:10:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 128,
+      "timestamp": "2017-09-26 04:11:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 129,
+      "timestamp": "2017-09-26 04:12:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 130,
+      "timestamp": "2017-09-26 04:13:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 131,
+      "timestamp": "2017-09-26 04:14:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 132,
+      "timestamp": "2017-09-26 04:15:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 133,
+      "timestamp": "2017-09-26 04:16:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 134,
+      "timestamp": "2017-09-26 04:18:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 135,
+      "timestamp": "2017-09-26 04:19:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 136,
+      "timestamp": "2017-09-26 04:20:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 137,
+      "timestamp": "2017-09-26 04:21:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 138,
+      "timestamp": "2017-09-26 04:22:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 139,
+      "timestamp": "2017-09-26 04:23:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 140,
+      "timestamp": "2017-09-26 04:24:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 141,
+      "timestamp": "2017-09-26 04:25:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 142,
+      "timestamp": "2017-09-26 04:26:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 143,
+      "timestamp": "2017-09-26 04:27:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 144,
+      "timestamp": "2017-09-26 04:28:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 145,
+      "timestamp": "2017-09-26 04:29:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 146,
+      "timestamp": "2017-09-26 04:30:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 147,
+      "timestamp": "2017-09-26 04:31:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 148,
+      "timestamp": "2017-09-26 04:32:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 149,
+      "timestamp": "2017-09-26 04:33:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 150,
+      "timestamp": "2017-09-26 04:34:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 151,
+      "timestamp": "2017-09-26 04:35:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 152,
+      "timestamp": "2017-09-26 04:36:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 153,
+      "timestamp": "2017-09-26 04:37:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 154,
+      "timestamp": "2017-09-26 04:38:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 155,
+      "timestamp": "2017-09-26 04:39:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 156,
+      "timestamp": "2017-09-26 04:40:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 157,
+      "timestamp": "2017-09-26 04:41:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 158,
+      "timestamp": "2017-09-26 04:42:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 159,
+      "timestamp": "2017-09-26 04:43:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 160,
+      "timestamp": "2017-09-26 04:44:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 161,
+      "timestamp": "2017-09-26 04:45:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 162,
+      "timestamp": "2017-09-26 04:46:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 163,
+      "timestamp": "2017-09-26 04:47:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 164,
+      "timestamp": "2017-09-26 04:48:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 165,
+      "timestamp": "2017-09-26 04:49:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 166,
+      "timestamp": "2017-09-26 04:50:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 167,
+      "timestamp": "2017-09-26 04:51:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 168,
+      "timestamp": "2017-09-26 04:52:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 169,
+      "timestamp": "2017-09-26 04:53:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 170,
+      "timestamp": "2017-09-26 04:54:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 171,
+      "timestamp": "2017-09-26 04:55:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 172,
+      "timestamp": "2017-09-26 04:56:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 173,
+      "timestamp": "2017-09-26 04:57:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 174,
+      "timestamp": "2017-09-26 04:58:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 175,
+      "timestamp": "2017-09-26 04:59:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 176,
+      "timestamp": "2017-09-26 05:00:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 177,
+      "timestamp": "2017-09-26 05:01:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 178,
+      "timestamp": "2017-09-26 05:02:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 179,
+      "timestamp": "2017-09-26 05:03:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 180,
+      "timestamp": "2017-09-26 05:04:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 181,
+      "timestamp": "2017-09-26 05:05:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 182,
+      "timestamp": "2017-09-26 05:06:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 183,
+      "timestamp": "2017-09-26 05:07:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 184,
+      "timestamp": "2017-09-26 05:08:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 185,
+      "timestamp": "2017-09-26 05:09:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 186,
+      "timestamp": "2017-09-26 05:10:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 187,
+      "timestamp": "2017-09-26 05:11:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 188,
+      "timestamp": "2017-09-26 05:12:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 189,
+      "timestamp": "2017-09-26 05:13:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 190,
+      "timestamp": "2017-09-26 05:14:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 191,
+      "timestamp": "2017-09-26 05:15:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 192,
+      "timestamp": "2017-09-26 05:16:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 193,
+      "timestamp": "2017-09-26 05:17:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 194,
+      "timestamp": "2017-09-26 05:18:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 195,
+      "timestamp": "2017-09-26 05:19:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 196,
+      "timestamp": "2017-09-26 05:20:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 197,
+      "timestamp": "2017-09-26 05:21:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 198,
+      "timestamp": "2017-09-26 05:22:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 199,
+      "timestamp": "2017-09-26 05:23:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 200,
+      "timestamp": "2017-09-26 05:24:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 201,
+      "timestamp": "2017-09-26 05:25:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 202,
+      "timestamp": "2017-09-26 05:26:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 203,
+      "timestamp": "2017-09-26 05:27:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 204,
+      "timestamp": "2017-09-26 05:28:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 205,
+      "timestamp": "2017-09-26 05:29:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 206,
+      "timestamp": "2017-09-26 05:30:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 207,
+      "timestamp": "2017-09-26 05:31:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 208,
+      "timestamp": "2017-09-26 05:32:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 209,
+      "timestamp": "2017-09-26 05:33:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 210,
+      "timestamp": "2017-09-26 05:34:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 211,
+      "timestamp": "2017-09-26 05:35:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 212,
+      "timestamp": "2017-09-26 05:36:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 213,
+      "timestamp": "2017-09-26 05:37:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 214,
+      "timestamp": "2017-09-26 05:38:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 215,
+      "timestamp": "2017-09-26 05:39:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 216,
+      "timestamp": "2017-09-26 05:40:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 217,
+      "timestamp": "2017-09-26 05:41:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 218,
+      "timestamp": "2017-09-26 05:42:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 219,
+      "timestamp": "2017-09-26 05:43:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 220,
+      "timestamp": "2017-09-26 05:44:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 221,
+      "timestamp": "2017-09-26 05:45:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 222,
+      "timestamp": "2017-09-26 05:46:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 223,
+      "timestamp": "2017-09-26 05:47:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 224,
+      "timestamp": "2017-09-26 05:48:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 225,
+      "timestamp": "2017-09-26 05:49:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 226,
+      "timestamp": "2017-09-26 05:50:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 227,
+      "timestamp": "2017-09-26 05:51:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 228,
+      "timestamp": "2017-09-26 05:52:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 229,
+      "timestamp": "2017-09-26 05:53:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 230,
+      "timestamp": "2017-09-26 05:54:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 231,
+      "timestamp": "2017-09-26 05:55:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 232,
+      "timestamp": "2017-09-26 05:56:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 233,
+      "timestamp": "2017-09-26 05:57:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 234,
+      "timestamp": "2017-09-26 05:58:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 235,
+      "timestamp": "2017-09-26 05:59:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 236,
+      "timestamp": "2017-09-26 06:00:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 237,
+      "timestamp": "2017-09-26 06:01:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 238,
+      "timestamp": "2017-09-26 06:02:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 239,
+      "timestamp": "2017-09-26 06:03:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 240,
+      "timestamp": "2017-09-26 06:04:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 241,
+      "timestamp": "2017-09-26 06:05:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 242,
+      "timestamp": "2017-09-26 06:06:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 243,
+      "timestamp": "2017-09-26 06:07:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 244,
+      "timestamp": "2017-09-26 06:08:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 245,
+      "timestamp": "2017-09-26 06:09:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 246,
+      "timestamp": "2017-09-26 06:10:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 247,
+      "timestamp": "2017-09-26 06:11:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 248,
+      "timestamp": "2017-09-26 06:12:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 249,
+      "timestamp": "2017-09-26 06:13:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 250,
+      "timestamp": "2017-09-26 06:14:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 251,
+      "timestamp": "2017-09-26 06:15:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 252,
+      "timestamp": "2017-09-26 06:16:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 253,
+      "timestamp": "2017-09-26 06:17:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 254,
+      "timestamp": "2017-09-26 06:18:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 255,
+      "timestamp": "2017-09-26 06:19:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 256,
+      "timestamp": "2017-09-26 06:20:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 257,
+      "timestamp": "2017-09-26 06:21:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 258,
+      "timestamp": "2017-09-26 06:22:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 259,
+      "timestamp": "2017-09-26 06:23:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 260,
+      "timestamp": "2017-09-26 06:24:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 261,
+      "timestamp": "2017-09-26 06:25:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 262,
+      "timestamp": "2017-09-26 06:26:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 263,
+      "timestamp": "2017-09-26 06:27:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 264,
+      "timestamp": "2017-09-26 06:28:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 265,
+      "timestamp": "2017-09-26 06:29:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 266,
+      "timestamp": "2017-09-26 06:30:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 267,
+      "timestamp": "2017-09-26 06:31:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 268,
+      "timestamp": "2017-09-26 06:32:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 269,
+      "timestamp": "2017-09-26 06:33:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 270,
+      "timestamp": "2017-09-26 06:34:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 271,
+      "timestamp": "2017-09-26 06:35:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 272,
+      "timestamp": "2017-09-26 06:36:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 273,
+      "timestamp": "2017-09-26 06:37:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 274,
+      "timestamp": "2017-09-26 06:38:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 275,
+      "timestamp": "2017-09-26 06:39:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 276,
+      "timestamp": "2017-09-26 06:40:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 277,
+      "timestamp": "2017-09-26 06:41:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 278,
+      "timestamp": "2017-09-26 06:42:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 279,
+      "timestamp": "2017-09-26 06:43:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 280,
+      "timestamp": "2017-09-26 06:44:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 281,
+      "timestamp": "2017-09-26 06:45:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 282,
+      "timestamp": "2017-09-26 06:46:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 283,
+      "timestamp": "2017-09-26 06:47:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 284,
+      "timestamp": "2017-09-26 06:48:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 285,
+      "timestamp": "2017-09-26 06:49:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 286,
+      "timestamp": "2017-09-26 06:50:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 287,
+      "timestamp": "2017-09-26 06:51:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 288,
+      "timestamp": "2017-09-26 06:52:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 289,
+      "timestamp": "2017-09-26 06:53:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 290,
+      "timestamp": "2017-09-26 06:54:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 291,
+      "timestamp": "2017-09-26 06:55:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 292,
+      "timestamp": "2017-09-26 06:56:40",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 293,
+      "timestamp": "2017-09-21 15:00:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 294,
+      "timestamp": "2017-09-21 15:01:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 295,
+      "timestamp": "2017-09-21 15:02:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 296,
+      "timestamp": "2017-09-21 15:03:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 297,
+      "timestamp": "2017-09-21 15:04:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 298,
+      "timestamp": "2017-09-21 15:05:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 299,
+      "timestamp": "2017-09-21 15:06:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 300,
+      "timestamp": "2017-09-21 15:07:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 301,
+      "timestamp": "2017-09-21 15:08:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 302,
+      "timestamp": "2017-09-21 15:09:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 303,
+      "timestamp": "2017-09-21 15:10:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 304,
+      "timestamp": "2017-09-21 15:11:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 305,
+      "timestamp": "2017-09-21 15:12:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 306,
+      "timestamp": "2017-09-21 15:13:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 307,
+      "timestamp": "2017-09-21 15:14:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 308,
+      "timestamp": "2017-09-21 15:15:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 309,
+      "timestamp": "2017-09-21 15:16:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 310,
+      "timestamp": "2017-09-21 15:17:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 311,
+      "timestamp": "2017-09-21 15:18:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 312,
+      "timestamp": "2017-09-21 15:19:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 313,
+      "timestamp": "2017-09-21 15:20:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 314,
+      "timestamp": "2017-09-21 15:21:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 315,
+      "timestamp": "2017-09-21 15:22:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 316,
+      "timestamp": "2017-09-21 15:23:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 317,
+      "timestamp": "2017-09-21 15:24:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 318,
+      "timestamp": "2017-09-21 15:25:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 319,
+      "timestamp": "2017-09-21 15:26:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 320,
+      "timestamp": "2017-09-21 15:27:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 321,
+      "timestamp": "2017-09-21 15:28:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 322,
+      "timestamp": "2017-09-21 15:29:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 323,
+      "timestamp": "2017-09-21 15:30:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 324,
+      "timestamp": "2017-09-21 15:31:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 325,
+      "timestamp": "2017-09-21 15:32:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 326,
+      "timestamp": "2017-09-21 15:33:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 327,
+      "timestamp": "2017-09-21 15:34:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 328,
+      "timestamp": "2017-09-21 15:35:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 329,
+      "timestamp": "2017-09-21 15:36:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 330,
+      "timestamp": "2017-09-21 15:37:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 331,
+      "timestamp": "2017-09-21 15:38:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 332,
+      "timestamp": "2017-09-21 15:39:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 333,
+      "timestamp": "2017-09-21 15:40:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 334,
+      "timestamp": "2017-09-21 15:41:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 335,
+      "timestamp": "2017-09-21 15:42:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 336,
+      "timestamp": "2017-09-21 15:43:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 337,
+      "timestamp": "2017-09-21 15:44:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 338,
+      "timestamp": "2017-09-21 15:45:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 339,
+      "timestamp": "2017-09-21 15:46:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 340,
+      "timestamp": "2017-09-21 15:47:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 341,
+      "timestamp": "2017-09-21 15:48:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 342,
+      "timestamp": "2017-09-21 15:49:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 343,
+      "timestamp": "2017-09-21 15:50:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 344,
+      "timestamp": "2017-09-21 15:51:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 345,
+      "timestamp": "2017-09-21 15:52:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 346,
+      "timestamp": "2017-09-21 15:53:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 347,
+      "timestamp": "2017-09-21 15:54:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 348,
+      "timestamp": "2017-09-21 15:55:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 349,
+      "timestamp": "2017-09-21 15:56:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 350,
+      "timestamp": "2017-09-21 15:57:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 351,
+      "timestamp": "2017-09-21 15:58:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 352,
+      "timestamp": "2017-09-21 15:59:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 353,
+      "timestamp": "2017-09-21 16:00:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 354,
+      "timestamp": "2017-09-21 16:01:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 355,
+      "timestamp": "2017-09-21 16:02:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 356,
+      "timestamp": "2017-09-21 16:03:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 357,
+      "timestamp": "2017-09-21 16:04:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 358,
+      "timestamp": "2017-09-21 16:05:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 359,
+      "timestamp": "2017-09-21 16:06:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 360,
+      "timestamp": "2017-09-21 16:07:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 361,
+      "timestamp": "2017-09-21 16:08:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 362,
+      "timestamp": "2017-09-21 16:09:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 363,
+      "timestamp": "2017-09-21 16:10:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 364,
+      "timestamp": "2017-09-21 16:11:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 365,
+      "timestamp": "2017-09-21 16:12:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 366,
+      "timestamp": "2017-09-21 16:13:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 367,
+      "timestamp": "2017-09-21 16:14:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 368,
+      "timestamp": "2017-09-21 16:15:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 369,
+      "timestamp": "2017-09-21 16:16:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 370,
+      "timestamp": "2017-09-21 16:17:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 371,
+      "timestamp": "2017-09-21 16:18:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 372,
+      "timestamp": "2017-09-21 16:19:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 373,
+      "timestamp": "2017-09-21 16:20:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 374,
+      "timestamp": "2017-09-21 16:21:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 375,
+      "timestamp": "2017-09-21 16:22:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 376,
+      "timestamp": "2017-09-21 16:23:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 377,
+      "timestamp": "2017-09-21 16:24:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 378,
+      "timestamp": "2017-09-21 16:25:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 379,
+      "timestamp": "2017-09-21 16:26:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 380,
+      "timestamp": "2017-09-21 16:27:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 381,
+      "timestamp": "2017-09-21 16:28:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 382,
+      "timestamp": "2017-09-21 16:29:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 383,
+      "timestamp": "2017-09-21 16:30:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 384,
+      "timestamp": "2017-09-21 16:31:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 385,
+      "timestamp": "2017-09-21 16:32:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 386,
+      "timestamp": "2017-09-21 16:33:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 387,
+      "timestamp": "2017-09-21 16:34:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 388,
+      "timestamp": "2017-09-21 16:35:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 389,
+      "timestamp": "2017-09-21 16:36:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 390,
+      "timestamp": "2017-09-21 16:37:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 391,
+      "timestamp": "2017-09-21 16:38:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 392,
+      "timestamp": "2017-09-21 16:39:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 393,
+      "timestamp": "2017-09-21 16:40:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 394,
+      "timestamp": "2017-09-21 16:41:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 395,
+      "timestamp": "2017-09-21 16:42:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 396,
+      "timestamp": "2017-09-21 16:43:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 397,
+      "timestamp": "2017-09-21 16:44:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 398,
+      "timestamp": "2017-09-21 16:45:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 399,
+      "timestamp": "2017-09-21 16:46:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 400,
+      "timestamp": "2017-09-21 16:47:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 401,
+      "timestamp": "2017-09-21 16:48:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 402,
+      "timestamp": "2017-09-21 16:49:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 403,
+      "timestamp": "2017-09-21 16:50:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 404,
+      "timestamp": "2017-09-21 16:51:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 405,
+      "timestamp": "2017-09-21 16:52:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 406,
+      "timestamp": "2017-09-21 16:53:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 407,
+      "timestamp": "2017-09-21 16:54:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 408,
+      "timestamp": "2017-09-21 16:55:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 409,
+      "timestamp": "2017-09-21 16:56:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 410,
+      "timestamp": "2017-09-21 16:57:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 411,
+      "timestamp": "2017-09-21 16:58:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 412,
+      "timestamp": "2017-09-21 16:59:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 413,
+      "timestamp": "2017-09-21 17:00:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 414,
+      "timestamp": "2017-09-21 17:01:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 415,
+      "timestamp": "2017-09-21 17:02:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 416,
+      "timestamp": "2017-09-21 17:03:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 417,
+      "timestamp": "2017-09-21 17:04:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 418,
+      "timestamp": "2017-09-21 17:05:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 419,
+      "timestamp": "2017-09-21 17:06:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 420,
+      "timestamp": "2017-09-21 17:07:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 421,
+      "timestamp": "2017-09-21 17:08:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 422,
+      "timestamp": "2017-09-21 17:09:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 423,
+      "timestamp": "2017-09-21 17:10:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 424,
+      "timestamp": "2017-09-21 17:11:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 425,
+      "timestamp": "2017-09-21 17:12:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 426,
+      "timestamp": "2017-09-21 17:13:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 427,
+      "timestamp": "2017-09-21 17:14:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 428,
+      "timestamp": "2017-09-21 17:15:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 429,
+      "timestamp": "2017-09-21 17:16:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 430,
+      "timestamp": "2017-09-21 17:17:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 431,
+      "timestamp": "2017-09-21 17:18:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 432,
+      "timestamp": "2017-09-21 17:19:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 433,
+      "timestamp": "2017-09-21 17:20:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 434,
+      "timestamp": "2017-09-21 17:21:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 435,
+      "timestamp": "2017-09-21 17:22:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 436,
+      "timestamp": "2017-09-21 17:23:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 437,
+      "timestamp": "2017-09-21 17:24:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 438,
+      "timestamp": "2017-09-21 17:25:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 439,
+      "timestamp": "2017-09-21 17:26:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 440,
+      "timestamp": "2017-09-21 17:27:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 441,
+      "timestamp": "2017-09-21 17:28:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 442,
+      "timestamp": "2017-09-21 17:29:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 443,
+      "timestamp": "2017-09-21 17:30:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 444,
+      "timestamp": "2017-09-21 17:31:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 445,
+      "timestamp": "2017-09-21 17:32:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 446,
+      "timestamp": "2017-09-21 17:33:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 447,
+      "timestamp": "2017-09-21 17:34:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 448,
+      "timestamp": "2017-09-21 17:35:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 449,
+      "timestamp": "2017-09-21 17:36:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 450,
+      "timestamp": "2017-09-21 17:37:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 451,
+      "timestamp": "2017-09-21 17:38:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 452,
+      "timestamp": "2017-09-21 17:39:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 453,
+      "timestamp": "2017-09-21 17:40:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 454,
+      "timestamp": "2017-09-21 17:41:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 455,
+      "timestamp": "2017-09-21 17:42:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 456,
+      "timestamp": "2017-09-21 17:43:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 457,
+      "timestamp": "2017-09-21 17:44:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 458,
+      "timestamp": "2017-09-21 17:45:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 459,
+      "timestamp": "2017-09-21 17:46:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 460,
+      "timestamp": "2017-09-21 17:47:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 461,
+      "timestamp": "2017-09-21 17:48:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 462,
+      "timestamp": "2017-09-21 17:49:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 463,
+      "timestamp": "2017-09-21 17:50:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 464,
+      "timestamp": "2017-09-21 17:51:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 465,
+      "timestamp": "2017-09-21 17:52:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 466,
+      "timestamp": "2017-09-21 17:53:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 467,
+      "timestamp": "2017-09-21 17:54:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 468,
+      "timestamp": "2017-09-21 17:55:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 469,
+      "timestamp": "2017-09-21 17:56:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 470,
+      "timestamp": "2017-09-21 17:57:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 471,
+      "timestamp": "2017-09-21 17:58:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 472,
+      "timestamp": "2017-09-21 17:59:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 473,
+      "timestamp": "2017-09-21 18:00:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 474,
+      "timestamp": "2017-09-21 18:01:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 475,
+      "timestamp": "2017-09-21 18:02:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 476,
+      "timestamp": "2017-09-21 18:03:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 477,
+      "timestamp": "2017-09-21 18:04:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 478,
+      "timestamp": "2017-09-21 18:05:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 479,
+      "timestamp": "2017-09-21 18:06:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 480,
+      "timestamp": "2017-09-21 18:07:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 481,
+      "timestamp": "2017-09-21 18:08:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 482,
+      "timestamp": "2017-09-21 18:09:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 483,
+      "timestamp": "2017-09-21 18:10:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 484,
+      "timestamp": "2017-09-21 18:11:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 485,
+      "timestamp": "2017-09-21 18:12:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 486,
+      "timestamp": "2017-09-21 18:13:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 487,
+      "timestamp": "2017-09-21 18:14:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 488,
+      "timestamp": "2017-09-21 18:15:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 489,
+      "timestamp": "2017-09-21 18:16:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 490,
+      "timestamp": "2017-09-21 18:17:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 491,
+      "timestamp": "2017-09-21 18:18:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 492,
+      "timestamp": "2017-09-21 18:19:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 493,
+      "timestamp": "2017-09-21 18:20:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 494,
+      "timestamp": "2017-09-21 18:21:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 495,
+      "timestamp": "2017-09-21 18:22:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 496,
+      "timestamp": "2017-09-21 18:23:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 497,
+      "timestamp": "2017-09-21 18:24:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 498,
+      "timestamp": "2017-09-21 18:25:42",
+      "actual": 1,
+      "prediction": 0
+    },
+    {
+      "sample": 499,
+      "timestamp": "2017-09-21 18:26:42",
+      "actual": 1,
+      "prediction": 0
+    }
+  ],
+  "local_batch_ms_per_row": 0.024059199990006164,
+  "runtime_note": "Measured on development computer; not edge-device benchmark",
+  "artifact_sha256": "4ccb3e2640687f5632e0a665328046e68be98d47bccd45fdb2d26d0227a5d967",
+  "artifact_bytes": 408633,
+  "artifact_retained": false,
+  "decision": "Rejected: held-out macro F1 below baseline. Metrics/predictions retained, fitted binary removed."
+}

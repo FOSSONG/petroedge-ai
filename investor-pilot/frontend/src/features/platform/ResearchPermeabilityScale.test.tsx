@@ -1,0 +1,27 @@
+// @vitest-environment jsdom
+import {cleanup,fireEvent,render,screen,waitFor} from "@testing-library/react";
+import {afterEach,it,expect,vi} from "vitest";
+import {QueryClient,QueryClientProvider} from "@tanstack/react-query";
+import {ResearchPredictionPanel} from "./ResearchPredictionPanel";
+import {apiRequest} from "../../api/http";
+vi.mock("../../components/SafePlot",()=>({SafePlot:({data,layout}:any)=> <div data-testid="research-plot">{JSON.stringify({data,layout})}</div>}));
+vi.mock("./platformApi",()=>({fetchDatasets:vi.fn(async()=>[{dataset_id:"d",name:"Input logs",columns:["GR"]}])}));
+vi.mock("../../api/http",()=>({apiRequest:vi.fn(async(path:string)=>path.endsWith("research-models")?{enabled:true,models:[{id:"m",name:"Demo permeability",features:[{name:"gr",unit:"API",min:1,max:3}],validation_rows:6,validation_mae:.03,unit:"mD",limitations:["Experimental"]}]}:{target:"permeability_air_horizontal",model_name:"Demo permeability",unit:"mD",condition:"190_bar",predicted_rows:1,rows:2,samples:[{source_row:0,prediction:0,status:"predicted",reasons:[]},{source_row:1,prediction:null,status:"withheld",reasons:["outside training range"]}]})}));
+afterEach(()=>{cleanup();vi.clearAllMocks()});
+it("defaults permeability to log and retains zero values when switched to linear",async()=>{
+ render(<QueryClientProvider client={new QueryClient({defaultOptions:{queries:{retry:false}}})}><ResearchPredictionPanel/></QueryClientProvider>);
+ await waitFor(()=>expect(apiRequest).toHaveBeenCalled());
+ fireEvent.mouseDown(screen.getByLabelText("Research model"));fireEvent.click(await screen.findByRole("option",{name:"Demo permeability"}));
+ fireEvent.mouseDown(screen.getByLabelText("Input dataset"));fireEvent.click(await screen.findByRole("option",{name:"Input logs"}));
+ expect((screen.getByRole("button",{name:"Run research prediction"}) as HTMLButtonElement).disabled).toBe(true);
+ fireEvent.mouseDown(screen.getByLabelText("Source for gr"));fireEvent.click(await screen.findByRole("option",{name:"GR"}));
+ fireEvent.change(screen.getByLabelText("Source unit for gr"),{target:{value:"API"}});
+ fireEvent.click(screen.getByRole("checkbox"));fireEvent.click(screen.getByRole("button",{name:"Run research prediction"}));
+ expect(await screen.findByText("outside training range")).toBeTruthy();
+ expect(screen.getByRole("button",{name:"Download research results Excel"})).toBeTruthy();
+ const plot=()=>JSON.parse(screen.getByTestId("research-plot").textContent!);
+ expect(plot().layout.yaxis.type).toBe("log");expect(plot().data[0].y).toEqual([null,null]);
+ expect(screen.getByText(/zero or negative results cannot appear/)).toBeTruthy();
+ fireEvent.mouseDown(screen.getByLabelText("Permeability axis scale"));fireEvent.click(await screen.findByRole("option",{name:"Linear"}));
+ expect(plot().layout.yaxis.type).toBe("linear");expect(plot().data[0].y).toEqual([0,null]);
+});

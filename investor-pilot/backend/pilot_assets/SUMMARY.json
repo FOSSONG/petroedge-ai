@@ -1,0 +1,81 @@
+{
+  "edge": {
+    "train": {
+      "rows": 13615,
+      "wells": 9,
+      "macro_f1": 0.9335761749397782,
+      "balanced_accuracy": 0.982692627725079,
+      "baseline_macro_f1": 0.46884874965864315,
+      "confusion_matrix": [
+        [
+          11602,
+          416
+        ],
+        [
+          0,
+          1597
+        ]
+      ]
+    },
+    "validation": {
+      "rows": 3726,
+      "wells": 5,
+      "macro_f1": 0.8218710878748609,
+      "balanced_accuracy": 0.8634371184371185,
+      "baseline_macro_f1": 0.46786632390745503,
+      "confusion_matrix": [
+        [
+          3051,
+          225
+        ],
+        [
+          92,
+          358
+        ]
+      ]
+    },
+    "test": {
+      "rows": 7077,
+      "wells": 4,
+      "macro_f1": 0.12911061885652114,
+      "balanced_accuracy": 0.19526501709512534,
+      "baseline_macro_f1": 0.27206336144826165,
+      "confusion_matrix": [
+        [
+          1024,
+          1621
+        ],
+        [
+          4417,
+          15
+        ]
+      ]
+    }
+  },
+  "twin": {
+    "train": {
+      "rows": 238,
+      "mae": 126.04116946842846,
+      "persistence_mae": 102.49547915544538,
+      "first_date": "1991-08-31",
+      "last_date": "2011-05-31"
+    },
+    "validation": {
+      "rows": 80,
+      "mae": 156.64170810693503,
+      "persistence_mae": 131.10246923272499,
+      "first_date": "2011-06-30",
+      "last_date": "2018-01-31"
+    },
+    "test": {
+      "rows": 80,
+      "mae": 95.77663434128101,
+      "persistence_mae": 79.46446580249999,
+      "first_date": "2018-02-28",
+      "last_date": "2024-09-30"
+    }
+  },
+  "twin_beats_baseline": false,
+  "production_eligible": false,
+  "complete": true
+}

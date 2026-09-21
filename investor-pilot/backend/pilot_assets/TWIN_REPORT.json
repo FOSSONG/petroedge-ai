@@ -1,0 +1,2826 @@
+{
+  "name": "GA-18/4_IIA production history and backtest",
+  "mode": "historical_data_twin_not_reservoir_simulator",
+  "source_sha256": "14d03f8f144edf3de684341fd4c76bb4cbcc1a0041198adcf35a178ae8ba5dcb",
+  "source_file": "Gab18_4.csv",
+  "unit": "STB/d",
+  "production_eligible": false,
+  "metrics": {
+    "train": {
+      "rows": 238,
+      "mae": 126.04116946842846,
+      "persistence_mae": 102.49547915544538,
+      "first_date": "1991-08-31",
+      "last_date": "2011-05-31"
+    },
+    "validation": {
+      "rows": 80,
+      "mae": 156.64170810693503,
+      "persistence_mae": 131.10246923272499,
+      "first_date": "2011-06-30",
+      "last_date": "2018-01-31"
+    },
+    "test": {
+      "rows": 80,
+      "mae": 95.77663434128101,
+      "persistence_mae": 79.46446580249999,
+      "first_date": "2018-02-28",
+      "last_date": "2024-09-30"
+    }
+  },
+  "history": [
+    {
+      "date": "1991-08-31",
+      "actual": 142.0279851,
+      "prediction": 223.66363045110336,
+      "baseline": 164.3466888,
+      "partition": "train"
+    },
+    {
+      "date": "1991-09-30",
+      "actual": 190.7909267,
+      "prediction": 192.29662541646755,
+      "baseline": 142.0279851,
+      "partition": "train"
+    },
+    {
+      "date": "1991-10-31",
+      "actual": 633.0390194,
+      "prediction": 207.17462049420644,
+      "baseline": 190.7909267,
+      "partition": "train"
+    },
+    {
+      "date": "1991-11-30",
+      "actual": 327.07016,
+      "prediction": 420.13734085367753,
+      "baseline": 633.0390194,
+      "partition": "train"
+    },
+    {
+      "date": "1991-12-31",
+      "actual": 403.765272,
+      "prediction": 318.7002835272176,
+      "baseline": 327.07016,
+      "partition": "train"
+    },
+    {
+      "date": "1992-01-31",
+      "actual": 474.7792646,
+      "prediction": 280.1371956310059,
+      "baseline": 403.765272,
+      "partition": "train"
+    },
+    {
+      "date": "1992-02-29",
+      "actual": 668.0212818,
+      "prediction": 344.45664018640866,
+      "baseline": 474.7792646,
+      "partition": "train"
+    },
+    {
+      "date": "1992-03-31",
+      "actual": 436.2288115,
+      "prediction": 409.55422902454137,
+      "baseline": 668.0212818,
+      "partition": "train"
+    },
+    {
+      "date": "1992-04-30",
+      "actual": 666.7199416,
+      "prediction": 328.6431372071817,
+      "baseline": 436.2288115,
+      "partition": "train"
+    },
+    {
+      "date": "1992-05-31",
+      "actual": 659.4156452,
+      "prediction": 376.89141483591675,
+      "baseline": 666.7199416,
+      "partition": "train"
+    },
+    {
+      "date": "1992-06-30",
+      "actual": 433.9969431,
+      "prediction": 416.8479274006412,
+      "baseline": 659.4156452,
+      "partition": "train"
+    },
+    {
+      "date": "1992-07-31",
+      "actual": 555.9381132,
+      "prediction": 311.5245650345949,
+      "baseline": 433.9969431,
+      "partition": "train"
+    },
+    {
+      "date": "1992-08-31",
+      "actual": 399.7073296,
+      "prediction": 341.7305788719564,
+      "baseline": 555.9381132,
+      "partition": "train"
+    },
+    {
+      "date": "1992-09-30",
+      "actual": 425.6105288,
+      "prediction": 311.3133301174288,
+      "baseline": 399.7073296,
+      "partition": "train"
+    },
+    {
+      "date": "1992-10-31",
+      "actual": 377.3886462,
+      "prediction": 300.1178187780053,
+      "baseline": 425.6105288,
+      "partition": "train"
+    },
+    {
+      "date": "1992-11-30",
+      "actual": 270.4618631,
+      "prediction": 296.80306426255135,
+      "baseline": 377.3886462,
+      "partition": "train"
+    },
+    {
+      "date": "1992-12-31",
+      "actual": 255.6503732,
+      "prediction": 242.0879324305519,
+      "baseline": 270.4618631,
+      "partition": "train"
+    },
+    {
+      "date": "1993-01-31",
+      "actual": 202.8971216,
+      "prediction": 230.61140990990813,
+      "baseline": 255.6503732,
+      "partition": "train"
+    },
+    {
+      "date": "1993-02-28",
+      "actual": 168.4770742,
+      "prediction": 212.0940424273985,
+      "baseline": 202.8971216,
+      "partition": "train"
+    },
+    {
+      "date": "1993-03-31",
+      "actual": 196.810208,
+      "prediction": 188.54427419247284,
+      "baseline": 168.4770742,
+      "partition": "train"
+    },
+    {
+      "date": "1993-04-30",
+      "actual": 186.5977195,
+      "prediction": 208.09643100111933,
+      "baseline": 196.810208,
+      "partition": "train"
+    },
+    {
+      "date": "1993-05-31",
+      "actual": 174.4915246,
+      "prediction": 211.09850426380288,
+      "baseline": 186.5977195,
+      "partition": "train"
+    },
+    {
+      "date": "1993-06-30",
+      "actual": 201.2739446,
+      "prediction": 197.8621754993032,
+      "baseline": 174.4915246,
+      "partition": "train"
+    },
+    {
+      "date": "1993-07-31",
+      "actual": 259.7083157,
+      "prediction": 214.02398710082517,
+      "baseline": 201.2739446,
+      "partition": "train"
+    },
+    {
+      "date": "1993-08-31",
+      "actual": 257.6793444,
+      "prediction": 252.1408150228645,
+      "baseline": 259.7083157,
+      "partition": "train"
+    },
+    {
+      "date": "1993-09-30",
+      "actual": 278.8482775,
+      "prediction": 252.64482585144668,
+      "baseline": 257.6793444,
+      "partition": "train"
+    },
+    {
+      "date": "1993-10-31",
+      "actual": 99.41958959,
+      "prediction": 253.98832188958735,
+      "baseline": 278.8482775,
+      "partition": "train"
+    },
+    {
+      "date": "1993-11-30",
+      "actual": 270.4618631,
+      "prediction": 146.1405886561589,
+      "baseline": 99.41958959,
+      "partition": "train"
+    },
+    {
+      "date": "1993-12-31",
+      "actual": 344.9251067,
+      "prediction": 223.57294728783944,
+      "baseline": 270.4618631,
+      "partition": "train"
+    },
+    {
+      "date": "1994-01-31",
+      "actual": 273.9111142,
+      "prediction": 329.4304867622095,
+      "baseline": 344.9251067,
+      "partition": "train"
+    },
+    {
+      "date": "1994-02-28",
+      "actual": 256.0851528,
+      "prediction": 257.88852371341056,
+      "baseline": 273.9111142,
+      "partition": "train"
+    },
+    {
+      "date": "1994-03-31",
+      "actual": 109.5644457,
+      "prediction": 234.17576135974466,
+      "baseline": 256.0851528,
+      "partition": "train"
+    },
+    {
+      "date": "1994-04-30",
+      "actual": 0.0,
+      "prediction": 151.33787999820296,
+      "baseline": 109.5644457,
+      "partition": "train"
+    },
+    {
+      "date": "1994-05-31",
+      "actual": 158.2597346,
+      "prediction": 9.79048541399972,
+      "baseline": 0.0,
+      "partition": "train"
+    },
+    {
+      "date": "1994-06-30",
+      "actual": 6.28981077,
+      "prediction": 116.9319034770295,
+      "baseline": 158.2597346,
+      "partition": "train"
+    },
+    {
+      "date": "1994-07-31",
+      "actual": 215.0709489,
+      "prediction": 73.16855753139954,
+      "baseline": 6.28981077,
+      "partition": "train"
+    },
+    {
+      "date": "1994-08-31",
+      "actual": 4.057942432,
+      "prediction": 162.01914209242457,
+      "baseline": 215.0709489,
+      "partition": "train"
+    },
+    {
+      "date": "1994-09-30",
+      "actual": 301.910917,
+      "prediction": 46.039668483864745,
+      "baseline": 4.057942432,
+      "partition": "train"
+    },
+    {
+      "date": "1994-10-31",
+      "actual": 351.0120204,
+      "prediction": 179.41996542783497,
+      "baseline": 301.910917,
+      "partition": "train"
+    },
+    {
+      "date": "1994-11-30",
+      "actual": 345.9395924,
+      "prediction": 519.6241153371061,
+      "baseline": 351.0120204,
+      "partition": "train"
+    },
+    {
+      "date": "1994-12-31",
+      "actual": 296.2297976,
+      "prediction": 288.8399107057581,
+      "baseline": 345.9395924,
+      "partition": "train"
+    },
+    {
+      "date": "1995-01-31",
+      "actual": 357.098934,
+      "prediction": 259.24137815792517,
+      "baseline": 296.2297976,
+      "partition": "train"
+    },
+    {
+      "date": "1995-02-28",
+      "actual": 361.6641193,
+      "prediction": 283.01194524691897,
+      "baseline": 357.098934,
+      "partition": "train"
+    },
+    {
+      "date": "1995-03-31",
+      "actual": 342.8961355,
+      "prediction": 297.2937350742243,
+      "baseline": 361.6641193,
+      "partition": "train"
+    },
+    {
+      "date": "1995-04-30",
+      "actual": 287.2346918,
+      "prediction": 281.4201214124576,
+      "baseline": 342.8961355,
+      "partition": "train"
+    },
+    {
+      "date": "1995-05-31",
+      "actual": 302.3167112,
+      "prediction": 253.57174846034692,
+      "baseline": 287.2346918,
+      "partition": "train"
+    },
+    {
+      "date": "1995-06-30",
+      "actual": 259.9788452,
+      "prediction": 257.8990323262591,
+      "baseline": 302.3167112,
+      "partition": "train"
+    },
+    {
+      "date": "1995-07-31",
+      "actual": 188.6943231,
+      "prediction": 245.01901436241994,
+      "baseline": 259.9788452,
+      "partition": "train"
+    },
+    {
+      "date": "1995-08-31",
+      "actual": 213.0419777,
+      "prediction": 200.9473322194573,
+      "baseline": 188.6943231,
+      "partition": "train"
+    },
+    {
+      "date": "1995-09-30",
+      "actual": 197.0807375,
+      "prediction": 212.14073761055334,
+      "baseline": 213.0419777,
+      "partition": "train"
+    },
+    {
+      "date": "1995-10-31",
+      "actual": 316.5195097,
+      "prediction": 215.74487351825232,
+      "baseline": 197.0807375,
+      "partition": "train"
+    },
+    {
+      "date": "1995-11-30",
+      "actual": 322.8769529,
+      "prediction": 272.2809101840484,
+      "baseline": 316.5195097,
+      "partition": "train"
+    },
+    {
+      "date": "1995-12-31",
+      "actual": 192.7522655,
+      "prediction": 292.6816795953803,
+      "baseline": 322.8769529,
+      "partition": "train"
+    },
+    {
+      "date": "1996-01-31",
+      "actual": 190.7232943,
+      "prediction": 206.6324803046422,
+      "baseline": 192.7522655,
+      "partition": "train"
+    },
+    {
+      "date": "1996-02-29",
+      "actual": 175.6809432,
+      "prediction": 193.95663345098055,
+      "baseline": 190.7232943,
+      "partition": "train"
+    },
+    {
+      "date": "1996-03-31",
+      "actual": 186.6653519,
+      "prediction": 199.65901935708726,
+      "baseline": 175.6809432,
+      "partition": "train"
+    },
+    {
+      "date": "1996-04-30",
+      "actual": 79.67093642,
+      "prediction": 204.90221697474686,
+      "baseline": 186.6653519,
+      "partition": "train"
+    },
+    {
+      "date": "1996-05-31",
+      "actual": 273.9111142,
+      "prediction": 131.27844828205457,
+      "baseline": 79.67093642,
+      "partition": "train"
+    },
+    {
+      "date": "1996-06-30",
+      "actual": 218.0467734,
+      "prediction": 233.1315696575873,
+      "baseline": 273.9111142,
+      "partition": "train"
+    },
+    {
+      "date": "1996-07-31",
+      "actual": 0.0,
+      "prediction": 265.1729736528112,
+      "baseline": 218.0467734,
+      "partition": "train"
+    },
+    {
+      "date": "1996-08-31",
+      "actual": 0.0,
+      "prediction": 10.48786983930074,
+      "baseline": 0.0,
+      "partition": "train"
+    },
+    {
+      "date": "1996-09-30",
+      "actual": 41.9320718,
+      "prediction": 5.712127486934299,
+      "baseline": 0.0,
+      "partition": "train"
+    },
+    {
+      "date": "1996-10-31",
+      "actual": 515.3586889,
+      "prediction": 113.13177989073318,
+      "baseline": 41.9320718,
+      "partition": "train"
+    },
+    {
+      "date": "1996-11-30",
+      "actual": 484.3154293,
+      "prediction": 659.162856199413,
+      "baseline": 515.3586889,
+      "partition": "train"
+    },
+    {
+      "date": "1996-12-31",
+      "actual": 440.2867539,
+      "prediction": 480.29041978635814,
+      "baseline": 484.3154293,
+      "partition": "train"
+    },
+    {
+      "date": "1997-01-31",
+      "actual": 495.0689767,
+      "prediction": 315.46310948736993,
+      "baseline": 440.2867539,
+      "partition": "train"
+    },
+    {
+      "date": "1997-02-28",
+      "actual": 523.4021105,
+      "prediction": 335.9703348079222,
+      "baseline": 495.0689767,
+      "partition": "train"
+    },
+    {
+      "date": "1997-03-31",
+      "actual": 542.5469032,
+      "prediction": 355.55393209337836,
+      "baseline": 523.4021105,
+      "partition": "train"
+    },
+    {
+      "date": "1997-04-30",
+      "actual": 597.5320232,
+      "prediction": 358.5867264676999,
+      "baseline": 542.5469032,
+      "partition": "train"
+    },
+    {
+      "date": "1997-05-31",
+      "actual": 583.7350189,
+      "prediction": 376.389871059655,
+      "baseline": 597.5320232,
+      "partition": "train"
+    },
+    {
+      "date": "1997-06-30",
+      "actual": 595.4354196,
+      "prediction": 373.4837921451732,
+      "baseline": 583.7350189,
+      "partition": "train"
+    },
+    {
+      "date": "1997-07-31",
+      "actual": 236.1722496,
+      "prediction": 371.3793256508035,
+      "baseline": 595.4354196,
+      "partition": "train"
+    },
+    {
+      "date": "1997-08-31",
+      "actual": 291.968958,
+      "prediction": 225.36598550746703,
+      "baseline": 236.1722496,
+      "partition": "train"
+    },
+    {
+      "date": "1997-09-30",
+      "actual": 223.078622,
+      "prediction": 228.7481824444856,
+      "baseline": 291.968958,
+      "partition": "train"
+    },
+    {
+      "date": "1997-10-31",
+      "actual": 369.6785556,
+      "prediction": 231.02221887233478,
+      "baseline": 223.078622,
+      "partition": "train"
+    },
+    {
+      "date": "1997-11-30",
+      "actual": 359.9868364,
+      "prediction": 286.86412825561797,
+      "baseline": 369.6785556,
+      "partition": "train"
+    },
+    {
+      "date": "1997-12-31",
+      "actual": 346.1903732,
+      "prediction": 310.12195548141693,
+      "baseline": 359.9868364,
+      "partition": "train"
+    },
+    {
+      "date": "1998-01-31",
+      "actual": 220.2218981,
+      "prediction": 281.33637342756543,
+      "baseline": 346.1903732,
+      "partition": "train"
+    },
+    {
+      "date": "1998-02-28",
+      "actual": 226.3163769,
+      "prediction": 219.71361590353422,
+      "baseline": 220.2218981,
+      "partition": "train"
+    },
+    {
+      "date": "1998-03-31",
+      "actual": 248.0819048,
+      "prediction": 213.78822499723458,
+      "baseline": 226.3163769,
+      "partition": "train"
+    },
+    {
+      "date": "1998-04-30",
+      "actual": 139.3304206,
+      "prediction": 240.72703338683357,
+      "baseline": 248.0819048,
+      "partition": "train"
+    },
+    {
+      "date": "1998-05-31",
+      "actual": 129.5195805,
+      "prediction": 176.75892561954075,
+      "baseline": 139.3304206,
+      "partition": "train"
+    },
+    {
+      "date": "1998-06-30",
+      "actual": 181.8110268,
+      "prediction": 157.6803157753298,
+      "baseline": 129.5195805,
+      "partition": "train"
+    },
+    {
+      "date": "1998-07-31",
+      "actual": 105.1902881,
+      "prediction": 204.6799728348117,
+      "baseline": 181.8110268,
+      "partition": "train"
+    },
+    {
+      "date": "1998-08-31",
+      "actual": 257.7404165,
+      "prediction": 159.1408645514376,
+      "baseline": 105.1902881,
+      "partition": "train"
+    },
+    {
+      "date": "1998-09-30",
+      "actual": 117.54499,
+      "prediction": 233.0863140272859,
+      "baseline": 257.7404165,
+      "partition": "train"
+    },
+    {
+      "date": "1998-10-31",
+      "actual": 253.6011123,
+      "prediction": 180.78065497665946,
+      "baseline": 117.54499,
+      "partition": "train"
+    },
+    {
+      "date": "1998-11-30",
+      "actual": 215.6528714,
+      "prediction": 222.21708531133424,
+      "baseline": 253.6011123,
+      "partition": "train"
+    },
+    {
+      "date": "1998-12-31",
+      "actual": 231.6052382,
+      "prediction": 247.18882173073524,
+      "baseline": 215.6528714,
+      "partition": "train"
+    },
+    {
+      "date": "1999-01-31",
+      "actual": 247.0469266,
+      "prediction": 226.00926013316894,
+      "baseline": 231.6052382,
+      "partition": "train"
+    },
+    {
+      "date": "1999-02-28",
+      "actual": 169.2543376,
+      "prediction": 241.49919979580696,
+      "baseline": 247.0469266,
+      "partition": "train"
+    },
+    {
+      "date": "1999-03-31",
+      "actual": 254.0677757,
+      "prediction": 195.78903242360536,
+      "baseline": 169.2543376,
+      "partition": "train"
+    },
+    {
+      "date": "1999-04-30",
+      "actual": 369.639809,
+      "prediction": 232.59204482285017,
+      "baseline": 254.0677757,
+      "partition": "train"
+    },
+    {
+      "date": "1999-05-31",
+      "actual": 313.0140561,
+      "prediction": 314.72673499214113,
+      "baseline": 369.639809,
+      "partition": "train"
+    },
+    {
+      "date": "1999-06-30",
+      "actual": 199.6459529,
+      "prediction": 281.9612830388593,
+      "baseline": 313.0140561,
+      "partition": "train"
+    },
+    {
+      "date": "1999-07-31",
+      "actual": 124.1220707,
+      "prediction": 205.25950579229533,
+      "baseline": 199.6459529,
+      "partition": "train"
+    },
+    {
+      "date": "1999-08-31",
+      "actual": 439.0028209,
+      "prediction": 154.722691949996,
+      "baseline": 124.1220707,
+      "partition": "train"
+    },
+    {
+      "date": "1999-09-30",
+      "actual": 297.157078,
+      "prediction": 312.96837475534653,
+      "baseline": 439.0028209,
+      "partition": "train"
+    },
+    {
+      "date": "1999-10-31",
+      "actual": 179.7466209,
+      "prediction": 309.600961277678,
+      "baseline": 297.157078,
+      "partition": "train"
+    },
+    {
+      "date": "1999-11-30",
+      "actual": 370.7296235,
+      "prediction": 188.00415150357153,
+      "baseline": 179.7466209,
+      "partition": "train"
+    },
+    {
+      "date": "1999-12-31",
+      "actual": 156.1092483,
+      "prediction": 280.10973619768055,
+      "baseline": 370.7296235,
+      "partition": "train"
+    },
+    {
+      "date": "2000-01-31",
+      "actual": 442.3094353,
+      "prediction": 202.91190337406871,
+      "baseline": 156.1092483,
+      "partition": "train"
+    },
+    {
+      "date": "2000-02-29",
+      "actual": 358.5493616,
+      "prediction": 294.3079079861275,
+      "baseline": 442.3094353,
+      "partition": "train"
+    },
+    {
+      "date": "2000-03-31",
+      "actual": 447.5486448,
+      "prediction": 332.10231182696043,
+      "baseline": 358.5493616,
+      "partition": "train"
+    },
+    {
+      "date": "2000-04-30",
+      "actual": 396.584939,
+      "prediction": 315.23915008876764,
+      "baseline": 447.5486448,
+      "partition": "train"
+    },
+    {
+      "date": "2000-05-31",
+      "actual": 412.2264878,
+      "prediction": 311.456865858878,
+      "baseline": 396.584939,
+      "partition": "train"
+    },
+    {
+      "date": "2000-06-30",
+      "actual": 424.1313749,
+      "prediction": 304.11129047347623,
+      "baseline": 412.2264878,
+      "partition": "train"
+    },
+    {
+      "date": "2000-07-31",
+      "actual": 388.4850898,
+      "prediction": 315.63686200421193,
+      "baseline": 424.1313749,
+      "partition": "train"
+    },
+    {
+      "date": "2000-08-31",
+      "actual": 431.0194279,
+      "prediction": 300.07965841255094,
+      "baseline": 388.4850898,
+      "partition": "train"
+    },
+    {
+      "date": "2000-09-30",
+      "actual": 120.7614944,
+      "prediction": 313.36245844907637,
+      "baseline": 431.0194279,
+      "partition": "train"
+    },
+    {
+      "date": "2000-10-31",
+      "actual": 290.5716055,
+      "prediction": 160.27898846417568,
+      "baseline": 120.7614944,
+      "partition": "train"
+    },
+    {
+      "date": "2000-11-30",
+      "actual": 387.4110403,
+      "prediction": 222.76615328071057,
+      "baseline": 290.5716055,
+      "partition": "train"
+    },
+    {
+      "date": "2000-12-31",
+      "actual": 521.6223259,
+      "prediction": 343.8878791880164,
+      "baseline": 387.4110403,
+      "partition": "train"
+    },
+    {
+      "date": "2001-01-31",
+      "actual": 484.7549045,
+      "prediction": 367.2846562082796,
+      "baseline": 521.6223259,
+      "partition": "train"
+    },
+    {
+      "date": "2001-02-28",
+      "actual": 492.2322793,
+      "prediction": 349.28334452104554,
+      "baseline": 484.7549045,
+      "partition": "train"
+    },
+    {
+      "date": "2001-03-31",
+      "actual": 530.3424384,
+      "prediction": 334.72158424864244,
+      "baseline": 492.2322793,
+      "partition": "train"
+    },
+    {
+      "date": "2001-04-30",
+      "actual": 627.5868356,
+      "prediction": 352.93945953591094,
+      "baseline": 530.3424384,
+      "partition": "train"
+    },
+    {
+      "date": "2001-05-31",
+      "actual": 615.658852,
+      "prediction": 389.13828372229244,
+      "baseline": 627.5868356,
+      "partition": "train"
+    },
+    {
+      "date": "2001-06-30",
+      "actual": 447.6324142,
+      "prediction": 387.78862539393026,
+      "baseline": 615.658852,
+      "partition": "train"
+    },
+    {
+      "date": "2001-07-31",
+      "actual": 561.4384513,
+      "prediction": 317.31216738627126,
+      "baseline": 447.6324142,
+      "partition": "train"
+    },
+    {
+      "date": "2001-08-31",
+      "actual": 741.7174134,
+      "prediction": 348.1559443977365,
+      "baseline": 561.4384513,
+      "partition": "train"
+    },
+    {
+      "date": "2001-09-30",
+      "actual": 789.7664614,
+      "prediction": 434.85732331251813,
+      "baseline": 741.7174134,
+      "partition": "train"
+    },
+    {
+      "date": "2001-10-31",
+      "actual": 432.9248347,
+      "prediction": 448.5067263977709,
+      "baseline": 789.7664614,
+      "partition": "train"
+    },
+    {
+      "date": "2001-11-30",
+      "actual": 479.871678,
+      "prediction": 312.2362142645268,
+      "baseline": 432.9248347,
+      "partition": "train"
+    },
+    {
+      "date": "2001-12-31",
+      "actual": 48.9329423,
+      "prediction": 307.0967241871051,
+      "baseline": 479.871678,
+      "partition": "train"
+    },
+    {
+      "date": "2002-01-31",
+      "actual": 0.0,
+      "prediction": 97.7279203278798,
+      "baseline": 48.9329423,
+      "partition": "train"
+    },
+    {
+      "date": "2002-02-28",
+      "actual": 1.635845,
+      "prediction": 8.05849071267464,
+      "baseline": 0.0,
+      "partition": "train"
+    },
+    {
+      "date": "2002-03-31",
+      "actual": 26.78278527,
+      "prediction": 13.115995965511846,
+      "baseline": 1.635845,
+      "partition": "train"
+    },
+    {
+      "date": "2002-04-30",
+      "actual": 421.8169342,
+      "prediction": 98.72629616439346,
+      "baseline": 26.78278527,
+      "partition": "train"
+    },
+    {
+      "date": "2002-05-31",
+      "actual": 616.2235147,
+      "prediction": 490.1585732306867,
+      "baseline": 421.8169342,
+      "partition": "train"
+    },
+    {
+      "date": "2002-06-30",
+      "actual": 838.3837634,
+      "prediction": 571.2968051581266,
+      "baseline": 616.2235147,
+      "partition": "train"
+    },
+    {
+      "date": "2002-07-31",
+      "actual": 721.4414982,
+      "prediction": 473.6211393402998,
+      "baseline": 838.3837634,
+      "partition": "train"
+    },
+    {
+      "date": "2002-08-31",
+      "actual": 680.0543405,
+      "prediction": 426.6486594356708,
+      "baseline": 721.4414982,
+      "partition": "train"
+    },
+    {
+      "date": "2002-09-30",
+      "actual": 702.2995142,
+      "prediction": 388.79960865178964,
+      "baseline": 680.0543405,
+      "partition": "train"
+    },
+    {
+      "date": "2002-10-31",
+      "actual": 639.8350585,
+      "prediction": 401.9019919784191,
+      "baseline": 702.2995142,
+      "partition": "train"
+    },
+    {
+      "date": "2002-11-30",
+      "actual": 443.9088463,
+      "prediction": 386.56995982226204,
+      "baseline": 639.8350585,
+      "partition": "train"
+    },
+    {
+      "date": "2002-12-31",
+      "actual": 372.0749735,
+      "prediction": 312.0184075012834,
+      "baseline": 443.9088463,
+      "partition": "train"
+    },
+    {
+      "date": "2003-01-31",
+      "actual": 380.6593478,
+      "prediction": 276.28482599315294,
+      "baseline": 372.0749735,
+      "partition": "train"
+    },
+    {
+      "date": "2003-02-28",
+      "actual": 390.0776655,
+      "prediction": 289.5452179498638,
+      "baseline": 380.6593478,
+      "partition": "train"
+    },
+    {
+      "date": "2003-03-31",
+      "actual": 338.3626022,
+      "prediction": 301.7823560257415,
+      "baseline": 390.0776655,
+      "partition": "train"
+    },
+    {
+      "date": "2003-04-30",
+      "actual": 278.1821865,
+      "prediction": 279.0289330139885,
+      "baseline": 338.3626022,
+      "partition": "train"
+    },
+    {
+      "date": "2003-05-31",
+      "actual": 292.1588697,
+      "prediction": 246.10726707309846,
+      "baseline": 278.1821865,
+      "partition": "train"
+    },
+    {
+      "date": "2003-06-30",
+      "actual": 292.0065616,
+      "prediction": 252.7623103339257,
+      "baseline": 292.1588697,
+      "partition": "train"
+    },
+    {
+      "date": "2003-07-31",
+      "actual": 288.4456495,
+      "prediction": 261.32954223780627,
+      "baseline": 292.0065616,
+      "partition": "train"
+    },
+    {
+      "date": "2003-08-31",
+      "actual": 314.0798747,
+      "prediction": 257.7306292482819,
+      "baseline": 288.4456495,
+      "partition": "train"
+    },
+    {
+      "date": "2003-09-30",
+      "actual": 371.2797723,
+      "prediction": 269.66356086409377,
+      "baseline": 314.0798747,
+      "partition": "train"
+    },
+    {
+      "date": "2003-10-31",
+      "actual": 348.0085343,
+      "prediction": 298.66485698055095,
+      "baseline": 371.2797723,
+      "partition": "train"
+    },
+    {
+      "date": "2003-11-30",
+      "actual": 127.8035456,
+      "prediction": 289.8430518282388,
+      "baseline": 348.0085343,
+      "partition": "train"
+    },
+    {
+      "date": "2003-12-31",
+      "actual": 0.0,
+      "prediction": 162.6599621005908,
+      "baseline": 127.8035456,
+      "partition": "train"
+    },
+    {
+      "date": "2004-01-31",
+      "actual": 116.4447885,
+      "prediction": 9.490588372144497,
+      "baseline": 0.0,
+      "partition": "train"
+    },
+    {
+      "date": "2004-02-29",
+      "actual": 296.7272453,
+      "prediction": 96.68552065541662,
+      "baseline": 116.4447885,
+      "partition": "train"
+    },
+    {
+      "date": "2004-03-31",
+      "actual": 340.1336912,
+      "prediction": 542.7596278043228,
+      "baseline": 296.7272453,
+      "partition": "train"
+    },
+    {
+      "date": "2004-04-30",
+      "actual": 330.4763022,
+      "prediction": 322.7073313001073,
+      "baseline": 340.1336912,
+      "partition": "train"
+    },
+    {
+      "date": "2004-05-31",
+      "actual": 320.3416857,
+      "prediction": 281.4861991996967,
+      "baseline": 330.4763022,
+      "partition": "train"
+    },
+    {
+      "date": "2004-06-30",
+      "actual": 351.3213641,
+      "prediction": 270.48389438143397,
+      "baseline": 320.3416857,
+      "partition": "train"
+    },
+    {
+      "date": "2004-07-31",
+      "actual": 287.5746121,
+      "prediction": 284.71896123151845,
+      "baseline": 351.3213641,
+      "partition": "train"
+    },
+    {
+      "date": "2004-08-31",
+      "actual": 334.7461639,
+      "prediction": 258.910199329161,
+      "baseline": 287.5746121,
+      "partition": "train"
+    },
+    {
+      "date": "2004-09-30",
+      "actual": 313.8783303,
+      "prediction": 271.73024132046623,
+      "baseline": 334.7461639,
+      "partition": "train"
+    },
+    {
+      "date": "2004-10-31",
+      "actual": 358.8434435,
+      "prediction": 274.45981472918936,
+      "baseline": 313.8783303,
+      "partition": "train"
+    },
+    {
+      "date": "2004-11-30",
+      "actual": 144.9896149,
+      "prediction": 286.87601796650387,
+      "baseline": 358.8434435,
+      "partition": "train"
+    },
+    {
+      "date": "2004-12-31",
+      "actual": 0.0,
+      "prediction": 179.12781648140654,
+      "baseline": 144.9896149,
+      "partition": "train"
+    },
+    {
+      "date": "2005-01-31",
+      "actual": 0.0,
+      "prediction": 9.58351856759485,
+      "baseline": 0.0,
+      "partition": "train"
+    },
+    {
+      "date": "2005-02-28",
+      "actual": 0.0,
+      "prediction": 6.11906354229655,
+      "baseline": 0.0,
+      "partition": "train"
+    },
+    {
+      "date": "2005-03-31",
+      "actual": 9.408402427,
+      "prediction": 13.668677282603426,
+      "baseline": 0.0,
+      "partition": "train"
+    },
+    {
+      "date": "2005-04-30",
+      "actual": 210.113435,
+      "prediction": 51.67221055613213,
+      "baseline": 9.408402427,
+      "partition": "train"
+    },
+    {
+      "date": "2005-05-31",
+      "actual": 198.4172546,
+      "prediction": 347.78260642962255,
+      "baseline": 210.113435,
+      "partition": "train"
+    },
+    {
+      "date": "2005-06-30",
+      "actual": 392.6768699,
+      "prediction": 329.97023478624004,
+      "baseline": 198.4172546,
+      "partition": "train"
+    },
+    {
+      "date": "2005-07-31",
+      "actual": 207.9285644,
+      "prediction": 307.1331346791665,
+      "baseline": 392.6768699,
+      "partition": "train"
+    },
+    {
+      "date": "2005-08-31",
+      "actual": 26.18332572,
+      "prediction": 235.28807850709674,
+      "baseline": 207.9285644,
+      "partition": "train"
+    },
+    {
+      "date": "2005-09-30",
+      "actual": 146.1980762,
+      "prediction": 64.7882063830651,
+      "baseline": 26.18332572,
+      "partition": "train"
+    },
+    {
+      "date": "2005-10-31",
+      "actual": 221.4532808,
+      "prediction": 145.1032368240913,
+      "baseline": 146.1980762,
+      "partition": "train"
+    },
+    {
+      "date": "2005-11-30",
+      "actual": 184.401066,
+      "prediction": 293.199901561765,
+      "baseline": 221.4532808,
+      "partition": "train"
+    },
+    {
+      "date": "2005-12-31",
+      "actual": 120.7807203,
+      "prediction": 216.78177544479954,
+      "baseline": 184.401066,
+      "partition": "train"
+    },
+    {
+      "date": "2006-01-31",
+      "actual": 14.79503289,
+      "prediction": 158.96425226955142,
+      "baseline": 120.7807203,
+      "partition": "train"
+    },
+    {
+      "date": "2006-02-28",
+      "actual": 45.36566452,
+      "prediction": 50.53632395270632,
+      "baseline": 14.79503289,
+      "partition": "train"
+    },
+    {
+      "date": "2006-03-31",
+      "actual": 157.5337484,
+      "prediction": 78.42023517973516,
+      "baseline": 45.36566452,
+      "partition": "train"
+    },
+    {
+      "date": "2006-04-30",
+      "actual": 113.5735616,
+      "prediction": 233.13707675482632,
+      "baseline": 157.5337484,
+      "partition": "train"
+    },
+    {
+      "date": "2006-05-31",
+      "actual": 255.1642317,
+      "prediction": 190.05808717583017,
+      "baseline": 113.5735616,
+      "partition": "train"
+    },
+    {
+      "date": "2006-06-30",
+      "actual": 36.36095577,
+      "prediction": 238.59264562730823,
+      "baseline": 255.1642317,
+      "partition": "train"
+    },
+    {
+      "date": "2006-07-31",
+      "actual": 11.54826909,
+      "prediction": 94.64209247733334,
+      "baseline": 36.36095577,
+      "partition": "train"
+    },
+    {
+      "date": "2006-08-31",
+      "actual": 165.3879162,
+      "prediction": 37.2739698827296,
+      "baseline": 11.54826909,
+      "partition": "train"
+    },
+    {
+      "date": "2006-09-30",
+      "actual": 155.0004568,
+      "prediction": 183.76597370948812,
+      "baseline": 165.3879162,
+      "partition": "train"
+    },
+    {
+      "date": "2006-10-31",
+      "actual": 599.1679826,
+      "prediction": 273.71075998692334,
+      "baseline": 155.0004568,
+      "partition": "train"
+    },
+    {
+      "date": "2006-11-30",
+      "actual": 629.5794477,
+      "prediction": 390.1908341754484,
+      "baseline": 599.1679826,
+      "partition": "train"
+    },
+    {
+      "date": "2006-12-31",
+      "actual": 442.5279555,
+      "prediction": 466.8305467588824,
+      "baseline": 629.5794477,
+      "partition": "train"
+    },
+    {
+      "date": "2007-01-31",
+      "actual": 204.2496338,
+      "prediction": 318.21403051584895,
+      "baseline": 442.5279555,
+      "partition": "train"
+    },
+    {
+      "date": "2007-02-28",
+      "actual": 510.6571568,
+      "prediction": 199.53119442318325,
+      "baseline": 204.2496338,
+      "partition": "train"
+    },
+    {
+      "date": "2007-03-31",
+      "actual": 269.379407,
+      "prediction": 319.196066238098,
+      "baseline": 510.6571568,
+      "partition": "train"
+    },
+    {
+      "date": "2007-04-30",
+      "actual": 383.0224297,
+      "prediction": 277.4700422132753,
+      "baseline": 269.379407,
+      "partition": "train"
+    },
+    {
+      "date": "2007-05-31",
+      "actual": 277.3749738,
+      "prediction": 275.10421788762363,
+      "baseline": 383.0224297,
+      "partition": "train"
+    },
+    {
+      "date": "2007-06-30",
+      "actual": 438.4165835,
+      "prediction": 262.71438626866507,
+      "baseline": 277.3749738,
+      "partition": "train"
+    },
+    {
+      "date": "2007-07-31",
+      "actual": 485.1355395,
+      "prediction": 309.7601771743513,
+      "baseline": 438.4165835,
+      "partition": "train"
+    },
+    {
+      "date": "2007-08-31",
+      "actual": 666.2926403,
+      "prediction": 360.09420739272133,
+      "baseline": 485.1355395,
+      "partition": "train"
+    },
+    {
+      "date": "2007-09-30",
+      "actual": 587.942997,
+      "prediction": 405.0430750926729,
+      "baseline": 666.2926403,
+      "partition": "train"
+    },
+    {
+      "date": "2007-10-31",
+      "actual": 605.0093908,
+      "prediction": 385.5122162150476,
+      "baseline": 587.942997,
+      "partition": "train"
+    },
+    {
+      "date": "2007-11-30",
+      "actual": 669.1044089,
+      "prediction": 369.03081207649416,
+      "baseline": 605.0093908,
+      "partition": "train"
+    },
+    {
+      "date": "2007-12-31",
+      "actual": 639.5014957,
+      "prediction": 398.2516435656805,
+      "baseline": 669.1044089,
+      "partition": "train"
+    },
+    {
+      "date": "2008-01-31",
+      "actual": 674.9360577,
+      "prediction": 391.06651333119527,
+      "baseline": 639.5014957,
+      "partition": "train"
+    },
+    {
+      "date": "2008-02-29",
+      "actual": 744.1021822,
+      "prediction": 395.0141705462776,
+      "baseline": 674.9360577,
+      "partition": "train"
+    },
+    {
+      "date": "2008-03-31",
+      "actual": 701.46161,
+      "prediction": 421.7862998268357,
+      "baseline": 744.1021822,
+      "partition": "train"
+    },
+    {
+      "date": "2008-04-30",
+      "actual": 780.9022311,
+      "prediction": 409.43056250333217,
+      "baseline": 701.46161,
+      "partition": "train"
+    },
+    {
+      "date": "2008-05-31",
+      "actual": 794.0322043,
+      "prediction": 425.3684244810998,
+      "baseline": 780.9022311,
+      "partition": "train"
+    },
+    {
+      "date": "2008-06-30",
+      "actual": 679.0750169,
+      "prediction": 437.9029462311961,
+      "baseline": 794.0322043,
+      "partition": "train"
+    },
+    {
+      "date": "2008-07-31",
+      "actual": 644.0242754,
+      "prediction": 396.5301147220344,
+      "baseline": 679.0750169,
+      "partition": "train"
+    },
+    {
+      "date": "2008-08-31",
+      "actual": 53.04818288,
+      "prediction": 377.9677035820075,
+      "baseline": 644.0242754,
+      "partition": "train"
+    },
+    {
+      "date": "2008-09-30",
+      "actual": 168.8017063,
+      "prediction": 98.63188610680002,
+      "baseline": 53.04818288,
+      "partition": "train"
+    },
+    {
+      "date": "2008-10-31",
+      "actual": 529.6109943,
+      "prediction": 143.23855795507848,
+      "baseline": 168.8017063,
+      "partition": "train"
+    },
+    {
+      "date": "2008-11-30",
+      "actual": 387.7670436,
+      "prediction": 433.44299848426283,
+      "baseline": 529.6109943,
+      "partition": "train"
+    },
+    {
+      "date": "2008-12-31",
+      "actual": 451.4909359,
+      "prediction": 349.3169374171965,
+      "baseline": 387.7670436,
+      "partition": "train"
+    },
+    {
+      "date": "2009-01-31",
+      "actual": 233.2298276,
+      "prediction": 311.14410530352484,
+      "baseline": 451.4909359,
+      "partition": "train"
+    },
+    {
+      "date": "2009-02-28",
+      "actual": 27.45047836,
+      "prediction": 230.67221976989023,
+      "baseline": 233.2298276,
+      "partition": "train"
+    },
+    {
+      "date": "2009-03-31",
+      "actual": 347.7677803,
+      "prediction": 65.90020903606933,
+      "baseline": 27.45047836,
+      "partition": "train"
+    },
+    {
+      "date": "2009-04-30",
+      "actual": 212.7177982,
+      "prediction": 230.2019816745326,
+      "baseline": 347.7677803,
+      "partition": "train"
+    },
+    {
+      "date": "2009-05-31",
+      "actual": 488.9355732,
+      "prediction": 312.2738288147361,
+      "baseline": 212.7177982,
+      "partition": "train"
+    },
+    {
+      "date": "2009-06-30",
+      "actual": 382.4567559,
+      "prediction": 324.18882345424055,
+      "baseline": 488.9355732,
+      "partition": "train"
+    },
+    {
+      "date": "2009-07-31",
+      "actual": 116.2084128,
+      "prediction": 332.46038612848605,
+      "baseline": 382.4567559,
+      "partition": "train"
+    },
+    {
+      "date": "2009-08-31",
+      "actual": 360.4926986,
+      "prediction": 149.87241030132301,
+      "baseline": 116.2084128,
+      "partition": "train"
+    },
+    {
+      "date": "2009-09-30",
+      "actual": 390.1880957,
+      "prediction": 253.97590537810473,
+      "baseline": 360.4926986,
+      "partition": "train"
+    },
+    {
+      "date": "2009-10-31",
+      "actual": 358.9318714,
+      "prediction": 355.1613066601453,
+      "baseline": 390.1880957,
+      "partition": "train"
+    },
+    {
+      "date": "2009-11-30",
+      "actual": 338.8943627,
+      "prediction": 290.46216379174945,
+      "baseline": 358.9318714,
+      "partition": "train"
+    },
+    {
+      "date": "2009-12-31",
+      "actual": 436.8465118,
+      "prediction": 275.8254982688936,
+      "baseline": 338.8943627,
+      "partition": "train"
+    },
+    {
+      "date": "2010-01-31",
+      "actual": 473.6570524,
+      "prediction": 318.7681839358749,
+      "baseline": 436.8465118,
+      "partition": "train"
+    },
+    {
+      "date": "2010-02-28",
+      "actual": 347.4193266,
+      "prediction": 345.10975460731765,
+      "baseline": 473.6570524,
+      "partition": "train"
+    },
+    {
+      "date": "2010-03-31",
+      "actual": 501.6476583,
+      "prediction": 283.2457900073215,
+      "baseline": 347.4193266,
+      "partition": "train"
+    },
+    {
+      "date": "2010-04-30",
+      "actual": 473.4482965,
+      "prediction": 331.0880354542649,
+      "baseline": 501.6476583,
+      "partition": "train"
+    },
+    {
+      "date": "2010-05-31",
+      "actual": 394.5655909,
+      "prediction": 348.8584427969719,
+      "baseline": 473.4482965,
+      "partition": "train"
+    },
+    {
+      "date": "2010-06-30",
+      "actual": 558.2985919,
+      "prediction": 297.57643002538117,
+      "baseline": 394.5655909,
+      "partition": "train"
+    },
+    {
+      "date": "2010-07-31",
+      "actual": 554.0999275,
+      "prediction": 355.79888732387917,
+      "baseline": 558.2985919,
+      "partition": "train"
+    },
+    {
+      "date": "2010-08-31",
+      "actual": 550.9728162,
+      "prediction": 377.453461978132,
+      "baseline": 554.0999275,
+      "partition": "train"
+    },
+    {
+      "date": "2010-09-30",
+      "actual": 540.9453651,
+      "prediction": 357.51373670724865,
+      "baseline": 550.9728162,
+      "partition": "train"
+    },
+    {
+      "date": "2010-10-31",
+      "actual": 439.2273518,
+      "prediction": 354.12062475476483,
+      "baseline": 540.9453651,
+      "partition": "train"
+    },
+    {
+      "date": "2010-11-30",
+      "actual": 550.5147712,
+      "prediction": 315.6823568171387,
+      "baseline": 439.2273518,
+      "partition": "train"
+    },
+    {
+      "date": "2010-12-31",
+      "actual": 461.7455348,
+      "prediction": 350.2680339029967,
+      "baseline": 550.5147712,
+      "partition": "train"
+    },
+    {
+      "date": "2011-01-31",
+      "actual": 442.8038663,
+      "prediction": 335.90110350489795,
+      "baseline": 461.7455348,
+      "partition": "train"
+    },
+    {
+      "date": "2011-02-28",
+      "actual": 539.0909399,
+      "prediction": 311.8475119273413,
+      "baseline": 442.8038663,
+      "partition": "train"
+    },
+    {
+      "date": "2011-03-31",
+      "actual": 379.2575305,
+      "prediction": 354.6340433889201,
+      "baseline": 539.0909399,
+      "partition": "train"
+    },
+    {
+      "date": "2011-04-30",
+      "actual": 523.5513455,
+      "prediction": 300.6487578792231,
+      "baseline": 379.2575305,
+      "partition": "train"
+    },
+    {
+      "date": "2011-05-31",
+      "actual": 546.0083257,
+      "prediction": 335.7011403269652,
+      "baseline": 523.5513455,
+      "partition": "train"
+    },
+    {
+      "date": "2011-06-30",
+      "actual": 475.7930655,
+      "prediction": 374.0343487921894,
+      "baseline": 546.0083257,
+      "partition": "validation"
+    },
+    {
+      "date": "2011-07-31",
+      "actual": 541.9166578,
+      "prediction": 332.558277892524,
+      "baseline": 475.7930655,
+      "partition": "validation"
+    },
+    {
+      "date": "2011-08-31",
+      "actual": 565.5728128,
+      "prediction": 349.7487362270338,
+      "baseline": 541.9166578,
+      "partition": "validation"
+    },
+    {
+      "date": "2011-09-30",
+      "actual": 550.0454067,
+      "prediction": 370.3026835061819,
+      "baseline": 565.5728128,
+      "partition": "validation"
+    },
+    {
+      "date": "2011-10-31",
+      "actual": 543.4540919,
+      "prediction": 359.5125331710464,
+      "baseline": 550.0454067,
+      "partition": "validation"
+    },
+    {
+      "date": "2011-11-30",
+      "actual": 562.0841039,
+      "prediction": 353.8986277502828,
+      "baseline": 543.4540919,
+      "partition": "validation"
+    },
+    {
+      "date": "2011-12-31",
+      "actual": 524.2201041,
+      "prediction": 361.4731019429757,
+      "baseline": 562.0841039,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-01-31",
+      "actual": 487.9325494,
+      "prediction": 349.8185637892491,
+      "baseline": 524.2201041,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-02-29",
+      "actual": 445.423727,
+      "prediction": 332.2700523989217,
+      "baseline": 487.9325494,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-03-31",
+      "actual": 208.8096574,
+      "prediction": 316.93275167696584,
+      "baseline": 445.423727,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-04-30",
+      "actual": 579.6086338,
+      "prediction": 209.72551681665323,
+      "baseline": 208.8096574,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-05-31",
+      "actual": 525.23768,
+      "prediction": 342.54013467068256,
+      "baseline": 579.6086338,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-06-30",
+      "actual": 658.2422073,
+      "prediction": 403.6006772543928,
+      "baseline": 525.23768,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-07-31",
+      "actual": 695.1295604,
+      "prediction": 389.6471191470923,
+      "baseline": 658.2422073,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-08-31",
+      "actual": 319.5493918,
+      "prediction": 417.0602298926511,
+      "baseline": 695.1295604,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-09-30",
+      "actual": 598.4085941,
+      "prediction": 265.5349334645197,
+      "baseline": 319.5493918,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-10-31",
+      "actual": 0.0,
+      "prediction": 341.783456369335,
+      "baseline": 598.4085941,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-11-30",
+      "actual": 103.7869632,
+      "prediction": 11.497672287437174,
+      "baseline": 0.0,
+      "partition": "validation"
+    },
+    {
+      "date": "2012-12-31",
+      "actual": 533.688123,
+      "prediction": 72.4394578749102,
+      "baseline": 103.7869632,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-01-31",
+      "actual": 386.1279462,
+      "prediction": 738.4834082596383,
+      "baseline": 533.688123,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-02-28",
+      "actual": 396.8462783,
+      "prediction": 374.165032240181,
+      "baseline": 386.1279462,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-03-31",
+      "actual": 385.0594428,
+      "prediction": 289.52052165400744,
+      "baseline": 396.8462783,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-04-30",
+      "actual": 291.5446831,
+      "prediction": 299.36500209819354,
+      "baseline": 385.0594428,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-05-31",
+      "actual": 325.3759612,
+      "prediction": 255.3362021387332,
+      "baseline": 291.5446831,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-06-30",
+      "actual": 191.698241,
+      "prediction": 264.39436603903965,
+      "baseline": 325.3759612,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-07-31",
+      "actual": 127.1131375,
+      "prediction": 208.66064787406512,
+      "baseline": 191.698241,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-08-31",
+      "actual": 285.3077016,
+      "prediction": 155.19263055413785,
+      "baseline": 127.1131375,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-09-30",
+      "actual": 145.3162407,
+      "prediction": 249.4247948343358,
+      "baseline": 285.3077016,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-10-31",
+      "actual": 183.9981353,
+      "prediction": 199.56680294629888,
+      "baseline": 145.3162407,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-11-30",
+      "actual": 141.7499521,
+      "prediction": 187.94583331878107,
+      "baseline": 183.9981353,
+      "partition": "validation"
+    },
+    {
+      "date": "2013-12-31",
+      "actual": 187.4511326,
+      "prediction": 184.3400271429648,
+      "baseline": 141.7499521,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-01-31",
+      "actual": 174.9673541,
+      "prediction": 201.8149224107186,
+      "baseline": 187.4511326,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-02-28",
+      "actual": 92.38036614,
+      "prediction": 207.90763710418972,
+      "baseline": 174.9673541,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-03-31",
+      "actual": 190.1366866,
+      "prediction": 139.97467135751322,
+      "baseline": 92.38036614,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-04-30",
+      "actual": 239.9353687,
+      "prediction": 195.8341603293652,
+      "baseline": 190.1366866,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-05-31",
+      "actual": 245.998238,
+      "prediction": 263.1280578570309,
+      "baseline": 239.9353687,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-06-30",
+      "actual": 230.5298477,
+      "prediction": 246.29644407187627,
+      "baseline": 245.998238,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-07-31",
+      "actual": 199.690466,
+      "prediction": 230.4438834590121,
+      "baseline": 230.5298477,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-08-31",
+      "actual": 265.1271983,
+      "prediction": 210.85084477180052,
+      "baseline": 199.690466,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-09-30",
+      "actual": 113.0678339,
+      "prediction": 244.70712959781187,
+      "baseline": 265.1271983,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-10-31",
+      "actual": 159.083627,
+      "prediction": 161.78525814622677,
+      "baseline": 113.0678339,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-11-30",
+      "actual": 208.1766778,
+      "prediction": 170.87706402465597,
+      "baseline": 159.083627,
+      "partition": "validation"
+    },
+    {
+      "date": "2014-12-31",
+      "actual": 458.5426491,
+      "prediction": 232.10931219793372,
+      "baseline": 208.1766778,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-01-31",
+      "actual": 503.7855234,
+      "prediction": 349.7763761039014,
+      "baseline": 458.5426491,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-02-28",
+      "actual": 455.5482855,
+      "prediction": 385.0164774925973,
+      "baseline": 503.7855234,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-03-31",
+      "actual": 470.4619043,
+      "prediction": 328.2552451243174,
+      "baseline": 455.5482855,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-04-30",
+      "actual": 0.970556421,
+      "prediction": 326.0533343766879,
+      "baseline": 470.4619043,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-05-31",
+      "actual": 208.8944739,
+      "prediction": 15.759900203568048,
+      "baseline": 0.970556421,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-06-30",
+      "actual": 366.9358721,
+      "prediction": 118.3622916711111,
+      "baseline": 208.8944739,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-07-31",
+      "actual": 411.0189522,
+      "prediction": 587.2172083613178,
+      "baseline": 366.9358721,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-08-31",
+      "actual": 274.8827117,
+      "prediction": 336.323510685811,
+      "baseline": 411.0189522,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-09-30",
+      "actual": 358.2885423,
+      "prediction": 251.82910000540988,
+      "baseline": 274.8827117,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-10-31",
+      "actual": 529.3997036,
+      "prediction": 274.338009194417,
+      "baseline": 358.2885423,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-11-30",
+      "actual": 219.392696,
+      "prediction": 370.182104013784,
+      "baseline": 529.3997036,
+      "partition": "validation"
+    },
+    {
+      "date": "2015-12-31",
+      "actual": 0.0,
+      "prediction": 229.52183191693305,
+      "baseline": 219.392696,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-01-31",
+      "actual": 179.9502839,
+      "prediction": 9.45003638344711,
+      "baseline": 0.0,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-02-29",
+      "actual": 456.661922,
+      "prediction": 113.40196073353718,
+      "baseline": 179.9502839,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-03-31",
+      "actual": 336.8808939,
+      "prediction": 718.731536186218,
+      "baseline": 456.661922,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-04-30",
+      "actual": 533.7337169,
+      "prediction": 315.52643434159035,
+      "baseline": 336.8808939,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-05-31",
+      "actual": 421.9458753,
+      "prediction": 343.19454444452396,
+      "baseline": 533.7337169,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-06-30",
+      "actual": 151.9938777,
+      "prediction": 331.229682591318,
+      "baseline": 421.9458753,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-07-31",
+      "actual": 90.96612531,
+      "prediction": 173.07992938371055,
+      "baseline": 151.9938777,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-08-31",
+      "actual": 352.7063455,
+      "prediction": 121.50790495057625,
+      "baseline": 90.96612531,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-09-30",
+      "actual": 423.5740468,
+      "prediction": 279.5944043914425,
+      "baseline": 352.7063455,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-10-31",
+      "actual": 74.28368295,
+      "prediction": 383.88884926315353,
+      "baseline": 423.5740468,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-11-30",
+      "actual": 458.9603407,
+      "prediction": 124.57452263508738,
+      "baseline": 74.28368295,
+      "partition": "validation"
+    },
+    {
+      "date": "2016-12-31",
+      "actual": 506.8865477,
+      "prediction": 272.4185165529421,
+      "baseline": 458.9603407,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-01-31",
+      "actual": 494.0787802,
+      "prediction": 448.2425318285169,
+      "baseline": 506.8865477,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-02-28",
+      "actual": 453.8473789,
+      "prediction": 343.317389421875,
+      "baseline": 494.0787802,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-03-31",
+      "actual": 487.502028,
+      "prediction": 322.18704837107106,
+      "baseline": 453.8473789,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-04-30",
+      "actual": 560.7452237,
+      "prediction": 333.2604066491926,
+      "baseline": 487.502028,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-05-31",
+      "actual": 607.921398,
+      "prediction": 366.9720175473853,
+      "baseline": 560.7452237,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-06-30",
+      "actual": 75.92628162,
+      "prediction": 385.23359490784384,
+      "baseline": 607.921398,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-07-31",
+      "actual": 276.5922584,
+      "prediction": 122.43747559410748,
+      "baseline": 75.92628162,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-08-31",
+      "actual": 306.9591868,
+      "prediction": 196.43382437811863,
+      "baseline": 276.5922584,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-09-30",
+      "actual": 444.9361839,
+      "prediction": 322.10588080270185,
+      "baseline": 306.9591868,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-10-31",
+      "actual": 426.4624111,
+      "prediction": 330.8979299344136,
+      "baseline": 444.9361839,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-11-30",
+      "actual": 358.213781,
+      "prediction": 331.2398311107558,
+      "baseline": 426.4624111,
+      "partition": "validation"
+    },
+    {
+      "date": "2017-12-31",
+      "actual": 442.1269907,
+      "prediction": 284.07454576722904,
+      "baseline": 358.213781,
+      "partition": "validation"
+    },
+    {
+      "date": "2018-01-31",
+      "actual": 185.3090936,
+      "prediction": 314.7795567840756,
+      "baseline": 442.1269907,
+      "partition": "validation"
+    },
+    {
+      "date": "2018-02-28",
+      "actual": 339.3393521,
+      "prediction": 205.36996024546278,
+      "baseline": 185.3090936,
+      "partition": "test"
+    },
+    {
+      "date": "2018-03-31",
+      "actual": 438.784075,
+      "prediction": 252.74473044634502,
+      "baseline": 339.3393521,
+      "partition": "test"
+    },
+    {
+      "date": "2018-04-30",
+      "actual": 434.9221705,
+      "prediction": 351.7187258846019,
+      "baseline": 438.784075,
+      "partition": "test"
+    },
+    {
+      "date": "2018-05-31",
+      "actual": 546.6941644,
+      "prediction": 329.4906160476215,
+      "baseline": 434.9221705,
+      "partition": "test"
+    },
+    {
+      "date": "2018-06-30",
+      "actual": 334.786485,
+      "prediction": 359.3289895011042,
+      "baseline": 546.6941644,
+      "partition": "test"
+    },
+    {
+      "date": "2018-07-31",
+      "actual": 36.82996399,
+      "prediction": 282.00685996571735,
+      "baseline": 334.786485,
+      "partition": "test"
+    },
+    {
+      "date": "2018-08-31",
+      "actual": 386.4228988,
+      "prediction": 77.97321794480864,
+      "baseline": 36.82996399,
+      "partition": "test"
+    },
+    {
+      "date": "2018-09-30",
+      "actual": 379.2862093,
+      "prediction": 238.50066987476364,
+      "baseline": 386.4228988,
+      "partition": "test"
+    },
+    {
+      "date": "2018-10-31",
+      "actual": 401.5708078,
+      "prediction": 415.27177030540446,
+      "baseline": 379.2862093,
+      "partition": "test"
+    },
+    {
+      "date": "2018-11-30",
+      "actual": 409.8193404,
+      "prediction": 304.8101996109137,
+      "baseline": 401.5708078,
+      "partition": "test"
+    },
+    {
+      "date": "2018-12-31",
+      "actual": 440.9731245,
+      "prediction": 310.92306200454135,
+      "baseline": 409.8193404,
+      "partition": "test"
+    },
+    {
+      "date": "2019-01-31",
+      "actual": 378.9214733,
+      "prediction": 321.637853824197,
+      "baseline": 440.9731245,
+      "partition": "test"
+    },
+    {
+      "date": "2019-02-28",
+      "actual": 237.0066494,
+      "prediction": 297.49915047703786,
+      "baseline": 378.9214733,
+      "partition": "test"
+    },
+    {
+      "date": "2019-03-31",
+      "actual": 226.1405366,
+      "prediction": 224.19041863421415,
+      "baseline": 237.0066494,
+      "partition": "test"
+    },
+    {
+      "date": "2019-04-30",
+      "actual": 148.7300366,
+      "prediction": 212.55629231005665,
+      "baseline": 226.1405366,
+      "partition": "test"
+    },
+    {
+      "date": "2019-05-31",
+      "actual": 232.5748214,
+      "prediction": 180.16049782439572,
+      "baseline": 148.7300366,
+      "partition": "test"
+    },
+    {
+      "date": "2019-06-30",
+      "actual": 229.5490924,
+      "prediction": 221.45348817564928,
+      "baseline": 232.5748214,
+      "partition": "test"
+    },
+    {
+      "date": "2019-07-31",
+      "actual": 225.9056577,
+      "prediction": 244.94656907378928,
+      "baseline": 229.5490924,
+      "partition": "test"
+    },
+    {
+      "date": "2019-08-31",
+      "actual": 289.7803311,
+      "prediction": 227.2714977524586,
+      "baseline": 225.9056577,
+      "partition": "test"
+    },
+    {
+      "date": "2019-09-30",
+      "actual": 342.7271638,
+      "prediction": 260.4111422446411,
+      "baseline": 289.7803311,
+      "partition": "test"
+    },
+    {
+      "date": "2019-10-31",
+      "actual": 360.9382371,
+      "prediction": 293.6944969022133,
+      "baseline": 342.7271638,
+      "partition": "test"
+    },
+    {
+      "date": "2019-11-30",
+      "actual": 325.5851826,
+      "prediction": 296.6245969384544,
+      "baseline": 360.9382371,
+      "partition": "test"
+    },
+    {
+      "date": "2019-12-31",
+      "actual": 336.7581055,
+      "prediction": 275.1490524500771,
+      "baseline": 325.5851826,
+      "partition": "test"
+    },
+    {
+      "date": "2020-01-31",
+      "actual": 379.7790109,
+      "prediction": 275.14652208584397,
+      "baseline": 336.7581055,
+      "partition": "test"
+    },
+    {
+      "date": "2020-02-29",
+      "actual": 374.3643359,
+      "prediction": 299.31314813959796,
+      "baseline": 379.7790109,
+      "partition": "test"
+    },
+    {
+      "date": "2020-03-31",
+      "actual": 376.5883968,
+      "prediction": 299.310735993493,
+      "baseline": 374.3643359,
+      "partition": "test"
+    },
+    {
+      "date": "2020-04-30",
+      "actual": 388.980821,
+      "prediction": 294.63751673207076,
+      "baseline": 376.5883968,
+      "partition": "test"
+    },
+    {
+      "date": "2020-05-31",
+      "actual": 389.6813474,
+      "prediction": 300.7078770071024,
+      "baseline": 388.980821,
+      "partition": "test"
+    },
+    {
+      "date": "2020-06-30",
+      "actual": 386.5092963,
+      "prediction": 301.7777633125634,
+      "baseline": 389.6813474,
+      "partition": "test"
+    },
+    {
+      "date": "2020-07-31",
+      "actual": 410.2247792,
+      "prediction": 299.08195659978725,
+      "baseline": 386.5092963,
+      "partition": "test"
+    },
+    {
+      "date": "2020-08-31",
+      "actual": 296.2337284,
+      "prediction": 308.620522941694,
+      "baseline": 410.2247792,
+      "partition": "test"
+    },
+    {
+      "date": "2020-09-30",
+      "actual": 339.0401509,
+      "prediction": 260.2999765899653,
+      "baseline": 296.2337284,
+      "partition": "test"
+    },
+    {
+      "date": "2020-10-31",
+      "actual": 322.0384951,
+      "prediction": 268.3792835092238,
+      "baseline": 339.0401509,
+      "partition": "test"
+    },
+    {
+      "date": "2020-11-30",
+      "actual": 362.7166287,
+      "prediction": 277.51159527739526,
+      "baseline": 322.0384951,
+      "partition": "test"
+    },
+    {
+      "date": "2020-12-31",
+      "actual": 275.1921316,
+      "prediction": 288.813110024839,
+      "baseline": 362.7166287,
+      "partition": "test"
+    },
+    {
+      "date": "2021-01-31",
+      "actual": 335.5571742,
+      "prediction": 253.4254584668359,
+      "baseline": 275.1921316,
+      "partition": "test"
+    },
+    {
+      "date": "2021-02-28",
+      "actual": 319.7377085,
+      "prediction": 269.572724587633,
+      "baseline": 335.5571742,
+      "partition": "test"
+    },
+    {
+      "date": "2021-03-31",
+      "actual": 336.8538903,
+      "prediction": 279.09267808614163,
+      "baseline": 319.7377085,
+      "partition": "test"
+    },
+    {
+      "date": "2021-04-30",
+      "actual": 314.5700532,
+      "prediction": 277.5844955427358,
+      "baseline": 336.8538903,
+      "partition": "test"
+    },
+    {
+      "date": "2021-05-31",
+      "actual": 371.6319225,
+      "prediction": 270.77444038780413,
+      "baseline": 314.5700532,
+      "partition": "test"
+    },
+    {
+      "date": "2021-06-30",
+      "actual": 350.0277486,
+      "prediction": 292.2165451951583,
+      "baseline": 371.6319225,
+      "partition": "test"
+    },
+    {
+      "date": "2021-07-31",
+      "actual": 378.5190583,
+      "prediction": 290.7235022227925,
+      "baseline": 350.0277486,
+      "partition": "test"
+    },
+    {
+      "date": "2021-08-31",
+      "actual": 320.6276325,
+      "prediction": 294.29090392629996,
+      "baseline": 378.5190583,
+      "partition": "test"
+    },
+    {
+      "date": "2021-09-30",
+      "actual": 326.1561383,
+      "prediction": 273.3937492913601,
+      "baseline": 320.6276325,
+      "partition": "test"
+    },
+    {
+      "date": "2021-10-31",
+      "actual": 385.7958056,
+      "prediction": 268.08528840635256,
+      "baseline": 326.1561383,
+      "partition": "test"
+    },
+    {
+      "date": "2021-11-30",
+      "actual": 334.8051295,
+      "prediction": 301.5434998947631,
+      "baseline": 385.7958056,
+      "partition": "test"
+    },
+    {
+      "date": "2021-12-31",
+      "actual": 349.5010438,
+      "prediction": 283.38541215567767,
+      "baseline": 334.8051295,
+      "partition": "test"
+    },
+    {
+      "date": "2022-01-31",
+      "actual": 391.6600993,
+      "prediction": 278.9053623449743,
+      "baseline": 349.5010438,
+      "partition": "test"
+    },
+    {
+      "date": "2022-02-28",
+      "actual": 282.4195278,
+      "prediction": 304.35441038529234,
+      "baseline": 391.6600993,
+      "partition": "test"
+    },
+    {
+      "date": "2022-03-31",
+      "actual": 0.0,
+      "prediction": 256.075830177605,
+      "baseline": 282.4195278,
+      "partition": "test"
+    },
+    {
+      "date": "2022-04-30",
+      "actual": 0.0,
+      "prediction": 10.210399149011595,
+      "baseline": 0.0,
+      "partition": "test"
+    },
+    {
+      "date": "2022-05-31",
+      "actual": 0.0,
+      "prediction": 5.465891527134018,
+      "baseline": 0.0,
+      "partition": "test"
+    },
+    {
+      "date": "2022-06-30",
+      "actual": 0.0,
+      "prediction": 13.668677282603426,
+      "baseline": 0.0,
+      "partition": "test"
+    },
+    {
+      "date": "2022-07-31",
+      "actual": 0.0,
+      "prediction": 13.668677282603426,
+      "baseline": 0.0,
+      "partition": "test"
+    },
+    {
+      "date": "2022-08-31",
+      "actual": 257.3997837,
+      "prediction": 13.668677282603426,
+      "baseline": 0.0,
+      "partition": "test"
+    },
+    {
+      "date": "2022-09-30",
+      "actual": 0.0,
+      "prediction": 302.9404503645999,
+      "baseline": 257.3997837,
+      "partition": "test"
+    },
+    {
+      "date": "2022-10-31",
+      "actual": 0.0,
+      "prediction": 25.404342481946873,
+      "baseline": 0.0,
+      "partition": "test"
+    },
+    {
+      "date": "2022-11-30",
+      "actual": 178.9899077,
+      "prediction": 5.553163329621602,
+      "baseline": 0.0,
+      "partition": "test"
+    },
+    {
+      "date": "2022-12-31",
+      "actual": 300.5257542,
+      "prediction": 248.51057864095327,
+      "baseline": 178.9899077,
+      "partition": "test"
+    },
+    {
+      "date": "2023-01-31",
+      "actual": 103.7962551,
+      "prediction": 571.8399129416346,
+      "baseline": 300.5257542,
+      "partition": "test"
+    },
+    {
+      "date": "2023-02-28",
+      "actual": 354.0285378,
+      "prediction": 159.0006147745766,
+      "baseline": 103.7962551,
+      "partition": "test"
+    },
+    {
+      "date": "2023-03-31",
+      "actual": 233.3028089,
+      "prediction": 257.35803499288613,
+      "baseline": 354.0285378,
+      "partition": "test"
+    },
+    {
+      "date": "2023-04-30",
+      "actual": 296.3438935,
+      "prediction": 272.1438074018259,
+      "baseline": 233.3028089,
+      "partition": "test"
+    },
+    {
+      "date": "2023-05-31",
+      "actual": 301.566095,
+      "prediction": 248.3956149567382,
+      "baseline": 296.3438935,
+      "partition": "test"
+    },
+    {
+      "date": "2023-06-30",
+      "actual": 272.2502013,
+      "prediction": 273.251066375632,
+      "baseline": 301.566095,
+      "partition": "test"
+    },
+    {
+      "date": "2023-07-31",
+      "actual": 58.43107371,
+      "prediction": 250.06385150395525,
+      "baseline": 272.2502013,
+      "partition": "test"
+    },
+    {
+      "date": "2023-08-31",
+      "actual": 319.4237392,
+      "prediction": 106.75785449741674,
+      "baseline": 58.43107371,
+      "partition": "test"
+    },
+    {
+      "date": "2023-09-30",
+      "actual": 305.935211,
+      "prediction": 232.37384569068874,
+      "baseline": 319.4237392,
+      "partition": "test"
+    },
+    {
+      "date": "2023-10-31",
+      "actual": 222.6860188,
+      "prediction": 338.94334440395687,
+      "baseline": 305.935211,
+      "partition": "test"
+    },
+    {
+      "date": "2023-11-30",
+      "actual": 121.2630706,
+      "prediction": 221.99748939308694,
+      "baseline": 222.6860188,
+      "partition": "test"
+    },
+    {
+      "date": "2023-12-31",
+      "actual": 289.3875546,
+      "prediction": 155.0652380969726,
+      "baseline": 121.2630706,
+      "partition": "test"
+    },
+    {
+      "date": "2024-01-31",
+      "actual": 374.074507,
+      "prediction": 244.74685407900944,
+      "baseline": 289.3875546,
+      "partition": "test"
+    },
+    {
+      "date": "2024-02-29",
+      "actual": 192.6553523,
+      "prediction": 337.0270065624512,
+      "baseline": 374.074507,
+      "partition": "test"
+    },
+    {
+      "date": "2024-03-31",
+      "actual": 389.3226386,
+      "prediction": 212.57443663145702,
+      "baseline": 192.6553523,
+      "partition": "test"
+    },
+    {
+      "date": "2024-04-30",
+      "actual": 330.0891736,
+      "prediction": 280.2900802455825,
+      "baseline": 389.3226386,
+      "partition": "test"
+    },
+    {
+      "date": "2024-05-31",
+      "actual": 364.249029,
+      "prediction": 303.794877483357,
+      "baseline": 330.0891736,
+      "partition": "test"
+    },
+    {
+      "date": "2024-06-30",
+      "actual": 364.1819362,
+      "prediction": 284.4679251652849,
+      "baseline": 364.249029,
+      "partition": "test"
+    },
+    {
+      "date": "2024-07-31",
+      "actual": 371.8810566,
+      "prediction": 294.38997021851594,
+      "baseline": 364.1819362,
+      "partition": "test"
+    },
+    {
+      "date": "2024-08-31",
+      "actual": 331.9495402,
+      "prediction": 293.5410056661117,
+      "baseline": 371.8810566,
+      "partition": "test"
+    },
+    {
+      "date": "2024-09-30",
+      "actual": 0.0,
+      "prediction": 276.50577010008567,
+      "baseline": 331.9495402,
+      "partition": "test"
+    }
+  ],
+  "limitations": [
+    "Excel serial dates interpreted with 1899-12-30 origin.",
+    "Forecast is next observed report, not a fixed daily horizon.",
+    "Rolling one-step evaluation uses observed preceding rates; not a blind multi-step forecast.",
+    "No pressure/PVT history match, intervention model or reserves estimate."
+  ],
+  "candidate_beats_persistence": false
+}

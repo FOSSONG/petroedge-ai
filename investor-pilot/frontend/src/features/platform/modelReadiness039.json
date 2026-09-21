@@ -1,0 +1,62 @@
+[
+  {
+    "task": "GABO-51 / permeability_air_horizontal / 225_bar",
+    "candidate": "random_forest_128_leaf3",
+    "validationRows": 9,
+    "mae": 403.6875608794264,
+    "baselineMae": 996.9088888888889,
+    "r2": 0.23095700100006433,
+    "unit": "mD",
+    "passed": true
+  },
+  {
+    "task": "GABO-51 / porosity / 190_bar",
+    "candidate": "random_forest_128_leaf3",
+    "validationRows": 15,
+    "mae": 0.038369836534957784,
+    "baselineMae": 0.05397996770499215,
+    "r2": 0.18798869273625995,
+    "unit": "fraction",
+    "passed": true
+  },
+  {
+    "task": "GABO-51 / porosity / 225_bar",
+    "candidate": "random_forest_128_leaf3",
+    "validationRows": 9,
+    "mae": 0.03888015032309709,
+    "baselineMae": 0.02649336749532079,
+    "r2": -0.7890271734813634,
+    "unit": "fraction",
+    "passed": false
+  },
+  {
+    "task": "NO 15/9-19 A / permeability_klinkenberg_empirical_horizontal / empirically_corrected_from_nitrogen_at_20_bar",
+    "candidate": "random_forest_128_leaf3",
+    "validationRows": 6,
+    "mae": 55.930004966944615,
+    "baselineMae": 72.15499999999999,
+    "r2": -0.07911324935122788,
+    "unit": "mD",
+    "passed": true
+  },
+  {
+    "task": "NO 15/9-19 A / permeability_nitrogen_horizontal / 20_bar_confining",
+    "candidate": "random_forest_128_leaf3",
+    "validationRows": 6,
+    "mae": 57.33579967914983,
+    "baselineMae": 79.89833333333333,
+    "r2": 0.09097428561440524,
+    "unit": "mD",
+    "passed": true
+  },
+  {
+    "task": "NO 15/9-19 A / porosity_helium_horizontal / confining_pressure_not_stated_for_porosity",
+    "candidate": "scaled_ridge_alpha10",
+    "validationRows": 6,
+    "mae": 0.03291229024139159,
+    "baselineMae": 0.038500000000000006,
+    "r2": -1.254170771457105,
+    "unit": "v/v",
+    "passed": true
+  }
+]

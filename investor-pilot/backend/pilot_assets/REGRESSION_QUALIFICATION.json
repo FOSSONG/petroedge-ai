@@ -1,0 +1,182 @@
+{
+  "datasets": [
+    {
+      "dataset_id": "prepared:4f1d0390375bc1682849",
+      "well": "FREEMAN-4",
+      "parent_well": "FREEMAN-4",
+      "target": "permeability_air",
+      "condition": "1000_psig",
+      "rows": 39,
+      "sha256": "64230a9841291e08a0f58d2f3ec1eeb86f0cfed216cde1346ac70371e9f70cb0",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:a7d9216e52d08d18441f",
+      "well": "FREEMAN-4",
+      "parent_well": "FREEMAN-4",
+      "target": "permeability_brine",
+      "condition": "1000_psig",
+      "rows": 39,
+      "sha256": "96a0aebebc5f1cc5c46deb8581783990152bdceb33e152d340b5bf642f6a0ecd",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:97a352b97a82eb55e179",
+      "well": "FREEMAN-4",
+      "parent_well": "FREEMAN-4",
+      "target": "porosity",
+      "condition": "1000_psig",
+      "rows": 39,
+      "sha256": "74e04bd9b179b12f4b0840e873c324751c45aa4bcbe281f5925316ea66800dd0",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:319197913ab25839f71a",
+      "well": "FREEMAN-4-ST1",
+      "parent_well": "FREEMAN-4",
+      "target": "permeability_air",
+      "condition": "1000_psig",
+      "rows": 60,
+      "sha256": "a5f4c61ad5b1a8a2ae952c39ad0f3b0207c27638bf129557a05e6b13bfaec30b",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:1bbf386a20cf2c3b4c6b",
+      "well": "FREEMAN-4-ST1",
+      "parent_well": "FREEMAN-4",
+      "target": "permeability_brine",
+      "condition": "1000_psig",
+      "rows": 60,
+      "sha256": "c53229af0e558985a3724828340d7e660d59ecbf51b05112f1bbcbd87ad00ff1",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:cc0e9f5562129768adfa",
+      "well": "FREEMAN-4-ST1",
+      "parent_well": "FREEMAN-4",
+      "target": "porosity",
+      "condition": "1000_psig",
+      "rows": 60,
+      "sha256": "fb581f4b8e75bc6196d5d746635109ee266fe6eab552e091f42c5af5b62f9e3b",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:91c098e3ad099d1b8a00",
+      "well": "GABO-51",
+      "parent_well": "GABO-51",
+      "target": "permeability_air_horizontal",
+      "condition": "190_bar",
+      "rows": 78,
+      "sha256": "18554d625684d2e5db71d60ea06ed315ec6af154c7043d2ef205beb71621e85c",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:1977f7c775c114346493",
+      "well": "GABO-51",
+      "parent_well": "GABO-51",
+      "target": "porosity",
+      "condition": "190_bar",
+      "rows": 87,
+      "sha256": "364baea00c607420ee768779c0ce301e00ba74f7c37f7672aca784b0c5cff49b",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:44bec00fd0c18f480e5d",
+      "well": "GABO-51",
+      "parent_well": "GABO-51",
+      "target": "permeability_air_horizontal",
+      "condition": "225_bar",
+      "rows": 54,
+      "sha256": "0612872bbe883e23c014b65e6a87da14c5a50df8affdb48c54367036dd55623b",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:315174184f14cb6d0355",
+      "well": "GABO-51",
+      "parent_well": "GABO-51",
+      "target": "porosity",
+      "condition": "225_bar",
+      "rows": 56,
+      "sha256": "bbe0dcec1ccfb1fa4c8620209afa72fdc232a50b6e6657c4a0b9b337ceb6c8d8",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:94a9c4bba4f68b93ed76",
+      "well": "NO_15_9-19_A",
+      "parent_well": "NO_15_9-19",
+      "target": "permeability_klinkenberg_empirical_horizontal",
+      "condition": "empirically_corrected_from_nitrogen_at_20_bar",
+      "rows": 40,
+      "sha256": "fbba321f7373ce0de51d4dc173638f651636cb2b284335ee368e0df9f426c16d",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:a1da24835016ffe9d733",
+      "well": "NO_15_9-19_A",
+      "parent_well": "NO_15_9-19",
+      "target": "permeability_nitrogen_horizontal",
+      "condition": "20_bar_confining",
+      "rows": 40,
+      "sha256": "26804914f252dafb6d999a4ae7eaf9478d1a618562a22250081dbf07111752cb",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:e18606c9fa802f549f42",
+      "well": "NO_15_9-19_A",
+      "parent_well": "NO_15_9-19",
+      "target": "porosity_helium_horizontal",
+      "condition": "confining_pressure_not_stated_for_porosity",
+      "rows": 40,
+      "sha256": "ecb68b1a3953963cd1486e41928d5411130841e9c0440cc19e97aee91719b2d2",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:111bdb8e8d3e806391c1",
+      "well": "NO_15_9-19_BT2",
+      "parent_well": "NO_15_9-19",
+      "target": "permeability_klinkenberg_empirical_horizontal",
+      "condition": "empirically_corrected_from_nitrogen_at_20_bar",
+      "rows": 27,
+      "sha256": "6059429ce9b13a2bbf02451206f9679cc42276beb7f4b70b72082a4a2d4cdb60",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:486bc963f6f941ca77ac",
+      "well": "NO_15_9-19_BT2",
+      "parent_well": "NO_15_9-19",
+      "target": "permeability_nitrogen_horizontal",
+      "condition": "20_bar_confining",
+      "rows": 27,
+      "sha256": "83947251514e6cd280bf3f31f788a56ff11f84c3c6c9b90c597062c4485f39db",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    },
+    {
+      "dataset_id": "prepared:23d848470508d405b3c9",
+      "well": "NO_15_9-19_BT2",
+      "parent_well": "NO_15_9-19",
+      "target": "porosity_helium_horizontal",
+      "condition": "confining_pressure_not_stated_for_porosity",
+      "rows": 27,
+      "sha256": "72a85d05271cbda1e6810b3f46ba26662c939377581ac428bbc84751a90962d3",
+      "quality_approved": false,
+      "blocker": "Development candidate: quality approval and independent parent-well train/validation/test assignments are pending."
+    }
+  ],
+  "production_eligible": false,
+  "decision": "No newly qualified independent parent well in prepared catalog. Freeman sidetracks and Volve branches are not independent parent wells. Do not repurpose previously evaluated test rows or mix laboratory conditions. Existing models remain research only."
+}

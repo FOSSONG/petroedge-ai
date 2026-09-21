@@ -1,0 +1,30 @@
+// @vitest-environment jsdom
+import {cleanup,fireEvent,render,screen,waitFor,act} from "@testing-library/react";
+import {afterEach,expect,it,vi} from "vitest";
+import {QueryClient,QueryClientProvider} from "@tanstack/react-query";
+import {PilotBenchmarkPanel} from "./PilotBenchmarkPanel";
+import {apiRequest} from "../../api/http";
+import {downloadTable} from "./downloadTable";
+vi.mock("../../api/http",()=>({apiRequest:vi.fn()}));
+vi.mock("./downloadTable",()=>({downloadTable:vi.fn()}));
+vi.mock("../../components/SafePlot",()=>({SafePlot:({data}:{data:{x:unknown[]}[]})=><div data-testid="samples">{data[0].x.length}</div>}));
+afterEach(()=>{cleanup();vi.useRealTimers();vi.resetAllMocks()});
+it("replays recorded evidence, exports it, and refreshes the benchmark",async()=>{
+ const replay=Array.from({length:60},(_,sample)=>({sample,actual:sample%2,prediction:0}));
+ vi.mocked(apiRequest).mockResolvedValue({name:"Real history",metrics:{test:{macro_f1:0.12}},limitations:["Research only"],replay});
+ const client=new QueryClient({defaultOptions:{queries:{retry:false}}});
+ render(<QueryClientProvider client={client}><PilotBenchmarkPanel kind="edge"/></QueryClientProvider>);
+ await screen.findByText("Real history");
+ expect(screen.getByTestId("samples").textContent).toBe("50");
+ vi.useFakeTimers();
+ fireEvent.click(screen.getByRole("button",{name:"Play historical replay"}));
+ act(()=>vi.advanceTimersByTime(750));
+ expect(screen.getByTestId("samples").textContent).toBe("53");
+ fireEvent.click(screen.getByRole("button",{name:"Pause replay"}));
+ vi.useRealTimers();
+ fireEvent.click(screen.getByRole("button",{name:"Download benchmark CSV"}));
+ expect(downloadTable).toHaveBeenCalledWith("petroedge-edge-benchmark.csv",replay);
+ fireEvent.click(screen.getByRole("button",{name:"Refresh benchmark"}));
+ await waitFor(()=>expect(apiRequest).toHaveBeenCalledTimes(2));
+ expect(screen.getByTestId("samples").textContent).toBe("50");
+});

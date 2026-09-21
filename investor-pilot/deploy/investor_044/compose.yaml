@@ -1,0 +1,56 @@
+name: petroedge-investor-pilot
+services:
+  backend:
+    build: {context: .., dockerfile: deploy/Dockerfile.backend}
+    env_file: pilot.env
+    environment:
+      ENVIRONMENT: production
+      PHONE_APPROVAL_REQUIRED: "${PHONE_APPROVAL_REQUIRED:-false}"
+      PUBLIC_ORIGIN: "https://${PILOT_HOSTNAME:?Set PILOT_HOSTNAME}"
+      CORS_ORIGINS: "https://${PILOT_HOSTNAME:?Set PILOT_HOSTNAME}"
+      DATABASE_URL: sqlite:////app/data/pilot.db
+      PETROEDGE_RUN_MIGRATIONS: "true"
+      PETROEDGE_TWIN_STORE: /app/data/twins.sqlite3
+      PETROEDGE_PREPARED_CATALOG: /app/prepared_sources/platform_manifest_001.json
+    volumes:
+      - state:/app/data
+      - datasets:/app/dataset_store
+      - models:/app/model_store
+      - predictions:/app/prediction_store
+      - analyses:/app/analysis_store
+      - experiments:/app/experiment_store
+    mem_limit: 4g
+    cpus: 1.5
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=10)"]
+      interval: 30s
+      start_period: 90s
+      retries: 3
+  frontend:
+    build: {context: .., dockerfile: deploy/Dockerfile.frontend}
+    depends_on:
+      backend: {condition: service_healthy}
+    mem_limit: 256m
+    restart: unless-stopped
+  https:
+    image: caddy:2-alpine
+    environment:
+      PILOT_HOSTNAME: "${PILOT_HOSTNAME:?Set PILOT_HOSTNAME}"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - certificates:/data
+      - caddyconfig:/config
+    ports: ["80:80", "443:443"]
+    depends_on: [frontend]
+    mem_limit: 256m
+    restart: unless-stopped
+volumes:
+  state:
+  datasets:
+  models:
+  predictions:
+  analyses:
+  experiments:
+  certificates:
+  caddyconfig:

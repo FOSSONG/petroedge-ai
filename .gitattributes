@@ -1,0 +1,3 @@
+
+# Preserve release manifest byte hashes across operating systems.
+investor-pilot/** -text

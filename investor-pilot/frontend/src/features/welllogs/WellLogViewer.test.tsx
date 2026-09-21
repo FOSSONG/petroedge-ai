@@ -1,0 +1,34 @@
+// @vitest-environment jsdom
+import {cleanup,fireEvent,render,screen,waitFor} from "@testing-library/react";
+import {afterEach,expect,it,vi} from "vitest";
+import {QueryClient,QueryClientProvider} from "@tanstack/react-query";
+import {apiRequest} from "../../api/http";
+import {fetchDatasets} from "../platform/platformApi";
+import {SafePlot} from "../../components/SafePlot";
+import {WellLogViewer} from "./WellLogViewer";
+vi.mock("../../api/http",()=>({apiRequest:vi.fn()}));
+vi.mock("../platform/platformApi",()=>({fetchDatasets:vi.fn()}));
+vi.mock("../wells/SavedAnalysesPanel",()=>({SavedAnalysesPanel:()=> <div>Saved content mounted</div>}));
+vi.mock("../wells/WellExplorerPanel",()=>({WellExplorerPanel:()=>null}));
+vi.mock("../../components/SafePlot",()=>({SafePlot:vi.fn(({layout}:any)=><div data-testid="plot" data-xscale={layout.xaxis.type} data-yscale={layout.yaxis.type}/>) }));
+afterEach(()=>{cleanup();vi.resetAllMocks();});
+it("shows five plots with a logarithmic Pickett plot and refreshes feature data",async()=>{
+ vi.mocked(fetchDatasets).mockResolvedValue([{dataset_id:"A",name:"Logs"}] as never);
+ vi.mocked(apiRequest).mockResolvedValue({source_rows:17000,qc:"QC",rows:[{depth_m:2000,gamma_ray_api:40,density_gcc:2.4,neutron_porosity_vv:.2,resistivity_ohmm:20}]} as never);
+ const client=new QueryClient({defaultOptions:{queries:{retry:false}}});
+ const view=render(<QueryClientProvider client={client}><WellLogViewer/></QueryClientProvider>);
+ await waitFor(()=>expect(screen.getAllByTestId("plot")).toHaveLength(5));
+ expect(screen.getAllByTestId("plot")[1].getAttribute("data-xscale")).toBe("log");
+ expect(screen.getAllByTestId("plot")[1].getAttribute("data-yscale")).toBe("log");
+ const renderCount=vi.mocked(SafePlot).mock.calls.length;
+ view.rerender(<QueryClientProvider client={client}><WellLogViewer/></QueryClientProvider>);
+ expect(vi.mocked(SafePlot).mock.calls.length).toBe(renderCount);
+ expect(screen.queryByText("Saved content mounted")).toBeNull();
+ fireEvent.click(screen.getByRole("button",{name:"Saved analyses and provenance"}));
+ expect(await screen.findByText("Saved content mounted")).toBeTruthy();
+ expect(vi.mocked(SafePlot).mock.calls.length).toBe(renderCount);
+ fireEvent.click(screen.getByRole("button",{name:"Refresh"}));
+ await waitFor(()=>expect(apiRequest).toHaveBeenCalledTimes(2));
+ expect(fetchDatasets).toHaveBeenCalledTimes(2);
+ client.clear();
+});

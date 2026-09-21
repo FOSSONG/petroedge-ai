@@ -1,0 +1,20 @@
+{
+  "seed": 44,
+  "edge": {
+    "design": "Real WELL files only; at most 16 hash-selected files per archive event folder, selection before reading labels. Entire parent well assigned by SHA256 modulo 10: train 0-5, validation 6-7, test 8-9. Source duplicates excluded.",
+    "features": [
+      "P-TPT",
+      "T-TPT",
+      "P-MON-CKP",
+      "T-JUS-CKP"
+    ],
+    "window": "Current values, trailing 60-second mean and std (min 30 observations); no future inputs. Sample every 60 source rows; at most 2000 evenly selected valid rows per file.",
+    "labels": "0=normal, classes 1-9=event; null/transition >=100 excluded. Binary detection only, not event subtype or early warning.",
+    "model": "RandomForest 64 trees depth8 leaf10 balanced seed44 n_jobs1; majority baseline; no hyperparameter tuning",
+    "production_eligible": false
+  },
+  "twin": {
+    "design": "GAB18 CSV, fixed 60/20/20 chronological target partitions. Past 3 oil rates predict next observed oil rate. Ridge alpha10, log1p target/features, train-only scaling. Compare last observed rate. No fitted reservoir physics or multi-step forecast.",
+    "production_eligible": false
+  }
+}
