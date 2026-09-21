@@ -29,14 +29,14 @@ export function CcusWorkspacePanel(){
    <Box><Typography variant="h4" fontWeight={850}>CCUS Screening</Typography><Typography color="text.secondary">Transparent volumetric storage-capacity screening with injectivity, containment and evidence-quality diagnostics.</Typography></Box>
    <Stack direction="row" gap={1}><Chip icon={<Database size={16}/>} label={`${datasets.data?.length??0} datasets`}/><Chip color="success" label={caps.data?.status??"operational"}/><Button variant="outlined" startIcon={<RefreshCw size={16}/>} onClick={()=>{create.reset();void qc.refetchQueries({type:"active"})}}>Refresh</Button></Stack>
   </Stack>
-  <Alert severity="info">Capacity uses MCOâ‚‚ = area Ã— net thickness Ã— porosity Ã— storage efficiency Ã— in-situ COâ‚‚ density. Results are screening estimates, not dynamic simulation or regulatory storage classification.</Alert>
+  <Alert severity="info">Capacity uses MCO2 = area × net thickness × porosity × storage efficiency × in-situ CO2 density. Results are screening estimates, not dynamic simulation or regulatory storage classification.</Alert>
   <Grid container spacing={2}>
    <Grid item xs={12} lg={7}><Paper variant="outlined" sx={{p:3}}><Stack spacing={2}>
     <Typography variant="h6">Screening inputs</Typography>
     <Stack direction={{xs:"column",md:"row"}} gap={2}><TextField fullWidth label="Project name" value={name} onChange={e=>setName(e.target.value)}/><FormControl fullWidth><InputLabel>Dataset</InputLabel><Select label="Dataset" value={dataset} onChange={e=>setDataset(e.target.value)}><MenuItem value="">No dataset link</MenuItem>{(datasets.data??[]).map(d=><MenuItem key={d.dataset_id} value={d.dataset_id}>{d.name}</MenuItem>)}</Select></FormControl></Stack>
     <FormControl><InputLabel>Storage setting</InputLabel><Select label="Storage setting" value={type} onChange={e=>setType(e.target.value as typeof type)}><MenuItem value="saline_aquifer">Saline aquifer</MenuItem><MenuItem value="depleted_reservoir">Depleted reservoir</MenuItem></Select></FormControl>
     <Grid container spacing={2}>{[
-      ["Area (kmÂ²)",area,setArea],["Net thickness (m)",h,setH],["Porosity (fraction)",phi,setPhi],["COâ‚‚ density (kg/mÂ³)",rho,setRho],
+      ["Area (km²)",area,setArea],["Net thickness (m)",h,setH],["Porosity (fraction)",phi,setPhi],["CO2 density (kg/m³)",rho,setRho],
       ["Storage efficiency",eff,setEff],["Permeability (mD)",perm,setPerm],["Depth (m)",depth,setDepth],["Initial pressure (MPa)",pi,setPi],
       ["Fracture pressure (MPa)",pf,setPf],["Caprock thickness (m)",seal,setSeal]
     ].map(([label,value,setter])=><Grid item xs={12} sm={6} md={4} key={label as string}><TextField fullWidth type="number" label={label as string} value={value as string} onChange={e=>(setter as (v:string)=>void)(e.target.value)}/></Grid>)}
@@ -48,19 +48,19 @@ export function CcusWorkspacePanel(){
      <FormControlLabel control={<Checkbox checked={geo} onChange={e=>setGeo(e.target.checked)}/>} label="Geomechanics"/>
     </Stack></Box>
     {create.isError&&<Alert severity="error">{create.error instanceof Error?create.error.message:"Screening failed."}</Alert>}
-    <Button variant="contained" size="large" disabled={!valid||create.isPending} onClick={()=>create.mutate()}>{create.isPending?"Calculatingâ€¦":"Run CCUS screening"}</Button>
+    <Button variant="contained" size="large" disabled={!valid||create.isPending} onClick={()=>create.mutate()}>{create.isPending?"Calculating...":"Run CCUS screening"}</Button>
    </Stack></Paper></Grid>
    <Grid item xs={12} lg={5}><Paper variant="outlined" sx={{p:3}}><Typography variant="h6" mb={2}>Latest result</Typography>
     {!latest&&<Typography color="text.secondary">Run a screening calculation to generate results.</Typography>}
     {latest&&<Stack spacing={2}><Stack direction="row" justifyContent="space-between"><Box><Typography variant="overline">Estimated capacity</Typography><Typography variant="h3" fontWeight={900}>{latest.capacity_mt.toLocaleString()} Mt</Typography></Box><Chip color={colour(latest.suitability_score)} label={latest.suitability_class}/></Stack>
     <Grid container spacing={1.5}>{[["Suitability",latest.suitability_score],["Injectivity",latest.injectivity_score],["Containment",latest.containment_score],["Data quality",latest.data_quality_score]].map(([l,s])=><Grid item xs={6} key={l as string}><Paper variant="outlined" sx={{p:1.5}}><Typography variant="caption">{l as string}</Typography><Typography variant="h6">{Number(s).toFixed(1)}%</Typography></Paper></Grid>)}</Grid>
     <Typography>Pressure margin: <strong>{latest.pressure_margin_mpa.toFixed(2)} MPa</strong></Typography>
-    {latest.risk_flags.length>0&&<Alert severity="warning">{latest.risk_flags.map(x=><Typography key={x} variant="body2">â€¢ {x}</Typography>)}</Alert>}
-    <Box><Typography variant="subtitle2">Recommended actions</Typography>{latest.recommendations.map(x=><Typography key={x} variant="body2" mt={.7}>â€¢ {x}</Typography>)}</Box>
+    {latest.risk_flags.length>0&&<Alert severity="warning">{latest.risk_flags.map(x=><Typography key={x} variant="body2">• {x}</Typography>)}</Alert>}
+    <Box><Typography variant="subtitle2">Recommended actions</Typography>{latest.recommendations.map(x=><Typography key={x} variant="body2" mt={.7}>• {x}</Typography>)}</Box>
     </Stack>}</Paper></Grid>
   </Grid>
   <Paper variant="outlined" sx={{p:3}}><Stack direction="row" justifyContent="space-between" mb={2}><Typography variant="h6">Auditable screening history</Typography><Chip label={`${runs.data?.length??0} runs`}/></Stack>
-   {runs.isLoading&&<CircularProgress size={24}/>}<Stack spacing={1.5}>{(runs.data??[]).map(r=><Paper key={r.run_id} variant="outlined" sx={{p:2}}><Stack direction={{xs:"column",md:"row"}} justifyContent="space-between"><Box><Typography fontWeight={800}>{r.project_name}</Typography><Typography variant="body2" color="text.secondary">{r.dataset_name??"No linked dataset"} Â· {r.storage_type.replace(/_/g," ")} Â· {new Date(r.created_at).toLocaleString()}</Typography></Box><Stack direction="row" gap={1}><Chip label={`${r.capacity_mt.toLocaleString()} Mt`}/><Chip color={colour(r.suitability_score)} label={`${r.suitability_score.toFixed(1)}%`}/><Button size="small" color="error" startIcon={<Trash2 size={15}/>} onClick={()=>remove.mutate(r.run_id)}>Delete</Button></Stack></Stack></Paper>)}</Stack>
+   {runs.isLoading&&<CircularProgress size={24}/>}<Stack spacing={1.5}>{(runs.data??[]).map(r=><Paper key={r.run_id} variant="outlined" sx={{p:2}}><Stack direction={{xs:"column",md:"row"}} justifyContent="space-between"><Box><Typography fontWeight={800}>{r.project_name}</Typography><Typography variant="body2" color="text.secondary">{r.dataset_name??"No linked dataset"} · {r.storage_type.replace(/_/g," ")} · {new Date(r.created_at).toLocaleString()}</Typography></Box><Stack direction="row" gap={1}><Chip label={`${r.capacity_mt.toLocaleString()} Mt`}/><Chip color={colour(r.suitability_score)} label={`${r.suitability_score.toFixed(1)}%`}/><Button size="small" color="error" startIcon={<Trash2 size={15}/>} onClick={()=>remove.mutate(r.run_id)}>Delete</Button></Stack></Stack></Paper>)}</Stack>
   </Paper>
  </Stack>
 }

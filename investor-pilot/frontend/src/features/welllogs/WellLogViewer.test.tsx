@@ -12,14 +12,18 @@ vi.mock("../wells/SavedAnalysesPanel",()=>({SavedAnalysesPanel:()=> <div>Saved c
 vi.mock("../wells/WellExplorerPanel",()=>({WellExplorerPanel:()=>null}));
 vi.mock("../../components/SafePlot",()=>({SafePlot:vi.fn(({layout}:any)=><div data-testid="plot" data-xscale={layout.xaxis.type} data-yscale={layout.yaxis.type}/>) }));
 afterEach(()=>{cleanup();vi.resetAllMocks();});
-it("shows five plots with a logarithmic Pickett plot and refreshes feature data",async()=>{
+it("opens plots on demand with a logarithmic Pickett plot and refreshes feature data",async()=>{
  vi.mocked(fetchDatasets).mockResolvedValue([{dataset_id:"A",name:"Logs"}] as never);
  vi.mocked(apiRequest).mockResolvedValue({source_rows:17000,qc:"QC",rows:[{depth_m:2000,gamma_ray_api:40,density_gcc:2.4,neutron_porosity_vv:.2,resistivity_ohmm:20}]} as never);
  const client=new QueryClient({defaultOptions:{queries:{retry:false}}});
  const view=render(<QueryClientProvider client={client}><WellLogViewer/></QueryClientProvider>);
- await waitFor(()=>expect(screen.getAllByTestId("plot")).toHaveLength(5));
- expect(screen.getAllByTestId("plot")[1].getAttribute("data-xscale")).toBe("log");
- expect(screen.getAllByTestId("plot")[1].getAttribute("data-yscale")).toBe("log");
+ await waitFor(()=>expect(apiRequest).toHaveBeenCalled());
+ expect(screen.queryAllByTestId("plot")).toHaveLength(0);
+ expect(screen.getAllByRole("button",{name:/^View /})).toHaveLength(11);
+ fireEvent.click(screen.getByRole("button",{name:"View Pickett plot"}));
+ await waitFor(()=>expect(screen.getAllByTestId("plot")).toHaveLength(1));
+ expect(screen.getAllByTestId("plot")[0].getAttribute("data-xscale")).toBe("log");
+ expect(screen.getAllByTestId("plot")[0].getAttribute("data-yscale")).toBe("log");
  const renderCount=vi.mocked(SafePlot).mock.calls.length;
  view.rerender(<QueryClientProvider client={client}><WellLogViewer/></QueryClientProvider>);
  expect(vi.mocked(SafePlot).mock.calls.length).toBe(renderCount);

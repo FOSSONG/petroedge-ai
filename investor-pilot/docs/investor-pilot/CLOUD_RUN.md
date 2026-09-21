@@ -1,7 +1,7 @@
 # Cloud Run assessment: not deployed
 Oracle is excluded. Duo is optional/off. No billable resources were created.
 
-Cloud Shell can build without local Docker/WSL, as the attached plan suggests. The CLI is signed in but has no selected project. No existing project was assumed to be the intended PetroEdge project.
+Cloud Shell can build without local Docker/WSL, as the attached plan suggests. The user selected guilianno-local on 2026-09-21. The project is active and billing is enabled. Cloud Run Admin API is disabled. No resources were created.
 
 ## Cost and access
 Request-based Cloud Run currently includes 180,000 vCPU-seconds, 360,000 GiB-seconds and 2 million requests per billing account per month. Builds, images, storage, secrets, networking and databases have separate billing.

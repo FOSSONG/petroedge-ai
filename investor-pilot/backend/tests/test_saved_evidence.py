@@ -43,3 +43,19 @@ def test_report_preserves_source_and_blocks_other_owner(evidence_client):
     assert result["metadata"]["saved_analysis"]["provenance"]["dataset_id"]=="ds-source"
     user["value"]=BOB
     assert c.post("/reports/generate",json=payload).status_code==404
+
+def test_saved_analysis_pdf_and_excel_downloads(evidence_client):
+ import io
+ from openpyxl import load_workbook
+ from pypdf import PdfReader
+ c,user,key=evidence_client
+ response=c.post("/reports/generate",json={"source_type":"saved_analysis","source_id":key,"formats":["pdf","xlsx"],"include_alerts":False})
+ assert response.status_code in (200,201),response.text
+ rid=response.json()["report_id"]
+ pdf=c.get(f"/reports/{rid}/download?format=pdf");assert pdf.status_code==200
+ assert len(PdfReader(io.BytesIO(pdf.content)).pages)>0
+ excel=c.get(f"/reports/{rid}/download?format=xlsx");assert excel.status_code==200
+ workbook=load_workbook(io.BytesIO(excel.content),read_only=True)
+ assert workbook.sheetnames
+ user["value"]=BOB
+ for fmt in ("pdf","xlsx"):assert c.get(f"/reports/{rid}/download?format={fmt}").status_code==404

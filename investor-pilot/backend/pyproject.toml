@@ -34,6 +34,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+cloud-backup = ["google-cloud-storage>=3,<4"]
 tree-models = [
   "xgboost>=2.1.0",
   "lightgbm>=4.5.0",

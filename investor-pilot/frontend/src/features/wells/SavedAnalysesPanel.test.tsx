@@ -25,3 +25,23 @@ it("does not display late evidence from the previously selected analysis", async
   expect(screen.queryByText("OLD ANSWER")).not.toBeInTheDocument();
   client.clear();
 });
+
+it("renders readable properties and offers PDF and Excel reports",async()=>{
+ vi.mocked(apiRequest).mockImplementation(async(url)=>{
+  if(url==="/analytics/saved")return [{analysis_id:"A",provenance:{well_id:"A",source_row:1,analyzed_at:"now"}}] as never;
+  if(url==="/reports/generate")return {report_id:"report-A"} as never;
+  return {analysis_id:"A",porosity:.2,lithology:"0",explanation:{methodology:"Measured input, recorded estimate"}} as never;
+ });
+ const client=new QueryClient({defaultOptions:{queries:{retry:false},mutations:{retry:false}}});
+ const view=render(<QueryClientProvider client={client}><SavedAnalysesPanel/></QueryClientProvider>);
+ fireEvent.click(await screen.findByRole("button",{name:/A.*row/}));
+ expect(await screen.findByText("Porosity (v/v):")).toBeInTheDocument();
+ expect(screen.getByText("Unmapped lithology class 0")).toBeInTheDocument();
+ expect(view.container.querySelector("pre")).toBeNull();
+ fireEvent.click(screen.getByRole("button",{name:"Create saved-analysis report"}));
+ expect(await screen.findByRole("button",{name:"Download PDF report"})).toBeInTheDocument();
+ expect(screen.getByRole("button",{name:"Download XLSX report"})).toBeInTheDocument();
+ const request=vi.mocked(apiRequest).mock.calls.find(([url])=>url==="/reports/generate")!;
+ expect(JSON.parse(request[1]!.body as string).formats).toEqual(["pdf","xlsx"]);
+ client.clear();
+});

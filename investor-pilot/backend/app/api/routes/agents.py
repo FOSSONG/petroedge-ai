@@ -20,6 +20,7 @@ AGENTS = [
 
 class AgentRunRequest(BaseModel):
     dataset_id: str | None = None
+    analysis_id: str | None = None
     well_id: str | None = None
     top_depth: float | None = None
     bottom_depth: float | None = None
@@ -28,6 +29,9 @@ class AgentRunRequest(BaseModel):
 
 
 def _validate_sources(request: AgentRunRequest) -> None:
+    if request.analysis_id:
+        from app.services.analysis_records import get
+        get(request.analysis_id)
     if request.dataset_id is not None:
         try:
             get_dataset(request.dataset_id)
@@ -53,36 +57,30 @@ def _result(agent: dict[str, str], request: AgentRunRequest, measured=None) -> d
                 measured=retrieve(request.dataset_id,request.objective)
             else: measured = snapshot(request.dataset_id,request.top_depth,request.bottom_depth)
         except (ValueError,OSError) as exc: raise HTTPException(422,str(exc)) from exc
-    findings = {
-        "geologist": ["Evaluate GR, density-neutron and sonic responses before assigning lithology.", "Preserve depth continuity and flag abrupt curve changes."],
-        "petrophysicist": ["Use resistivity with porosity to screen hydrocarbon-bearing intervals.", "Validate saturation assumptions before operational use."],
-        "reservoir": ["Rank intervals using net reservoir, porosity and fluid evidence.", "Treat isolated high-quality samples as uncertain until continuity is confirmed."],
-        "drilling": ["Escalate anomalous log responses for human review.", "No qualified live alarm model is installed; use historical replay for demonstration."],
-        "qa": ["Check missing curves, units, null codes and depth ordering.", "Do not report high confidence when essential measurements are absent."],
-    }
-    evidence=[]
-    if measured and measured.get("mode")=="extractive_pdf_retrieval":
-        findings[agent["key"]]=[measured["answer"]]
-        evidence=measured["evidence"]
-    elif measured:
-        selected={"geologist":["gamma_ray_api","sonic_usft"],"petrophysicist":["density_gcc","neutron_porosity_vv","resistivity_ohmm"],"reservoir":["depth_m","resistivity_ohmm"],"drilling":["caliper_in"],"qa":list(measured["curves"])}[agent["key"]]
-        findings[agent["key"]]=[f"{key}: {measured['curves'][key]['valid']} valid rows; median {measured['curves'][key]['median']}; range {measured['curves'][key]['minimum']} to {measured['curves'][key]['maximum']} (canonical units)." for key in selected if key in measured["curves"]]
-        findings[agent["key"]]+=measured["issues"]
-        if not findings[agent["key"]]:findings[agent["key"]]=["No qualified measured curves for this specialty in the selected dataset."]
-        evidence=[f"Dataset {measured['dataset_id']}; {measured['rows']} inspected rows",f"SHA256 {measured['sha256']}"]
+    from app.services.agent_questions import respond
+    findings, evidence, recommendation = respond(agent["key"], request.objective, measured)
+    if request.analysis_id:
+        if measured is None:
+            findings = []
+            recommendation = "Compare the saved result with its source measurements and nearby depths."
+        from app.services.analysis_evidence import answer
+        saved = answer(request.analysis_id, request.objective)
+        findings.append(saved["answer"])
+        evidence += ["Saved analysis " + request.analysis_id + ": " + c["path"] for c in saved["citations"]]
+        findings.append(saved["limitation"])
     return {
         "agent_key": agent["key"],
         "agent_name": agent["name"],
-        "status": "measured_evidence" if measured else "guidance_only",
-        "analysis_performed": bool(measured),
+        "status": "measured_evidence" if measured or request.analysis_id else "guidance_only",
+        "analysis_performed": bool(measured or request.analysis_id),
         "limitations": ["Deterministic measured-data review; no calibrated confidence, trained specialist model or autonomous operational action. Objective/context is not executed as instructions."],
         "objective": request.objective,
         "dataset_id": request.dataset_id,
         "well_id": request.well_id,
         "interval": interval,
         "confidence": None,
-        "findings": findings[agent["key"]],
-        "recommendation": "Review the evidence with a geoscientist before changing an operational or reservoir decision.",
+        "findings": findings,
+        "recommendation": recommendation,
         "evidence": evidence,
         "completed_at": datetime.now(timezone.utc).isoformat(),
     }
@@ -105,19 +103,19 @@ async def run_panel(payload: AgentRunRequest) -> dict[str, Any]:
                 measured=retrieve(payload.dataset_id,payload.objective)
             else: measured = snapshot(payload.dataset_id, payload.top_depth, payload.bottom_depth)
         except (ValueError, OSError) as exc: raise HTTPException(422, str(exc)) from exc
-    results = [_result(agent, payload, measured) for agent in AGENTS]
+    from app.services.agent_questions import specialists
+    keys = specialists(payload.objective)
+    if measured and measured.get("mode") == "extractive_pdf_retrieval":
+        keys = keys[:1]  # Cite the retrieved answer once, rather than repeat it for each specialty.
+    results = [_result(agent, payload, measured) for agent in AGENTS if agent["key"] in keys]
     return {
-        "status": "measured_evidence" if payload.dataset_id else "guidance_only",
-        "analysis_performed": bool(payload.dataset_id),
+        "status": "measured_evidence" if payload.dataset_id or payload.analysis_id else "guidance_only",
+        "analysis_performed": bool(payload.dataset_id or payload.analysis_id),
         "limitations": ["Measured statistics only; no specialist model or calibrated confidence."],
-        "consensus": "The selected interval should be ranked using data quality, lithology continuity, porosity and resistivity evidence before operational use.",
+        "consensus": "Question: " + payload.objective + " | Relevant reviews: " + ", ".join(r["agent_name"] for r in results),
         "confidence": None,
         "agreement_percent": None,
-        "recommendations": [
-            "Confirm curve units and missing-value handling.",
-            "Inspect density-neutron and porosity-resistivity relationships over the selected depth interval.",
-            "Require human approval before deployment or well-placement decisions.",
-        ],
+        "recommendations": list(dict.fromkeys(r["recommendation"] for r in results)),
         "agents": results,
         "completed_at": datetime.now(timezone.utc).isoformat(),
     }
